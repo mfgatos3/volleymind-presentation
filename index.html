@@ -24,227 +24,322 @@
 
     <style>
         /* ==========================================================================
-           THEME 1: RGB GAMER (Default — Original)
+           THEME DEFINITIONS: 8 DRAMATICALLY DISTINCT VISUAL IDENTITIES
            ========================================================================== */
+
+        /* 1. RGB GAMER (Ultra-Dark Cyberpunk Spectrum) */
         :root, body.theme-gamer {
-            --bg-deep: #020204;
-            --bg-card: #080910;
-            --bg-card-elevated: #0d0f1a;
+            --bg-deep: #020205;
+            --bg-gradient: radial-gradient(circle at 15% 15%, #180528 0%, #080210 45%, #020205 100%);
+            --bg-card: rgba(14, 10, 26, 0.88);
+            --bg-card-elevated: rgba(24, 16, 44, 0.95);
+            --bg-card-hero: rgba(18, 12, 34, 0.92);
+            --hud-bg: rgba(6, 4, 12, 0.96);
+            --hud-fade: rgba(6, 4, 12, 0.7);
+            --hud-border: rgba(217, 70, 239, 0.25);
+            --widget-bg: rgba(14, 10, 26, 0.92);
+            --widget-border: rgba(217, 70, 239, 0.4);
 
-            --rgb-magenta: #d946ef;
-            --rgb-violet: #8b5cf6;
-            --rgb-cyan: #06b6d4;
-            --rgb-green: #10b981;
-            --rgb-amber: #f59e0b;
-
-            --rainbow-flow: linear-gradient(135deg, #d946ef 0%, #8b5cf6 33%, #06b6d4 66%, #10b981 100%);
-            --rainbow-flow-h: linear-gradient(90deg, #d946ef 0%, #8b5cf6 30%, #06b6d4 70%, #10b981 100%);
-            --rainbow-border-subtle: linear-gradient(135deg, rgba(217, 70, 239, 0.4) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(6, 182, 212, 0.4) 70%, rgba(16, 185, 129, 0.4) 100%);
-            --rainbow-border-hover: linear-gradient(135deg, rgba(217, 70, 239, 0.9) 0%, rgba(139, 92, 246, 0.9) 30%, rgba(6, 182, 212, 0.9) 70%, rgba(16, 185, 129, 0.9) 100%);
-
-            --accent-primary: #8b5cf6;
+            --accent-primary: #d946ef;
             --accent-secondary: #06b6d4;
             --accent-tag: #38bdf8;
             --accent-success: #34d399;
             --accent-danger: #fb7185;
+
+            --rainbow-flow: linear-gradient(135deg, #d946ef 0%, #8b5cf6 33%, #06b6d4 66%, #10b981 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #d946ef 0%, #8b5cf6 30%, #06b6d4 70%, #10b981 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(217, 70, 239, 0.6) 0%, rgba(139, 92, 246, 0.6) 30%, rgba(6, 182, 212, 0.6) 70%, rgba(16, 185, 129, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #d946ef 0%, #8b5cf6 30%, #06b6d4 70%, #10b981 100%);
+
             --hero-gradient: linear-gradient(135deg, #ffffff 15%, #f0abfc 40%, #a78bfa 60%, #38bdf8 80%, #34d399 100%);
             --bullet-gradient: linear-gradient(135deg, #d946ef, #06b6d4);
-            --body-glow-1: rgba(217, 70, 239, 0.05);
-            --body-glow-2: rgba(6, 182, 212, 0.05);
-            --body-glow-3: rgba(139, 92, 246, 0.04);
-            --hud-bg: rgba(2, 2, 4, 0.98);
-            --hud-fade: rgba(2, 2, 4, 0.7);
-            --hud-border: rgba(255, 255, 255, 0.05);
-            --card-shadow-hover: rgba(139, 92, 246, 0.25);
-            --widget-bg: rgba(10, 14, 24, 0.88);
-            --widget-border: rgba(139, 92, 246, 0.3);
+            --body-glow-1: rgba(217, 70, 239, 0.12);
+            --body-glow-2: rgba(6, 182, 212, 0.12);
+            --body-glow-3: rgba(139, 92, 246, 0.08);
+            --card-shadow-hover: rgba(217, 70, 239, 0.4);
 
+            --heading-color: #ffffff;
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --text-dim: #64748b;
-            --text-body: #cbd5e1;
+            --text-muted: #cbd5e1;
+            --text-dim: #94a3b8;
+            --text-body: #e2e8f0;
 
             --font-head: 'Outfit', sans-serif;
             --font-body: 'Inter', sans-serif;
             --font-mono: 'Fira Code', monospace;
         }
 
-        /* ==========================================================================
-           THEME 2: COURT BLUE — Clean Volleyball Court Blue & White
-           ========================================================================== */
+        /* 2. COURT BLUE (Deep Atlantic & Electric Cyan Volleyball Match) */
         body.theme-court {
-            --bg-deep: #020a18;
-            --bg-card: #081428;
-            --bg-card-elevated: #0c1d3a;
+            --bg-deep: #020c1e;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #0a254a 0%, #04142c 50%, #010814 100%);
+            --bg-card: rgba(6, 26, 56, 0.88);
+            --bg-card-elevated: rgba(10, 38, 80, 0.95);
+            --bg-card-hero: rgba(8, 30, 66, 0.92);
+            --hud-bg: rgba(3, 14, 32, 0.96);
+            --hud-fade: rgba(3, 14, 32, 0.7);
+            --hud-border: rgba(56, 189, 248, 0.3);
+            --widget-bg: rgba(6, 26, 56, 0.92);
+            --widget-border: rgba(56, 189, 248, 0.45);
 
-            --rgb-magenta: #3b82f6;
-            --rgb-violet: #60a5fa;
-            --rgb-cyan: #38bdf8;
-            --rgb-green: #22d3ee;
-            --rgb-amber: #f0f9ff;
-
-            --rainbow-flow: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 33%, #38bdf8 66%, #22d3ee 100%);
-            --rainbow-flow-h: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 30%, #38bdf8 70%, #22d3ee 100%);
-            --rainbow-border-subtle: linear-gradient(135deg, rgba(29, 78, 216, 0.4) 0%, rgba(59, 130, 246, 0.4) 30%, rgba(56, 189, 248, 0.4) 70%, rgba(34, 211, 238, 0.4) 100%);
-            --rainbow-border-hover: linear-gradient(135deg, rgba(29, 78, 216, 0.9) 0%, rgba(59, 130, 246, 0.9) 30%, rgba(56, 189, 248, 0.9) 70%, rgba(34, 211, 238, 0.9) 100%);
-
-            --accent-primary: #3b82f6;
-            --accent-secondary: #22d3ee;
-            --accent-tag: #60a5fa;
-            --accent-success: #22d3ee;
+            --accent-primary: #38bdf8;
+            --accent-secondary: #00f0ff;
+            --accent-tag: #7dd3fc;
+            --accent-success: #34d399;
             --accent-danger: #f87171;
-            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #bfdbfe 40%, #93c5fd 60%, #60a5fa 80%, #22d3ee 100%);
-            --bullet-gradient: linear-gradient(135deg, #3b82f6, #22d3ee);
-            --body-glow-1: rgba(29, 78, 216, 0.06);
-            --body-glow-2: rgba(34, 211, 238, 0.05);
-            --body-glow-3: rgba(59, 130, 246, 0.04);
-            --hud-bg: rgba(2, 10, 24, 0.98);
-            --hud-fade: rgba(2, 10, 24, 0.7);
-            --hud-border: rgba(59, 130, 246, 0.08);
-            --card-shadow-hover: rgba(59, 130, 246, 0.25);
-            --widget-bg: rgba(8, 20, 40, 0.88);
-            --widget-border: rgba(59, 130, 246, 0.3);
 
+            --rainbow-flow: linear-gradient(135deg, #0284c7 0%, #38bdf8 35%, #00f0ff 70%, #ffffff 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #0284c7 0%, #38bdf8 35%, #00f0ff 70%, #ffffff 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(2, 132, 199, 0.6) 0%, rgba(56, 189, 248, 0.6) 50%, rgba(0, 240, 255, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #00f0ff 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 20%, #bae6fd 50%, #38bdf8 75%, #00f0ff 100%);
+            --bullet-gradient: linear-gradient(135deg, #0284c7, #00f0ff);
+            --body-glow-1: rgba(56, 189, 248, 0.15);
+            --body-glow-2: rgba(2, 132, 199, 0.15);
+            --body-glow-3: rgba(0, 240, 255, 0.10);
+            --card-shadow-hover: rgba(56, 189, 248, 0.45);
+
+            --heading-color: #ffffff;
             --text-main: #f0f9ff;
-            --text-muted: #93c5fd;
-            --text-dim: #60a5fa;
-            --text-body: #bfdbfe;
+            --text-muted: #bae6fd;
+            --text-dim: #7dd3fc;
+            --text-body: #e0f2fe;
         }
 
-        /* ==========================================================================
-           THEME 3: SPIKE FIRE — Aggressive Crimson & Orange Attack Energy
-           ========================================================================== */
+        /* 3. SPIKE FIRE (Volcanic Crimson, Lava Orange & Fire Gold) */
         body.theme-spike {
-            --bg-deep: #0c0202;
-            --bg-card: #180808;
-            --bg-card-elevated: #220c0c;
-
-            --rgb-magenta: #ef4444;
-            --rgb-violet: #f97316;
-            --rgb-cyan: #fbbf24;
-            --rgb-green: #fb923c;
-            --rgb-amber: #fef3c7;
-
-            --rainbow-flow: linear-gradient(135deg, #dc2626 0%, #ef4444 33%, #f97316 66%, #fbbf24 100%);
-            --rainbow-flow-h: linear-gradient(90deg, #dc2626 0%, #ef4444 30%, #f97316 70%, #fbbf24 100%);
-            --rainbow-border-subtle: linear-gradient(135deg, rgba(220, 38, 38, 0.4) 0%, rgba(239, 68, 68, 0.4) 30%, rgba(249, 115, 22, 0.4) 70%, rgba(251, 191, 36, 0.4) 100%);
-            --rainbow-border-hover: linear-gradient(135deg, rgba(220, 38, 38, 0.9) 0%, rgba(239, 68, 68, 0.9) 30%, rgba(249, 115, 22, 0.9) 70%, rgba(251, 191, 36, 0.9) 100%);
+            --bg-deep: #160202;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #3a0808 0%, #1e0303 50%, #0d0101 100%);
+            --bg-card: rgba(42, 8, 8, 0.90);
+            --bg-card-elevated: rgba(62, 12, 12, 0.96);
+            --bg-card-hero: rgba(50, 10, 10, 0.94);
+            --hud-bg: rgba(22, 3, 3, 0.96);
+            --hud-fade: rgba(22, 3, 3, 0.7);
+            --hud-border: rgba(239, 68, 68, 0.35);
+            --widget-bg: rgba(42, 8, 8, 0.92);
+            --widget-border: rgba(249, 115, 22, 0.45);
 
             --accent-primary: #ef4444;
             --accent-secondary: #f97316;
             --accent-tag: #fb923c;
             --accent-success: #fbbf24;
             --accent-danger: #fca5a5;
-            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #fecaca 40%, #fca5a5 55%, #fb923c 75%, #fbbf24 100%);
+
+            --rainbow-flow: linear-gradient(135deg, #b91c1c 0%, #ef4444 33%, #f97316 66%, #fbbf24 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #b91c1c 0%, #ef4444 30%, #f97316 70%, #fbbf24 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(239, 68, 68, 0.6) 0%, rgba(249, 115, 22, 0.6) 50%, rgba(251, 191, 36, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #ef4444 0%, #f97316 50%, #fbbf24 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #fecaca 35%, #fb923c 65%, #fbbf24 100%);
             --bullet-gradient: linear-gradient(135deg, #ef4444, #fbbf24);
-            --body-glow-1: rgba(220, 38, 38, 0.06);
-            --body-glow-2: rgba(249, 115, 22, 0.05);
-            --body-glow-3: rgba(251, 191, 36, 0.04);
-            --hud-bg: rgba(12, 2, 2, 0.98);
-            --hud-fade: rgba(12, 2, 2, 0.7);
-            --hud-border: rgba(239, 68, 68, 0.08);
-            --card-shadow-hover: rgba(239, 68, 68, 0.25);
-            --widget-bg: rgba(24, 8, 8, 0.88);
-            --widget-border: rgba(239, 68, 68, 0.3);
+            --body-glow-1: rgba(239, 68, 68, 0.16);
+            --body-glow-2: rgba(249, 115, 22, 0.14);
+            --body-glow-3: rgba(251, 191, 36, 0.10);
+            --card-shadow-hover: rgba(239, 68, 68, 0.45);
 
-            --text-main: #fef2f2;
-            --text-muted: #fca5a5;
-            --text-dim: #f87171;
-            --text-body: #fecaca;
+            --heading-color: #ffffff;
+            --text-main: #fff1f2;
+            --text-muted: #fecdd3;
+            --text-dim: #fca5a5;
+            --text-body: #ffe4e6;
         }
 
-        /* ==========================================================================
-           THEME 4: ACADEMIC LIGHT — Clean Light Mode for Formal Presentations
-           ========================================================================== */
-        body.theme-academic {
-            --bg-deep: #f8fafc;
-            --bg-card: rgba(255, 255, 255, 0.94);
-            --bg-card-elevated: #ffffff;
-
-            --rgb-magenta: #7c3aed;
-            --rgb-violet: #6366f1;
-            --rgb-cyan: #0284c7;
-            --rgb-green: #059669;
-            --rgb-amber: #d97706;
-
-            --rainbow-flow: linear-gradient(135deg, #7c3aed 0%, #6366f1 33%, #0284c7 66%, #059669 100%);
-            --rainbow-flow-h: linear-gradient(90deg, #7c3aed 0%, #6366f1 30%, #0284c7 70%, #059669 100%);
-            --rainbow-border-subtle: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(99, 102, 241, 0.25) 30%, rgba(2, 132, 199, 0.25) 70%, rgba(5, 150, 105, 0.25) 100%);
-            --rainbow-border-hover: linear-gradient(135deg, rgba(124, 58, 237, 0.7) 0%, rgba(99, 102, 241, 0.7) 30%, rgba(2, 132, 199, 0.7) 70%, rgba(5, 150, 105, 0.7) 100%);
-
-            --accent-primary: #6366f1;
-            --accent-secondary: #0284c7;
-            --accent-tag: #4f46e5;
-            --accent-success: #059669;
-            --accent-danger: #dc2626;
-            --hero-gradient: linear-gradient(135deg, #0f172a 15%, #4338ca 40%, #6366f1 60%, #0284c7 80%, #059669 100%);
-            --bullet-gradient: linear-gradient(135deg, #6366f1, #0284c7);
-            --body-glow-1: rgba(99, 102, 241, 0.06);
-            --body-glow-2: rgba(2, 132, 199, 0.05);
-            --body-glow-3: rgba(124, 58, 237, 0.03);
-            --hud-bg: rgba(241, 245, 249, 0.98);
-            --hud-fade: rgba(241, 245, 249, 0.7);
-            --hud-border: rgba(99, 102, 241, 0.12);
-            --card-shadow-hover: rgba(99, 102, 241, 0.15);
-            --widget-bg: rgba(255, 255, 255, 0.95);
-            --widget-border: rgba(99, 102, 241, 0.35);
-
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --text-dim: #64748b;
-            --text-body: #334155;
-        }
-
-        /* ==========================================================================
-           THEME 5: EMERALD CHAMPION — Victory Green & Gold
-           ========================================================================== */
+        /* 4. CHAMPION EMERALD (Deep Amazon Rainforest & Golden Victory) */
         body.theme-champion {
-            --bg-deep: #020c06;
-            --bg-card: #061a0e;
-            --bg-card-elevated: #0a2414;
-
-            --rgb-magenta: #10b981;
-            --rgb-violet: #34d399;
-            --rgb-cyan: #fbbf24;
-            --rgb-green: #a3e635;
-            --rgb-amber: #d4d4d8;
-
-            --rainbow-flow: linear-gradient(135deg, #059669 0%, #10b981 33%, #34d399 66%, #fbbf24 100%);
-            --rainbow-flow-h: linear-gradient(90deg, #059669 0%, #10b981 30%, #34d399 70%, #fbbf24 100%);
-            --rainbow-border-subtle: linear-gradient(135deg, rgba(5, 150, 105, 0.4) 0%, rgba(16, 185, 129, 0.4) 30%, rgba(52, 211, 153, 0.4) 70%, rgba(251, 191, 36, 0.4) 100%);
-            --rainbow-border-hover: linear-gradient(135deg, rgba(5, 150, 105, 0.9) 0%, rgba(16, 185, 129, 0.9) 30%, rgba(52, 211, 153, 0.9) 70%, rgba(251, 191, 36, 0.9) 100%);
+            --bg-deep: #021207;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #083818 0%, #031c0b 50%, #010a04 100%);
+            --bg-card: rgba(6, 38, 18, 0.88);
+            --bg-card-elevated: rgba(10, 56, 26, 0.95);
+            --bg-card-hero: rgba(8, 46, 22, 0.92);
+            --hud-bg: rgba(3, 20, 8, 0.96);
+            --hud-fade: rgba(3, 20, 8, 0.7);
+            --hud-border: rgba(16, 185, 129, 0.35);
+            --widget-bg: rgba(6, 38, 18, 0.92);
+            --widget-border: rgba(16, 185, 129, 0.45);
 
             --accent-primary: #10b981;
             --accent-secondary: #fbbf24;
             --accent-tag: #34d399;
             --accent-success: #a3e635;
             --accent-danger: #f87171;
-            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #a7f3d0 40%, #34d399 55%, #fbbf24 80%, #fde68a 100%);
-            --bullet-gradient: linear-gradient(135deg, #10b981, #fbbf24);
-            --body-glow-1: rgba(16, 185, 129, 0.06);
-            --body-glow-2: rgba(251, 191, 36, 0.05);
-            --body-glow-3: rgba(52, 211, 153, 0.04);
-            --hud-bg: rgba(2, 12, 6, 0.98);
-            --hud-fade: rgba(2, 12, 6, 0.7);
-            --hud-border: rgba(16, 185, 129, 0.08);
-            --card-shadow-hover: rgba(16, 185, 129, 0.25);
-            --widget-bg: rgba(6, 26, 14, 0.88);
-            --widget-border: rgba(16, 185, 129, 0.3);
 
+            --rainbow-flow: linear-gradient(135deg, #047857 0%, #10b981 35%, #34d399 70%, #fbbf24 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #047857 0%, #10b981 30%, #34d399 70%, #fbbf24 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(16, 185, 129, 0.6) 0%, rgba(52, 211, 153, 0.6) 50%, rgba(251, 191, 36, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #10b981 0%, #34d399 50%, #fbbf24 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 20%, #a7f3d0 45%, #34d399 70%, #fbbf24 100%);
+            --bullet-gradient: linear-gradient(135deg, #10b981, #fbbf24);
+            --body-glow-1: rgba(16, 185, 129, 0.16);
+            --body-glow-2: rgba(251, 191, 36, 0.12);
+            --body-glow-3: rgba(52, 211, 153, 0.10);
+            --card-shadow-hover: rgba(16, 185, 129, 0.45);
+
+            --heading-color: #ffffff;
             --text-main: #f0fdf4;
-            --text-muted: #a7f3d0;
-            --text-dim: #6ee7b7;
-            --text-body: #d1fae5;
+            --text-muted: #bbf7d0;
+            --text-dim: #86efac;
+            --text-body: #dcfce7;
+        }
+
+        /* 5. TOKYO SUNSET (Neon Violet, Fuchsia & Electric Gold) */
+        body.theme-sunset {
+            --bg-deep: #14041a;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #38084a 0%, #1f042a 50%, #0a010e 100%);
+            --bg-card: rgba(38, 10, 52, 0.88);
+            --bg-card-elevated: rgba(56, 16, 76, 0.95);
+            --bg-card-hero: rgba(46, 12, 62, 0.92);
+            --hud-bg: rgba(20, 4, 26, 0.96);
+            --hud-fade: rgba(20, 4, 26, 0.7);
+            --hud-border: rgba(244, 63, 94, 0.35);
+            --widget-bg: rgba(38, 10, 52, 0.92);
+            --widget-border: rgba(236, 72, 153, 0.45);
+
+            --accent-primary: #ec4899;
+            --accent-secondary: #f59e0b;
+            --accent-tag: #fb7185;
+            --accent-success: #34d399;
+            --accent-danger: #f43f5e;
+
+            --rainbow-flow: linear-gradient(135deg, #7c3aed 0%, #ec4899 35%, #f43f5e 65%, #f59e0b 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #7c3aed 0%, #ec4899 30%, #f43f5e 70%, #f59e0b 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(124, 58, 237, 0.6) 0%, rgba(236, 72, 153, 0.6) 50%, rgba(245, 158, 11, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #f59e0b 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #fbcfe8 40%, #f43f5e 65%, #f59e0b 100%);
+            --bullet-gradient: linear-gradient(135deg, #ec4899, #f59e0b);
+            --body-glow-1: rgba(236, 72, 153, 0.16);
+            --body-glow-2: rgba(245, 158, 11, 0.14);
+            --body-glow-3: rgba(124, 58, 237, 0.10);
+            --card-shadow-hover: rgba(236, 72, 153, 0.45);
+
+            --heading-color: #ffffff;
+            --text-main: #fdf2f8;
+            --text-muted: #fbcfe8;
+            --text-dim: #f472b6;
+            --text-body: #fce7f3;
+        }
+
+        /* 6. SOLAR AMBER (Rich Obsidian, Warm Amber & Bright Honey) */
+        body.theme-amber {
+            --bg-deep: #160e02;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #3c2605 0%, #201402 50%, #0d0801 100%);
+            --bg-card: rgba(42, 26, 4, 0.90);
+            --bg-card-elevated: rgba(62, 38, 6, 0.96);
+            --bg-card-hero: rgba(50, 30, 5, 0.94);
+            --hud-bg: rgba(22, 14, 2, 0.96);
+            --hud-fade: rgba(22, 14, 2, 0.7);
+            --hud-border: rgba(245, 158, 11, 0.35);
+            --widget-bg: rgba(42, 26, 4, 0.92);
+            --widget-border: rgba(245, 158, 11, 0.45);
+
+            --accent-primary: #fbbf24;
+            --accent-secondary: #f59e0b;
+            --accent-tag: #fcd34d;
+            --accent-success: #34d399;
+            --accent-danger: #f87171;
+
+            --rainbow-flow: linear-gradient(135deg, #b45309 0%, #f59e0b 35%, #fbbf24 70%, #fef08a 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #b45309 0%, #f59e0b 30%, #fbbf24 70%, #fef08a 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(180, 83, 9, 0.6) 0%, rgba(245, 158, 11, 0.6) 50%, rgba(251, 191, 36, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #b45309 0%, #f59e0b 50%, #fbbf24 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 20%, #fef08a 45%, #fbbf24 70%, #f59e0b 100%);
+            --bullet-gradient: linear-gradient(135deg, #f59e0b, #fbbf24);
+            --body-glow-1: rgba(245, 158, 11, 0.16);
+            --body-glow-2: rgba(251, 191, 36, 0.14);
+            --body-glow-3: rgba(180, 83, 9, 0.10);
+            --card-shadow-hover: rgba(245, 158, 11, 0.45);
+
+            --heading-color: #ffffff;
+            --text-main: #fffbeb;
+            --text-muted: #fef3c7;
+            --text-dim: #fde68a;
+            --text-body: #fef9c3;
+        }
+
+        /* 7. MATRIX CYBER (Terminal Black & Phosphor Green) */
+        body.theme-matrix {
+            --bg-deep: #020804;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #052610 0%, #021206 50%, #000501 100%);
+            --bg-card: rgba(3, 28, 10, 0.90);
+            --bg-card-elevated: rgba(5, 42, 16, 0.96);
+            --bg-card-hero: rgba(4, 34, 12, 0.94);
+            --hud-bg: rgba(2, 14, 5, 0.96);
+            --hud-fade: rgba(2, 14, 5, 0.7);
+            --hud-border: rgba(34, 197, 94, 0.35);
+            --widget-bg: rgba(3, 28, 10, 0.92);
+            --widget-border: rgba(74, 222, 128, 0.45);
+
+            --accent-primary: #22c55e;
+            --accent-secondary: #4ade80;
+            --accent-tag: #86efac;
+            --accent-success: #4ade80;
+            --accent-danger: #f87171;
+
+            --rainbow-flow: linear-gradient(135deg, #15803d 0%, #22c55e 35%, #4ade80 70%, #bbf7d0 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #15803d 0%, #22c55e 30%, #4ade80 70%, #bbf7d0 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(21, 128, 61, 0.6) 0%, rgba(34, 197, 94, 0.6) 50%, rgba(74, 222, 128, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #4ade80 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 20%, #bbf7d0 45%, #4ade80 70%, #22c55e 100%);
+            --bullet-gradient: linear-gradient(135deg, #15803d, #4ade80);
+            --body-glow-1: rgba(34, 197, 94, 0.18);
+            --body-glow-2: rgba(74, 222, 128, 0.14);
+            --body-glow-3: rgba(21, 128, 61, 0.10);
+            --card-shadow-hover: rgba(34, 197, 94, 0.45);
+
+            --heading-color: #ffffff;
+            --text-main: #f0fdf4;
+            --text-muted: #dcfce7;
+            --text-dim: #86efac;
+            --text-body: #bbf7d0;
+        }
+
+        /* 8. ACADEMIC LIGHT (High-Contrast Crisp Light Mode) */
+        body.theme-academic {
+            --bg-deep: #f1f5f9;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #ffffff 0%, #e2e8f0 60%, #cbd5e1 100%);
+            --bg-card: rgba(255, 255, 255, 0.96);
+            --bg-card-elevated: #ffffff;
+            --bg-card-hero: rgba(255, 255, 255, 0.98);
+            --hud-bg: rgba(241, 245, 249, 0.98);
+            --hud-fade: rgba(241, 245, 249, 0.75);
+            --hud-border: rgba(99, 102, 241, 0.2);
+            --widget-bg: rgba(255, 255, 255, 0.96);
+            --widget-border: rgba(99, 102, 241, 0.35);
+
+            --accent-primary: #4f46e5;
+            --accent-secondary: #0284c7;
+            --accent-tag: #4338ca;
+            --accent-success: #059669;
+            --accent-danger: #dc2626;
+
+            --rainbow-flow: linear-gradient(135deg, #4f46e5 0%, #0284c7 35%, #059669 70%, #d97706 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #4f46e5 0%, #0284c7 30%, #059669 70%, #d97706 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(79, 70, 229, 0.35) 0%, rgba(2, 132, 199, 0.35) 50%, rgba(5, 150, 105, 0.35) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #4f46e5 0%, #0284c7 50%, #059669 100%);
+
+            --hero-gradient: linear-gradient(135deg, #0f172a 15%, #312e81 40%, #4338ca 65%, #0284c7 100%);
+            --bullet-gradient: linear-gradient(135deg, #4f46e5, #0284c7);
+            --body-glow-1: rgba(79, 70, 229, 0.08);
+            --body-glow-2: rgba(2, 132, 199, 0.08);
+            --body-glow-3: rgba(5, 150, 105, 0.05);
+            --card-shadow-hover: rgba(79, 70, 229, 0.2);
+
+            --heading-color: #0f172a;
+            --text-main: #0f172a;
+            --text-muted: #334155;
+            --text-dim: #475569;
+            --text-body: #1e293b;
         }
 
         /* Ambient Canvas Background */
         body {
             background-color: var(--bg-deep);
-            background-image: 
-                radial-gradient(circle at 12% 18%, var(--body-glow-1) 0%, transparent 45%),
-                radial-gradient(circle at 88% 82%, var(--body-glow-2) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, var(--body-glow-3) 0%, transparent 60%);
-            transition: background-color 0.4s ease;
+            background-image: var(--bg-gradient);
+            transition: background-color 0.5s ease, background-image 0.5s ease;
             color: var(--text-main);
             font-family: var(--font-body);
             overflow: hidden;
@@ -309,7 +404,7 @@
         }
 
         .hud-brand {
-            background: linear-gradient(#080910, #080910) padding-box,
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
                         var(--rainbow-flow-h) border-box;
             border: 1px solid transparent;
             padding: 3px 12px;
@@ -357,14 +452,14 @@
         }
 
         .timer-badge {
-            background: linear-gradient(#0a0c16, #0a0c16) padding-box,
-                        linear-gradient(135deg, rgba(6, 182, 212, 0.5), rgba(139, 92, 246, 0.5)) border-box;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-border-subtle) border-box;
             border: 1px solid transparent;
             padding: 4px 14px;
             border-radius: 8px;
             font-family: var(--font-mono);
             font-size: 12.5px;
-            color: #38bdf8;
+            color: var(--accent-tag);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -445,7 +540,7 @@
         .rainbow-divider {
             height: 2px;
             width: 100%;
-            background: linear-gradient(90deg, #d946ef, #8b5cf6, #06b6d4, #10b981, #d946ef);
+            background: var(--rainbow-flow-h);
             background-size: 250% 100%;
             animation: spectrumShift 6s linear infinite;
             border-radius: 2px;
@@ -486,13 +581,13 @@
         }
 
         .card-hero {
-            background: linear-gradient(#0a0c16, #0a0c16) padding-box,
-                        linear-gradient(135deg, rgba(217, 70, 239, 0.6) 0%, rgba(139, 92, 246, 0.6) 30%, rgba(6, 182, 212, 0.6) 70%, rgba(16, 185, 129, 0.6) 100%) border-box;
+            background: linear-gradient(var(--bg-card-hero), var(--bg-card-hero)) padding-box,
+                        var(--rainbow-border-subtle) border-box;
             border: 1px solid transparent;
             border-radius: 14px;
             padding: 22px 26px;
             margin-bottom: 16px;
-            box-shadow: 0 12px 35px -10px rgba(139, 92, 246, 0.2);
+            box-shadow: 0 12px 35px -10px var(--card-shadow-hover);
         }
 
         /* Responsive Grids */
@@ -516,7 +611,7 @@
 
         /* Badges */
         .badge-rainbow {
-            background: linear-gradient(#0a0d18, #0a0d18) padding-box,
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
                         var(--rainbow-border-subtle) border-box;
             border: 1px solid transparent;
             color: #f1f5f9;
@@ -633,7 +728,7 @@
         }
 
         .meta-card {
-            background: linear-gradient(#080a12, #080a12) padding-box,
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
                         var(--rainbow-border-subtle) border-box;
             border: 1px solid transparent;
             border-radius: 10px;
@@ -782,8 +877,8 @@
 
         /* Academic Reference Cards */
         .ref-card {
-            background: linear-gradient(#07080e, #07080e) padding-box,
-                        rgba(255, 255, 255, 0.08) border-box;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-border-subtle) border-box;
             border: 1px solid transparent;
             border-radius: 8px;
             padding: 10px 14px;
@@ -1062,11 +1157,14 @@
     <span id="theme-display-name">RGB Gamer</span>
   </div>
   <div class="theme-swatches">
-    <button class="swatch-btn active" data-theme="theme-gamer" data-name="RGB Gamer" title="RGB Gamer — Rainbow Spectrum (Original)" style="background: linear-gradient(135deg, #020204 50%, #8b5cf6 50%);"></button>
-    <button class="swatch-btn" data-theme="theme-court" data-name="Court Blue" title="Court Blue — Volleyball Court Blue & White" style="background: linear-gradient(135deg, #020a18 50%, #3b82f6 50%);"></button>
-    <button class="swatch-btn" data-theme="theme-spike" data-name="Spike Fire" title="Spike Fire — Crimson & Orange Attack Energy" style="background: linear-gradient(135deg, #0c0202 50%, #ef4444 50%);"></button>
-    <button class="swatch-btn" data-theme="theme-academic" data-name="Academic" title="Academic — Clean Light Mode for Formal Defense" style="background: linear-gradient(135deg, #f8fafc 50%, #6366f1 50%); border: 1px solid #94a3b8;"></button>
-    <button class="swatch-btn" data-theme="theme-champion" data-name="Champion" title="Champion — Victory Emerald & Gold" style="background: linear-gradient(135deg, #020c06 50%, #10b981 50%);"></button>
+    <button class="swatch-btn active" data-theme="theme-gamer" data-name="RGB Gamer" title="RGB Gamer — Cyberpunk Spectrum" style="background: linear-gradient(135deg, #020205 50%, #d946ef 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-court" data-name="Court Blue" title="Court Blue — Deep Ocean & Cyan" style="background: linear-gradient(135deg, #04142c 50%, #00f0ff 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-spike" data-name="Spike Fire" title="Spike Fire — Volcanic Crimson & Fire" style="background: linear-gradient(135deg, #1e0303 50%, #ef4444 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-champion" data-name="Champion Emerald" title="Champion Emerald — Amazon Green & Gold" style="background: linear-gradient(135deg, #031c0b 50%, #10b981 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-sunset" data-name="Tokyo Sunset" title="Tokyo Sunset — Neon Violet & Fuchsia" style="background: linear-gradient(135deg, #1f042a 50%, #ec4899 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-amber" data-name="Solar Amber" title="Solar Amber — Obsidian & Warm Honey" style="background: linear-gradient(135deg, #201402 50%, #fbbf24 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-matrix" data-name="Matrix Cyber" title="Matrix Cyber — Terminal Dark & Phosphor Green" style="background: linear-gradient(135deg, #021206 50%, #22c55e 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-academic" data-name="Academic Light" title="Academic Light — High-Contrast Clean Mode" style="background: linear-gradient(135deg, #ffffff 50%, #4f46e5 50%); border: 1px solid #94a3b8;"></button>
   </div>
   <div class="theme-hint"><kbd>T</kbd></div>
 </div>
@@ -1797,8 +1895,11 @@
             { id: 'theme-gamer', name: 'RGB Gamer' },
             { id: 'theme-court', name: 'Court Blue' },
             { id: 'theme-spike', name: 'Spike Fire' },
-            { id: 'theme-academic', name: 'Academic' },
-            { id: 'theme-champion', name: 'Champion' }
+            { id: 'theme-champion', name: 'Champion Emerald' },
+            { id: 'theme-sunset', name: 'Tokyo Sunset' },
+            { id: 'theme-amber', name: 'Solar Amber' },
+            { id: 'theme-matrix', name: 'Matrix Cyber' },
+            { id: 'theme-academic', name: 'Academic Light' }
         ];
 
         function applyTheme(themeId) {
