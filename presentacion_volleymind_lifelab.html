@@ -23,43 +23,228 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
     <style>
-        :root {
-            /* Gamer Deep Black Base */
+        /* ==========================================================================
+           THEME 1: RGB GAMER (Default — Original)
+           ========================================================================== */
+        :root, body.theme-gamer {
             --bg-deep: #020204;
             --bg-card: #080910;
             --bg-card-elevated: #0d0f1a;
-            
-            /* Rainbow RGB Spectrum stops (smooth, non-neon, elegant) */
+
             --rgb-magenta: #d946ef;
             --rgb-violet: #8b5cf6;
             --rgb-cyan: #06b6d4;
             --rgb-green: #10b981;
             --rgb-amber: #f59e0b;
 
-            /* Continuous Spectrum Flow Gradients */
             --rainbow-flow: linear-gradient(135deg, #d946ef 0%, #8b5cf6 33%, #06b6d4 66%, #10b981 100%);
             --rainbow-flow-h: linear-gradient(90deg, #d946ef 0%, #8b5cf6 30%, #06b6d4 70%, #10b981 100%);
             --rainbow-border-subtle: linear-gradient(135deg, rgba(217, 70, 239, 0.4) 0%, rgba(139, 92, 246, 0.4) 30%, rgba(6, 182, 212, 0.4) 70%, rgba(16, 185, 129, 0.4) 100%);
             --rainbow-border-hover: linear-gradient(135deg, rgba(217, 70, 239, 0.9) 0%, rgba(139, 92, 246, 0.9) 30%, rgba(6, 182, 212, 0.9) 70%, rgba(16, 185, 129, 0.9) 100%);
 
-            /* Typography Colors */
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #06b6d4;
+            --accent-tag: #38bdf8;
+            --accent-success: #34d399;
+            --accent-danger: #fb7185;
+            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #f0abfc 40%, #a78bfa 60%, #38bdf8 80%, #34d399 100%);
+            --bullet-gradient: linear-gradient(135deg, #d946ef, #06b6d4);
+            --body-glow-1: rgba(217, 70, 239, 0.05);
+            --body-glow-2: rgba(6, 182, 212, 0.05);
+            --body-glow-3: rgba(139, 92, 246, 0.04);
+            --hud-bg: rgba(2, 2, 4, 0.98);
+            --hud-fade: rgba(2, 2, 4, 0.7);
+            --hud-border: rgba(255, 255, 255, 0.05);
+            --card-shadow-hover: rgba(139, 92, 246, 0.25);
+            --widget-bg: rgba(10, 14, 24, 0.88);
+            --widget-border: rgba(139, 92, 246, 0.3);
+
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --text-dim: #64748b;
+            --text-body: #cbd5e1;
 
-            /* Fonts */
             --font-head: 'Outfit', sans-serif;
             --font-body: 'Inter', sans-serif;
             --font-mono: 'Fira Code', monospace;
+        }
+
+        /* ==========================================================================
+           THEME 2: COURT BLUE — Clean Volleyball Court Blue & White
+           ========================================================================== */
+        body.theme-court {
+            --bg-deep: #020a18;
+            --bg-card: #081428;
+            --bg-card-elevated: #0c1d3a;
+
+            --rgb-magenta: #3b82f6;
+            --rgb-violet: #60a5fa;
+            --rgb-cyan: #38bdf8;
+            --rgb-green: #22d3ee;
+            --rgb-amber: #f0f9ff;
+
+            --rainbow-flow: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 33%, #38bdf8 66%, #22d3ee 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 30%, #38bdf8 70%, #22d3ee 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(29, 78, 216, 0.4) 0%, rgba(59, 130, 246, 0.4) 30%, rgba(56, 189, 248, 0.4) 70%, rgba(34, 211, 238, 0.4) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, rgba(29, 78, 216, 0.9) 0%, rgba(59, 130, 246, 0.9) 30%, rgba(56, 189, 248, 0.9) 70%, rgba(34, 211, 238, 0.9) 100%);
+
+            --accent-primary: #3b82f6;
+            --accent-secondary: #22d3ee;
+            --accent-tag: #60a5fa;
+            --accent-success: #22d3ee;
+            --accent-danger: #f87171;
+            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #bfdbfe 40%, #93c5fd 60%, #60a5fa 80%, #22d3ee 100%);
+            --bullet-gradient: linear-gradient(135deg, #3b82f6, #22d3ee);
+            --body-glow-1: rgba(29, 78, 216, 0.06);
+            --body-glow-2: rgba(34, 211, 238, 0.05);
+            --body-glow-3: rgba(59, 130, 246, 0.04);
+            --hud-bg: rgba(2, 10, 24, 0.98);
+            --hud-fade: rgba(2, 10, 24, 0.7);
+            --hud-border: rgba(59, 130, 246, 0.08);
+            --card-shadow-hover: rgba(59, 130, 246, 0.25);
+            --widget-bg: rgba(8, 20, 40, 0.88);
+            --widget-border: rgba(59, 130, 246, 0.3);
+
+            --text-main: #f0f9ff;
+            --text-muted: #93c5fd;
+            --text-dim: #60a5fa;
+            --text-body: #bfdbfe;
+        }
+
+        /* ==========================================================================
+           THEME 3: SPIKE FIRE — Aggressive Crimson & Orange Attack Energy
+           ========================================================================== */
+        body.theme-spike {
+            --bg-deep: #0c0202;
+            --bg-card: #180808;
+            --bg-card-elevated: #220c0c;
+
+            --rgb-magenta: #ef4444;
+            --rgb-violet: #f97316;
+            --rgb-cyan: #fbbf24;
+            --rgb-green: #fb923c;
+            --rgb-amber: #fef3c7;
+
+            --rainbow-flow: linear-gradient(135deg, #dc2626 0%, #ef4444 33%, #f97316 66%, #fbbf24 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #dc2626 0%, #ef4444 30%, #f97316 70%, #fbbf24 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(220, 38, 38, 0.4) 0%, rgba(239, 68, 68, 0.4) 30%, rgba(249, 115, 22, 0.4) 70%, rgba(251, 191, 36, 0.4) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, rgba(220, 38, 38, 0.9) 0%, rgba(239, 68, 68, 0.9) 30%, rgba(249, 115, 22, 0.9) 70%, rgba(251, 191, 36, 0.9) 100%);
+
+            --accent-primary: #ef4444;
+            --accent-secondary: #f97316;
+            --accent-tag: #fb923c;
+            --accent-success: #fbbf24;
+            --accent-danger: #fca5a5;
+            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #fecaca 40%, #fca5a5 55%, #fb923c 75%, #fbbf24 100%);
+            --bullet-gradient: linear-gradient(135deg, #ef4444, #fbbf24);
+            --body-glow-1: rgba(220, 38, 38, 0.06);
+            --body-glow-2: rgba(249, 115, 22, 0.05);
+            --body-glow-3: rgba(251, 191, 36, 0.04);
+            --hud-bg: rgba(12, 2, 2, 0.98);
+            --hud-fade: rgba(12, 2, 2, 0.7);
+            --hud-border: rgba(239, 68, 68, 0.08);
+            --card-shadow-hover: rgba(239, 68, 68, 0.25);
+            --widget-bg: rgba(24, 8, 8, 0.88);
+            --widget-border: rgba(239, 68, 68, 0.3);
+
+            --text-main: #fef2f2;
+            --text-muted: #fca5a5;
+            --text-dim: #f87171;
+            --text-body: #fecaca;
+        }
+
+        /* ==========================================================================
+           THEME 4: ACADEMIC LIGHT — Clean Light Mode for Formal Presentations
+           ========================================================================== */
+        body.theme-academic {
+            --bg-deep: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.94);
+            --bg-card-elevated: #ffffff;
+
+            --rgb-magenta: #7c3aed;
+            --rgb-violet: #6366f1;
+            --rgb-cyan: #0284c7;
+            --rgb-green: #059669;
+            --rgb-amber: #d97706;
+
+            --rainbow-flow: linear-gradient(135deg, #7c3aed 0%, #6366f1 33%, #0284c7 66%, #059669 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #7c3aed 0%, #6366f1 30%, #0284c7 70%, #059669 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(99, 102, 241, 0.25) 30%, rgba(2, 132, 199, 0.25) 70%, rgba(5, 150, 105, 0.25) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, rgba(124, 58, 237, 0.7) 0%, rgba(99, 102, 241, 0.7) 30%, rgba(2, 132, 199, 0.7) 70%, rgba(5, 150, 105, 0.7) 100%);
+
+            --accent-primary: #6366f1;
+            --accent-secondary: #0284c7;
+            --accent-tag: #4f46e5;
+            --accent-success: #059669;
+            --accent-danger: #dc2626;
+            --hero-gradient: linear-gradient(135deg, #0f172a 15%, #4338ca 40%, #6366f1 60%, #0284c7 80%, #059669 100%);
+            --bullet-gradient: linear-gradient(135deg, #6366f1, #0284c7);
+            --body-glow-1: rgba(99, 102, 241, 0.06);
+            --body-glow-2: rgba(2, 132, 199, 0.05);
+            --body-glow-3: rgba(124, 58, 237, 0.03);
+            --hud-bg: rgba(241, 245, 249, 0.98);
+            --hud-fade: rgba(241, 245, 249, 0.7);
+            --hud-border: rgba(99, 102, 241, 0.12);
+            --card-shadow-hover: rgba(99, 102, 241, 0.15);
+            --widget-bg: rgba(255, 255, 255, 0.95);
+            --widget-border: rgba(99, 102, 241, 0.35);
+
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-dim: #64748b;
+            --text-body: #334155;
+        }
+
+        /* ==========================================================================
+           THEME 5: EMERALD CHAMPION — Victory Green & Gold
+           ========================================================================== */
+        body.theme-champion {
+            --bg-deep: #020c06;
+            --bg-card: #061a0e;
+            --bg-card-elevated: #0a2414;
+
+            --rgb-magenta: #10b981;
+            --rgb-violet: #34d399;
+            --rgb-cyan: #fbbf24;
+            --rgb-green: #a3e635;
+            --rgb-amber: #d4d4d8;
+
+            --rainbow-flow: linear-gradient(135deg, #059669 0%, #10b981 33%, #34d399 66%, #fbbf24 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #059669 0%, #10b981 30%, #34d399 70%, #fbbf24 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(5, 150, 105, 0.4) 0%, rgba(16, 185, 129, 0.4) 30%, rgba(52, 211, 153, 0.4) 70%, rgba(251, 191, 36, 0.4) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, rgba(5, 150, 105, 0.9) 0%, rgba(16, 185, 129, 0.9) 30%, rgba(52, 211, 153, 0.9) 70%, rgba(251, 191, 36, 0.9) 100%);
+
+            --accent-primary: #10b981;
+            --accent-secondary: #fbbf24;
+            --accent-tag: #34d399;
+            --accent-success: #a3e635;
+            --accent-danger: #f87171;
+            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #a7f3d0 40%, #34d399 55%, #fbbf24 80%, #fde68a 100%);
+            --bullet-gradient: linear-gradient(135deg, #10b981, #fbbf24);
+            --body-glow-1: rgba(16, 185, 129, 0.06);
+            --body-glow-2: rgba(251, 191, 36, 0.05);
+            --body-glow-3: rgba(52, 211, 153, 0.04);
+            --hud-bg: rgba(2, 12, 6, 0.98);
+            --hud-fade: rgba(2, 12, 6, 0.7);
+            --hud-border: rgba(16, 185, 129, 0.08);
+            --card-shadow-hover: rgba(16, 185, 129, 0.25);
+            --widget-bg: rgba(6, 26, 14, 0.88);
+            --widget-border: rgba(16, 185, 129, 0.3);
+
+            --text-main: #f0fdf4;
+            --text-muted: #a7f3d0;
+            --text-dim: #6ee7b7;
+            --text-body: #d1fae5;
         }
 
         /* Ambient Canvas Background */
         body {
             background-color: var(--bg-deep);
             background-image: 
-                radial-gradient(circle at 12% 18%, rgba(217, 70, 239, 0.05) 0%, transparent 45%),
-                radial-gradient(circle at 88% 82%, rgba(6, 182, 212, 0.05) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);
+                radial-gradient(circle at 12% 18%, var(--body-glow-1) 0%, transparent 45%),
+                radial-gradient(circle at 88% 82%, var(--body-glow-2) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, var(--body-glow-3) 0%, transparent 60%);
+            transition: background-color 0.4s ease;
             color: var(--text-main);
             font-family: var(--font-body);
             overflow: hidden;
@@ -102,7 +287,7 @@
             left: 0;
             right: 0;
             height: 48px;
-            background: linear-gradient(180deg, rgba(2, 2, 4, 0.98) 0%, rgba(2, 2, 4, 0.7) 80%, rgba(2, 2, 4, 0) 100%);
+            background: linear-gradient(180deg, var(--hud-bg) 0%, var(--hud-fade) 80%, rgba(2, 2, 4, 0) 100%);
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -111,7 +296,8 @@
             font-size: 13px;
             font-family: var(--font-head);
             pointer-events: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--hud-border);
+            transition: background 0.4s ease;
         }
 
         .hud-left {
@@ -198,7 +384,7 @@
             left: 0;
             right: 0;
             height: 38px;
-            background: linear-gradient(0deg, rgba(2, 2, 4, 0.98) 0%, rgba(2, 2, 4, 0) 100%);
+            background: linear-gradient(0deg, var(--hud-bg) 0%, rgba(2, 2, 4, 0) 100%);
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -236,7 +422,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: #38bdf8;
+            color: var(--accent-tag);
             margin-bottom: 4px;
         }
 
@@ -268,7 +454,7 @@
         }
 
         .rainbow-title {
-            background: linear-gradient(135deg, #ffffff 20%, #f0abfc 45%, #a78bfa 65%, #38bdf8 85%, #34d399 100%);
+            background: var(--hero-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -296,7 +482,7 @@
             background: linear-gradient(var(--bg-card-elevated), var(--bg-card-elevated)) padding-box,
                         var(--rainbow-border-hover) border-box;
             transform: translateY(-2px);
-            box-shadow: 0 14px 34px -8px rgba(139, 92, 246, 0.25);
+            box-shadow: 0 14px 34px -8px var(--card-shadow-hover);
         }
 
         .card-hero {
@@ -423,7 +609,7 @@
             font-weight: 900;
             line-height: 1.12;
             margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 15%, #f0abfc 40%, #a78bfa 60%, #38bdf8 80%, #34d399 100%);
+            background: var(--hero-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 35px rgba(139, 92, 246, 0.25);
@@ -431,7 +617,7 @@
 
         .hero-subtitle {
             font-size: 18.5px;
-            color: #cbd5e1;
+            color: var(--text-body);
             font-weight: 400;
             max-width: 900px;
             margin: 0 auto 20px auto;
@@ -459,7 +645,7 @@
         }
 
         .meta-card i {
-            color: #38bdf8;
+            color: var(--accent-tag);
             font-size: 16px;
         }
 
@@ -509,7 +695,7 @@
             padding-left: 20px;
             font-size: 13.5px;
             line-height: 1.45;
-            color: #cbd5e1;
+            color: var(--text-body);
         }
 
         .clean-list li::before {
@@ -520,7 +706,7 @@
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #d946ef, #06b6d4);
+            background: var(--bullet-gradient);
         }
 
         .ordered-list-gamer {
@@ -539,7 +725,7 @@
             padding-left: 36px;
             font-size: 13.5px;
             line-height: 1.45;
-            color: #cbd5e1;
+            color: var(--text-body);
         }
 
         .ordered-list-gamer li::before {
@@ -603,7 +789,7 @@
             padding: 10px 14px;
             font-size: 12px;
             line-height: 1.45;
-            color: #cbd5e1;
+            color: var(--text-body);
             transition: all 0.2s ease;
         }
 
@@ -660,7 +846,7 @@
         .prompter-title {
             font-family: var(--font-head);
             font-weight: 700;
-            color: #38bdf8;
+            color: var(--accent-tag);
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -693,10 +879,197 @@
         .slide-header {
             margin-top: 10px !important;
         }
+
+        /* Light theme specific overrides */
+        body.theme-academic h1,
+        body.theme-academic h2,
+        body.theme-academic h3,
+        body.theme-academic h4,
+        body.theme-academic h5,
+        body.theme-academic h6,
+        body.theme-academic .reveal h1,
+        body.theme-academic .reveal h2,
+        body.theme-academic .reveal h3,
+        body.theme-academic .reveal h4 {
+            color: #0f172a !important;
+        }
+        body.theme-academic .slide-title {
+            color: #0f172a !important;
+        }
+        body.theme-academic .hud-brand {
+            color: #1e293b;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-flow-h) border-box;
+        }
+        body.theme-academic .hud-btn {
+            background: linear-gradient(#f1f5f9, #f1f5f9) padding-box,
+                        rgba(0, 0, 0, 0.12) border-box;
+            color: #1e293b;
+        }
+        body.theme-academic .hud-btn:hover {
+            background: linear-gradient(#ffffff, #ffffff) padding-box,
+                        var(--rainbow-flow-h) border-box;
+        }
+        body.theme-academic .timer-badge {
+            background: linear-gradient(#f1f5f9, #f1f5f9) padding-box,
+                        linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(2, 132, 199, 0.5)) border-box;
+            color: var(--accent-primary);
+        }
+        body.theme-academic .badge-rainbow {
+            background: linear-gradient(#f8fafc, #f8fafc) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+            color: #1e293b;
+        }
+        body.theme-academic .card {
+            box-shadow: 0 4px 20px -6px rgba(0, 0, 0, 0.12);
+        }
+        body.theme-academic .card:hover {
+            box-shadow: 0 8px 28px -6px rgba(99, 102, 241, 0.18);
+        }
+        body.theme-academic .meta-card {
+            background: linear-gradient(#ffffff, #ffffff) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+        }
+        body.theme-academic .meta-card i {
+            color: var(--accent-primary) !important;
+        }
+        body.theme-academic .ordered-list-gamer li::before {
+            background: linear-gradient(#f8fafc, #f8fafc) padding-box,
+                        var(--rainbow-flow) border-box;
+            color: var(--accent-primary);
+        }
+        body.theme-academic .ref-card {
+            background: linear-gradient(#ffffff, #ffffff) padding-box,
+                        rgba(0, 0, 0, 0.08) border-box;
+        }
+        body.theme-academic .ref-card:hover {
+            background: linear-gradient(#f8fafc, #f8fafc) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+        }
+        body.theme-academic .ref-card strong {
+            color: #0f172a;
+        }
+        body.theme-academic #teleprompter-drawer {
+            background: rgba(248, 250, 252, 0.97);
+            color: #1e293b;
+            background-image: linear-gradient(rgba(248, 250, 252, 0.97), rgba(248, 250, 252, 0.97)),
+                              var(--rainbow-flow-h);
+            background-origin: padding-box, border-box;
+            background-clip: padding-box, border-box;
+        }
+        body.theme-academic .prompter-title {
+            color: var(--accent-primary);
+        }
+        body.theme-academic .swatch-btn.active {
+            border-color: #0f172a;
+        }
+        body.theme-academic .clean-list li {
+            color: #334155;
+        }
+        body.theme-academic .hero-subtitle {
+            color: #475569;
+        }
+
+        /* ==========================================================================
+           FLOATING INTERACTIVE THEME SWITCHER WIDGET
+           ========================================================================== */
+        .theme-switcher-widget {
+            position: fixed;
+            top: 12px;
+            right: 14px;
+            z-index: 99999;
+            background: var(--widget-bg);
+            border: 1px solid var(--widget-border);
+            border-radius: 20px;
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+            pointer-events: auto;
+        }
+
+        .theme-switcher-widget:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .theme-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-tag);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .theme-swatches {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .swatch-btn {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            padding: 0;
+            outline: none;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            position: relative;
+        }
+
+        .swatch-btn:hover {
+            transform: scale(1.22);
+        }
+
+        .swatch-btn.active {
+            border-color: #ffffff;
+            transform: scale(1.25);
+            box-shadow: 0 0 6px var(--accent-primary);
+        }
+
+        .theme-hint {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--text-dim);
+            padding-left: 2px;
+            border-left: 1px solid var(--widget-border);
+        }
+
+        .theme-hint kbd {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--widget-border);
+            border-radius: 3px;
+            padding: 1px 3px;
+            color: var(--accent-tag);
+            font-weight: 700;
+        }
     
     </style>
 </head>
-<body>
+<body class="theme-gamer">
+
+<!-- Floating Theme Switcher Widget -->
+<div class="theme-switcher-widget" id="theme-widget" title="Switch Presentation Color Scheme (or press 'T')">
+  <div class="theme-label">
+    <span>&#x1F3A8;</span>
+    <span id="theme-display-name">RGB Gamer</span>
+  </div>
+  <div class="theme-swatches">
+    <button class="swatch-btn active" data-theme="theme-gamer" data-name="RGB Gamer" title="RGB Gamer — Rainbow Spectrum (Original)" style="background: linear-gradient(135deg, #020204 50%, #8b5cf6 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-court" data-name="Court Blue" title="Court Blue — Volleyball Court Blue & White" style="background: linear-gradient(135deg, #020a18 50%, #3b82f6 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-spike" data-name="Spike Fire" title="Spike Fire — Crimson & Orange Attack Energy" style="background: linear-gradient(135deg, #0c0202 50%, #ef4444 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-academic" data-name="Academic" title="Academic — Clean Light Mode for Formal Defense" style="background: linear-gradient(135deg, #f8fafc 50%, #6366f1 50%); border: 1px solid #94a3b8;"></button>
+    <button class="swatch-btn" data-theme="theme-champion" data-name="Champion" title="Champion — Victory Emerald & Gold" style="background: linear-gradient(135deg, #020c06 50%, #10b981 50%);"></button>
+  </div>
+  <div class="theme-hint"><kbd>T</kbd></div>
+</div>
 
     <!-- Persistent Top HUD Header -->
     <header id="persistent-hud-header">
@@ -786,7 +1159,7 @@
 
                         <div style="margin-top: 20px;" class="fragment" data-fragment-index="2">
                             <span style="font-size: 12px; color: var(--text-muted);">
-                                <i class="fa-solid fa-stopwatch" style="color: #38bdf8;"></i> Defensa oficial ante el jurado evaluador &bull; Tiempo proyectado: <strong>10 a 12 Minutos</strong>
+                                <i class="fa-solid fa-stopwatch" style="color: #38bdf8;"></i> &bull; 
                             </span>
                         </div>
                     </div>
@@ -794,10 +1167,9 @@
 
                 <aside class="notes">
                     <strong>[TIEMPO: 00:00 a 01:10] DIAPOSITIVA 1: INTRODUCCIÓN Y SALUDO PROTOCOLARIO</strong><br><br>
-                    Muy buenos días a los miembros del jurado evaluador.<br><br>
-                    Mi nombre es Martin Forero, estudiante de Grado Décimo B. Hoy tengo el gusto de presentar mi proyecto titulado VolleyMind y LifeLab: El Pase Táctico como Metáfora de Servicio, Animación Visual y Proyecto de Vida.<br><br>
-                    Este proyecto une la simulación digital interactiva, el análisis del voleibol, la animación visual, la argumentación oral y la reflexión ética.<br><br>
-                    En estos doce minutos les compartiré el problema investigado, nuestra postura central, los objetivos del trabajo, la evidencia detrás de las decisiones y la demostración de la página web.
+                    <strong>Parlamento sugerido:</strong><br>
+                    "Muy buenos días, apreciados miembros del jurado evaluador y profesor asesor Nicolas Barreto. Mi nombre es Martin Forero, estudiante de Grado 10B, y tengo el gusto de sustentar el proyecto 'VolleyMind & LifeLab: El Pase Táctico como Metáfora de Servicio, Animación Visual y Proyecto de Vida'.<br><br>
+                    Este proyecto nace como un sistema holístico que integra la simulación digital interactiva, el análisis táctico en voleibol, la narrativa visual y la deliberación ética. En los próximos 10 a 12 minutos presentaré la problemática delimitada, la postura central fundamentada, los objetivos de ingeniería pedagógica, el modelo probabilístico de decisiones y la demostración funcional del prototipo interactivo."
                 </aside>
             </section>
 
@@ -874,19 +1246,18 @@
                             <i class="fa-solid fa-compass"></i> Pregunta Central de Indagación
                         </div>
                         <div style="font-size: 14px; color: #ffffff; font-weight: 500; line-height: 1.4;">
-                            "¿De qué manera un entorno web interactivo que integra simulación 2D, locución argumentativa en voz en off y un panel analítico denominado LifeLab permite evidenciar la relación entre la autorregulación socioemocional y la ética de servicio durante la toma de decisiones tácticas en estudiantes de Grado Décimo?"
+                            "¿De qué manera un entorno web interactivo permite evidenciar la relación entre la autorregulación socioemocional y la ética de servicio durante la toma de decisiones tácticas en estudiantes de Grado Décimo?"
                         </div>
                     </div>
                 </div>
 
                 <aside class="notes">
-                    <strong>[TIEMPO: 01:10 a 02:40] DIAPOSITIVA 2: FORMULACIÓN Y CONTEXTUALIZACIÓN DEL PROBLEMA</strong><br><br>
-                    Para entender el problema, imaginemos un momento de mucha presión en voleibol: el empate 24 a 24 en el set final.<br><br>
-                    En ese instante el cuerpo siente mucho estrés y es fácil tomar decisiones apuradas por el afán del resultado.<br><br>
-                    La investigación la realicé en la Corporación Colegio San Bonifacio de las Lanzas Bilingüe en Ibagué con estudiantes de Grado Décimo.<br><br>
-                    En nuestro simulador web, el usuario tiene un tiempo límite de 4 segundos en pantalla para decidir la jugada.<br><br>
-                    El problema es que la presión lleva a buscar el lucimiento personal con un remate forzado, en lugar de ayudar al equipo con un pase de armado.<br><br>
-                    De allí nace la pregunta central: ¿De qué manera un entorno web interactivo con simulación 2D, locución argumentativa en voz en off y un panel analítico permite evidenciar la relación entre la autorregulación socioemocional y la ética de servicio durante la toma de decisiones tácticas en estudiantes de Grado Décimo de la Corporación Colegio San Bonifacio de las Lanzas Bilingüe?
+                    <strong>[TIEMPO: 01:10 a 02:40] DIAPOSITIVA 2: FORMULACIÓN DEL PROBLEMA</strong><br><br>
+                    <strong>Puntos clave para el jurado:</strong><br>
+                    1. Contextualizar el micro-momento 24-24 en voleibol: es el momento de máxima carga adrenérgica y presión psicológica escolar.<br>
+                    2. Resaltar la delimitación precisa: ocurre con los estudiantes de Grado Décimo del Colegio San Bonifacio de las Lanzas en una ventana temporal irrevocable de 4.0 segundos en pantalla.<br>
+                    3. Respaldar con antecedentes: citar las investigaciones de Arias y Gómez sobre gamificación, Martínez sobre lectura táctica y Torres sobre estrés neurocognitivo.<br>
+                    4. Enunciar la pregunta central con claridad y contundencia metodológica.
                 </aside>
             </section>
 
@@ -947,13 +1318,10 @@
                 </div>
 
                 <aside class="notes">
-                    <strong>[TIEMPO: 02:40 a 03:55] DIAPOSITIVA 3: TESIS FUNDAMENTAL DEL PROYECTO</strong><br><br>
-                    Nuestra tesis demuestra que en los momentos difíciles el éxito no depende de jugar solo.<br><br>
-                    Sostenemos que en situaciones de alta presión, controlar las emociones y pensar en servir al equipo garantiza decisiones tácticas más efectivas y éticamente maduras.<br><br>
-                    Esta postura funciona en tres niveles claros:<br><br>
-                    Primero, en la mente, porque controlar el impulso en los 4 segundos nos permite pensar antes de actuar.<br><br>
-                    Segundo, en los valores, porque dejamos a un lado el ego para buscar el triunfo del grupo.<br><br>
-                    Tercero, en la cancha, porque el pase al compañero desmarcado es la jugada con mayor probabilidad de hacer el punto.
+                    <strong>[TIEMPO: 02:40 a 03:55] DIAPOSITIVA 3: TESIS DEL PROYECTO</strong><br><br>
+                    <strong>Guion de sustentación:</strong><br>
+                    "Nuestra tesis desafía el falso paradigma de que en los momentos críticos el éxito depende del arrojo individualista.<br><br>
+                    Sostenemos con firmeza que en escenarios de alta presión, la autorregulación socioemocional y la vocación de servicio producen decisiones superiores en tres dimensiones interconectadas: a nivel neurocognitivo, modulando la impulsividad visceral; a nivel axiológico, subordinando el ego al bien común del equipo; y a nivel táctico deportivo, convirtiendo el pase solidario en la opción con mayor probabilidad objetiva de victoria."
                 </aside>
             </section>
 
@@ -976,20 +1344,23 @@
                             <span class="badge-rainbow"><i class="fa-solid fa-flag"></i> OBJETIVO GENERAL</span>
                         </div>
                         <p style="font-size: 15px; color: #ffffff; margin: 0; line-height: 1.48;">
-                            <strong>Diseñar un prototipo de simulación web interactiva en 2D (VolleyMind & LifeLab)</strong> para la articulación de la lectura táctica deportiva con la valoración del dilema ético entre la vocación de servicio y el protagonismo individual en estudiantes de grado Décimo.
+                            <strong>Analizar la relación entre la autorregulación socioemocional y la ética de servicio</strong> durante la toma de decisiones tácticas en estudiantes de Grado Décimo, mediante un entorno web interactivo.
                         </p>
                     </div>
 
                     <!-- Specific Objectives Grid -->
+                   
+                    
+                    
                     <div class="grid-3">
                         <div class="card fragment" data-fragment-index="1">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                                 <span class="badge-subtle"><strong style="color: #38bdf8;">OE 1</strong></span>
                                 <i class="fa-solid fa-gamepad" style="color: #06b6d4; font-size: 18px;"></i>
                             </div>
-                            <h4 style="font-size: 14.5px; margin-bottom: 6px; color: #ffffff;">Simulación Interactiva & QTE 4s</h4>
+                            <h4 style="font-size: 14.5px; margin-bottom: 6px; color: #ffffff;">Simulación Interactiva</h4>
                             <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.42; margin: 0;">
-                                Recrear la toma de decisión en la jugada 24-24 de voleibol mediante una interfaz web con una cuenta regresiva de 4 segundos (QTE).
+                                Diseñar una plataforma web interactiva con eventos de tiempo límite (QTE) y módulos de retroalimentación en autocontrol.
                             </p>
                         </div>
 
@@ -1003,6 +1374,7 @@
                                 Combinar una animación 2D con voz en off que sustente argumentativamente la decisión elegida.
                             </p>
                         </div>
+                        
 
                         <div class="card fragment" data-fragment-index="3">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
@@ -1018,13 +1390,10 @@
                 </div>
 
                 <aside class="notes">
-                    <strong>[TIEMPO: 03:55 a 05:10] DIAPOSITIVA 4: OBJETIVOS GENERAL Y ESPECÍFICOS</strong><br><br>
-                    Para comprobar nuestra propuesta, definimos como objetivo general diseñar un prototipo de simulación web interactiva en 2D denominado VolleyMind y LifeLab.<br><br>
-                    Este simulador conecta la lectura táctica deportiva con la reflexión ética entre servir al equipo o buscar el protagonismo individual en Grado Décimo del Colegio San Bonifacio de las Lanzas.<br><br>
-                    Para lograrlo cumplimos tres pasos específicos:<br><br>
-                    Primero, recrear la jugada 24 a 24 con un temporizador activo de 4 segundos en la web.<br><br>
-                    Segundo, combinar una animación estilo cómic de 5 escenas con un audio grabado de 45 segundos donde el estudiante explica su decisión.<br><br>
-                    Tercero, mostrar un tablero final analítico con un gráfico de radar que evalúa el desempeño táctico y ético.
+                    <strong>[TIEMPO: 03:55 a 05:10] DIAPOSITIVA 4: OBJETIVOS</strong><br><br>
+                    <strong>Exposición metodológica:</strong><br>
+                    "Para materializar nuestra tesis, establecimos un objetivo general orientado a la creación del artefacto tecnológico VolleyMind & LifeLab.<br><br>
+                    Este propósito se descompone en tres objetivos específicos concatenados: primero, la recreación del dilema con un temporizador QTE activo de 4.0 segundos en HTML5 Canvas; segundo, la fusión de una secuencia 2D de 5 keyframes estilo webtoon con locución oral masterizada de 45 segundos; y tercero, el despliegue del tablero analítico LifeLab mediante un radar cuantitativo y cualitativo de competencias."
                 </aside>
             </section>
 
@@ -1095,11 +1464,11 @@
                 </div>
 
                 <aside class="notes">
-                    <strong>[TIEMPO: 05:10 a 06:40] DIAPOSITIVA 5: EVIDENCIA CIENTÍFICA Y MODELO DE DECISIONES</strong><br><br>
-                    La vocación de servicio no es solo una idea bonita, es también una ventaja matemática real en la cancha.<br><br>
-                    Los datos de la Federación Internacional de Voleibol muestran que hacer un pase de armado hacia un compañero libre en Zona 4 tiene un 85 por ciento de efectividad para ganar el punto.<br><br>
-                    Por el contrario, intentar un remate individual contra tres bloqueadores rivales reduce la efectividad a solo un 12 por ciento.<br><br>
-                    El tiempo de 4 segundos en el simulador ayuda al estudiante a hacer una pausa, controlar el impulso reactivo y elegir la opción que más beneficia a todo el equipo.
+                    <strong>[TIEMPO: 05:10 a 06:40] DIAPOSITIVA 5: EVIDENCIA CIENTÍFICA Y DECISIONES</strong><br><br>
+                    <strong>Argumento de peso cuantitativo:</strong><br>
+                    "Ante el jurado es imperativo demostrar que la vocación de servicio no es solo un valor filosófico, sino una ventaja matemática comprobada.<br><br>
+                    Los datos de la FIVB y los modelos cinéticos indican que un armado preciso hacia Zona 4 logra un 85% de éxito frente a una defensa descolocada. En contraste, cuando el armador intenta resolver de manera unipersonal desde una posición incómoda, la probabilidad se reduce al 12% por la presencia del triple bloqueo.<br>
+                    El freno inhibitorio de 4 segundos que programa nuestro QTE introduce la pausa reflexiva necesaria para romper la inercia del ego y elegir la colaboración."
                 </aside>
             </section>
 
@@ -1162,11 +1531,10 @@
                 </div>
 
                 <aside class="notes">
-                    <strong>[TIEMPO: 06:40 a 08:00] DIAPOSITIVA 6: CONTRAARGUMENTO Y REFUTACIÓN RAZONADA</strong><br><br>
-                    Algunas personas piensan que en un punto decisivo como el 24 a 24 el líder debe arriesgarse y rematar él mismo para demostrar jerarquía.<br><br>
-                    Nosotros demostramos que esa idea es equivocada.<br><br>
-                    Atacar a ciegas contra un triple bloqueo no es ser valiente, es actuar de forma impulsiva y arriesgar el partido por ego.<br><br>
-                    Basados en estudios de argumentación, inteligencia emocional y ética de servicio, demostramos que un líder verdadero no busca el aplauso individual, sino el triunfo de todo el grupo.
+                    <strong>[TIEMPO: 06:40 a 08:00] DIAPOSITIVA 6: CONTRAARGUMENTO Y REFUTACIÓN</strong><br><br>
+                    <strong>Estrategia dialéctica frente al panel:</strong><br>
+                    "Es común escuchar la objeción: '¿Acaso el capitán o líder no debe jugarse el pellejo y rematar en el 24-24?'<br><br>
+                    Nuestra respuesta refuta esa falacia del héroe solitario: arriesgar a ciegas contra un triple bloqueo no es valentía, es ceguera narcisista y negligencia táctica. Siguiendo las directrices de Anthony Weston sobre argumentación dialéctica y los postulados de Daniel Goleman y el Papa Francisco sobre servicio y liderazgo, demostramos que el líder maduro renuncia al aplauso fugaz para maximizar la victoria de todo su colectivo."
                 </aside>
             </section>
 
@@ -1269,14 +1637,15 @@
                 </div>
 
                 <aside class="notes">
-                    <strong>[TIEMPO: 08:00 a 09:40] DIAPOSITIVA 7: DEMOSTRACIÓN DEL PROTOTIPO WEB Y TABLERO LIFELAB</strong><br><br>
-                    El prototipo interactivo funciona a través de cinco elementos clave:<br><br>
-                    Una pantalla de inicio con diseño tipo gamer.<br><br>
-                    Una animación 2D en 5 escenas estilo webtoon.<br><br>
-                    Una pausa de 4 segundos donde el usuario elige entre Pasar por Servicio o Rematar por Ego.<br><br>
-                    Un audio en voz en off con la explicación argumentada de la elección.<br><br>
-                    Y el Dashboard LifeLab, un tablero final con gráfico de radar que mide el control de impulsos, la táctica, la argumentación y la ética.<br><br>
-                    En la pantalla podemos observar cómo funciona el simulador en vivo.
+                    <strong>[TIEMPO: 08:00 a 09:40] DIAPOSITIVA 7: PROTOTIPO Y DASHBOARD</strong><br><br>
+                    <strong>Demostración de software ante el jurado:</strong><br>
+                    "Presentamos la arquitectura de producción del prototipo interactivo:<br><br>
+                    1. Módulo de Inicio: interfaz inmersiva gamer.<br>
+                    2. Animación 2D: 5 keyframes estilo webtoon manga desarrollados en HTML5 Canvas.<br>
+                    3. Módulo QTE: cuenta regresiva de 4.0 segundos con botones de elección binaria.<br>
+                    4. Locución en off: tracks MP3 masterizados de 45 segundos con argumentación oratoria formal.<br>
+                    5. Dashboard LifeLab: evaluamos en tiempo real con este gráfico de radar cinco factores críticos: control inhibitorio, visión táctica, vocación de servicio, elocución argumentativa y conciencia ética.<br>
+                    Podemos abrir el simulador en vivo mediante el botón inferior para presenciar la jugada."
                 </aside>
             </section>
 
@@ -1336,10 +1705,10 @@
                 </div>
 
                 <aside class="notes">
-                    <strong>[TIEMPO: 09:40 a 10:50] DIAPOSITIVA 8: CONCLUSIONES Y CONEXIÓN CON EL PROYECTO DE VIDA</strong><br><br>
-                    En conclusión, el proyecto demuestra que pensar en los demás y controlar las emociones da mejores resultados que actuar por egoísmo.<br><br>
-                    Para nosotros en Grado Décimo este laboratorio digital deja una enseñanza clara para la vida y el futuro universitario.<br><br>
-                    El verdadero liderazgo no consiste en brillar solo en la cancha, sino en tener la calma suficiente para armar la jugada y hacer triunfar a toda la comunidad.
+                    <strong>[TIEMPO: 09:40 a 10:50] DIAPOSITIVA 8: CONCLUSIONES Y PROYECTO DE VIDA</strong><br><br>
+                    <strong>Cierre reflexivo de impacto:</strong><br>
+                    "Concluimos que VolleyMind & LifeLab cumple plenamente su promesa: demostramos que la generosidad y el servicio superan al ego tanto en la estadística deportiva como en la madurez moral.<br><br>
+                    Como estudiantes de Grado Décimo próximos a definir nuestros proyectos de vida y vocación universitaria, este laboratorio digital nos enseña una lección imperecedera: el auténtico liderazgo no consiste en brillar solo acaparando la pelota, sino en tener la templanza de armar el juego para que toda la comunidad triunfe."
                 </aside>
             </section>
 
@@ -1350,7 +1719,7 @@
                 <div class="slide-content">
                     <div class="slide-header" style="margin-bottom: 10px;">
                         <div class="slide-tag"><i class="fa-solid fa-book-bookmark"></i> Rigor Académico</div>
-                        <h2 class="slide-title">Referencias Bibliográficas (APA 7)</h2>
+                        <h2 class="slide-title">Referencias Bibliográficas</h2>
                         <div class="slide-subtitle">Fundamentos teóricos en deporte, neurociencia, retórica, ética y pedagogía interactiva.</div>
                     </div>
 
@@ -1405,10 +1774,11 @@
                 </div>
 
                 <aside class="notes">
-                    <strong>[TIEMPO: 10:50 a 12:00] DIAPOSITIVA 9: REFERENCIAS BIBLIOGRÁFICAS Y CIERRE PROTOCOLARIO</strong><br><br>
-                    Todo el trabajo está respaldado por fuentes académicas de voleibol, neurociencia del estrés, pedagogía y ética en formato APA.<br><br>
-                    Agradezco a mi profesor asesor Nicolas Barreto y a los miembros del jurado evaluador por su acompañamiento.<br><br>
-                    Quedo atento a sus preguntas y comentarios. Muchas gracias.
+                    <strong>[TIEMPO: 10:50 a 12:00] DIAPOSITIVA 9: CIERRE FORMAL Y PREGUNTAS</strong><br><br>
+                    <strong>Cierre protocolario:</strong><br>
+                    "Finalizamos nuestra sustentación con el respaldo bibliográfico completo en formato APA 7ma edición, integrando fuentes de la FIVB, neurociencia del estrés de Torres, marcos pedagógicos de Arias y Gómez, teoría argumentativa de Weston y reflexiones sobre el liderazgo servicial de Goleman y el Papa Francisco.<br><br>
+                    Agradezco sinceramente a mi asesor, profesor Nicolas Barreto, y a ustedes miembros del comité docente por su riguroso acompañamiento formativo.<br>
+                    Quedo a su entera disposición para responder sus preguntas y comentarios. ¡Muchas gracias!"
                 </aside>
             </section>
 
@@ -1420,6 +1790,65 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.js"></script>
 
     <script>
+        // ==========================================================================
+        // THEME SWITCHER ENGINE
+        // ==========================================================================
+        const themes = [
+            { id: 'theme-gamer', name: 'RGB Gamer' },
+            { id: 'theme-court', name: 'Court Blue' },
+            { id: 'theme-spike', name: 'Spike Fire' },
+            { id: 'theme-academic', name: 'Academic' },
+            { id: 'theme-champion', name: 'Champion' }
+        ];
+
+        function applyTheme(themeId) {
+            const selected = themes.find(t => t.id === themeId) || themes[0];
+
+            // Swap body class
+            themes.forEach(t => document.body.classList.remove(t.id));
+            document.body.classList.add(selected.id);
+
+            // Update swatch buttons
+            document.querySelectorAll('.swatch-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === selected.id);
+            });
+
+            // Update label
+            const nameLabel = document.getElementById('theme-display-name');
+            if (nameLabel) nameLabel.textContent = selected.name;
+
+            // Persist choice
+            localStorage.setItem('volleymind-theme', selected.id);
+        }
+
+        function cycleTheme() {
+            const currentClass = [...document.body.classList].find(c => c.startsWith('theme-')) || 'theme-gamer';
+            const currentIndex = themes.findIndex(t => t.id === currentClass);
+            const nextIndex = (currentIndex + 1) % themes.length;
+            applyTheme(themes[nextIndex].id);
+        }
+
+        // Swatch click handlers
+        document.querySelectorAll('.swatch-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                applyTheme(this.getAttribute('data-theme'));
+            });
+        });
+
+        // Global key listener for 'T' / 't'
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                if (e.key === 't' || e.key === 'T') {
+                    cycleTheme();
+                }
+            }
+        });
+
+        // Load saved theme or default
+        const savedTheme = localStorage.getItem('volleymind-theme') || 'theme-gamer';
+        applyTheme(savedTheme);
+
         // Initialize Reveal.js
         Reveal.initialize({
             hash: true,
