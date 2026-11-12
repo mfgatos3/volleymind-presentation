@@ -1114,19 +1114,53 @@
             ctx.restore();
         }
 
+        /**
+         * Función auxiliar para dibujar cabeza + cuello + pelo de forma consistente.
+         * headX, headY: centro de la cabeza relativo al contexto actual.
+         * headR: radio de la cabeza.
+         * neckW, neckH: ancho y alto del rectángulo del cuello.
+         * skin, hairColor: colores.
+         * isGrayscale: flag de escala de grises.
+         */
+        function drawHeadNeck(headX, headY, headR, neckW, neckH, skin, hairColor, isGrayscale) {
+            // Cuello (conecta torso con cabeza)
+            ctx.fillStyle = skin;
+            ctx.fillRect(headX - neckW / 2, headY + headR - 2, neckW, neckH);
+
+            // Cabeza (círculo de piel)
+            ctx.fillStyle = skin;
+            ctx.beginPath();
+            ctx.arc(headX, headY, headR, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // Pelo (arco superior)
+            ctx.fillStyle = hairColor;
+            ctx.beginPath();
+            ctx.arc(headX, headY - 3, headR + 1, Math.PI * 0.85, Math.PI * 2.15);
+            ctx.lineTo(headX + headR + 1, headY);
+            ctx.lineTo(headX, headY - headR - 12);
+            ctx.lineTo(headX - headR - 1, headY);
+            ctx.fill();
+            ctx.stroke();
+        }
+
         function drawPlayerFigure(pData, facingLeft = false, isGrayscale = false) {
             ctx.save();
             ctx.translate(pData.x, pData.y);
 
             if (facingLeft) ctx.scale(-1, 1);
 
+            // Sombra en el suelo
             ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
             ctx.beginPath();
             ctx.ellipse(0, 0, pData.jump ? 16 : 30, 7, 0, 0, Math.PI * 2);
             ctx.fill();
 
+            // Elevar por salto
             if (pData.jump) ctx.translate(0, -pData.jump);
 
+            // Estilos base
             ctx.strokeStyle = isGrayscale ? '#000000' : '#05070e';
             ctx.lineWidth = 3.5;
             ctx.lineJoin = 'round';
@@ -1134,8 +1168,11 @@
 
             let jersey = isGrayscale ? '#444444' : (pData.color || '#0052e6');
             let skin = isGrayscale ? '#d4d4d4' : '#ffdfba';
+            let hairColor = isGrayscale ? '#222' : '#1e293b';
 
             if (pData.pose === 'dive_receive') {
+                // === PLANCHA DE RECEPCIÓN ===
+                // Piernas extendidas hacia atrás
                 ctx.strokeStyle = '#ffffff';
                 ctx.lineWidth = 7;
                 ctx.beginPath();
@@ -1144,271 +1181,259 @@
                 ctx.lineTo(-85, -2);
                 ctx.stroke();
 
+                // Rodillera/short
                 ctx.fillStyle = '#0f172a';
                 ctx.fillRect(-62, -18, 14, 12);
 
+                // Torso inclinado + cabeza (todo dentro de un bloque rotado)
                 ctx.save();
                 ctx.translate(0, -32);
                 ctx.rotate(0.35);
 
+                // Torso (camiseta)
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
                 ctx.roundRect(-22, -28, 44, 46, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '900 18px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -2);
 
-                ctx.fillStyle = skin;
-                ctx.fillRect(10, -38, 14, 12);
-                ctx.strokeRect(10, -38, 14, 12);
+                // Cabeza + cuello conectados al torso
+                // El torso va de y=-28 a y=+18. Cuello sale de y=-28 hacia arriba.
+                drawHeadNeck(6, -42, 14, 12, 8, skin, hairColor, isGrayscale);
 
-                ctx.beginPath();
-                ctx.arc(24, -45, 14, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = isGrayscale ? '#222' : '#1e293b';
-                ctx.beginPath();
-                ctx.arc(24, -48, 15, Math.PI * 0.85, Math.PI * 2.15);
-                ctx.lineTo(38, -45);
-                ctx.lineTo(24, -62);
-                ctx.lineTo(10, -45);
-                ctx.fill();
-                ctx.stroke();
-
+                // Brazos extendidos al frente (plataforma de antebrazos)
                 ctx.strokeStyle = skin;
                 ctx.lineWidth = 7;
                 ctx.beginPath();
-                ctx.moveTo(14, -20);
-                ctx.lineTo(65, -8);
+                ctx.moveTo(14, -8);
+                ctx.lineTo(55, 4);
+                ctx.lineTo(65, 0);
                 ctx.stroke();
 
+                // Mano
                 ctx.fillStyle = skin;
                 ctx.beginPath();
-                ctx.arc(68, -8, 6, 0, Math.PI * 2);
+                ctx.arc(65, 0, 6, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
 
                 ctx.restore();
 
             } else if (pData.pose === 'crouch_prejump') {
-                ctx.fillStyle = '#ffffff';
+                // === POSICIÓN BAJA PRE-SALTO ===
+                // Piernas flexionadas
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 6;
                 ctx.beginPath();
                 ctx.moveTo(-12, -30);
-                ctx.lineTo(-38, -12);
-                ctx.lineTo(-28, 0);
+                ctx.lineTo(-32, -10);
+                ctx.lineTo(-24, 0);
                 ctx.stroke();
 
                 ctx.beginPath();
                 ctx.moveTo(8, -30);
-                ctx.lineTo(34, -14);
-                ctx.lineTo(24, 0);
+                ctx.lineTo(28, -10);
+                ctx.lineTo(20, 0);
                 ctx.stroke();
 
+                // Torso + cabeza (bloque rotado ligeramente)
                 ctx.save();
-                ctx.translate(0, -32);
-                ctx.rotate(0.22);
+                ctx.translate(0, -30);
+                ctx.rotate(0.15);
 
+                // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
-                ctx.roundRect(-20, -60, 40, 50, 6);
+                ctx.roundRect(-20, -45, 40, 42, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 ctx.fillStyle = '#ffffff';
-                ctx.font = '900 20px sans-serif';
+                ctx.font = '900 18px sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText(pData.num, 0, -28);
+                ctx.fillText(pData.num, 0, -18);
 
-                ctx.fillStyle = skin;
+                // Cabeza + cuello (sale del tope del torso en y=-45)
+                drawHeadNeck(0, -60, 14, 10, 8, skin, hairColor, isGrayscale);
+
+                // Brazos relajados hacia abajo
+                ctx.strokeStyle = skin;
+                ctx.lineWidth = 5;
                 ctx.beginPath();
-                ctx.moveTo(-12, -50);
-                ctx.lineTo(-44, -20);
+                ctx.moveTo(-16, -38);
+                ctx.lineTo(-34, -15);
                 ctx.stroke();
 
-                ctx.fillRect(-6, -72, 12, 10);
                 ctx.beginPath();
-                ctx.arc(0, -74, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = isGrayscale ? '#222' : '#0f172a';
-                ctx.beginPath();
-                ctx.arc(0, -78, 16, Math.PI * 0.85, Math.PI * 2.15);
-                ctx.lineTo(16, -74);
-                ctx.lineTo(0, -94);
-                ctx.lineTo(-16, -74);
-                ctx.fill();
+                ctx.moveTo(16, -38);
+                ctx.lineTo(34, -15);
                 ctx.stroke();
 
                 ctx.restore();
 
             } else if (pData.pose === 'setter_fingertips_reach') {
-                ctx.fillStyle = '#ffffff';
+                // === ARMADOR CON BRAZOS ARRIBA (yemas al balón) ===
+                // Piernas
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 6;
                 ctx.beginPath();
                 ctx.moveTo(-10, -40);
-                ctx.lineTo(-24, -18);
+                ctx.lineTo(-22, -16);
                 ctx.lineTo(-12, 5);
                 ctx.stroke();
 
                 ctx.beginPath();
                 ctx.moveTo(10, -40);
-                ctx.lineTo(24, -18);
-                ctx.lineTo(32, 5);
+                ctx.lineTo(22, -16);
+                ctx.lineTo(30, 5);
                 ctx.stroke();
 
+                // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
                 ctx.roundRect(-22, -95, 44, 58, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '900 22px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -58);
 
-                ctx.fillStyle = skin;
-                ctx.fillRect(-6, -104, 12, 12);
-                ctx.beginPath();
-                ctx.arc(0, -108, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
+                // Cabeza + cuello
+                drawHeadNeck(0, -112, 15, 12, 10, skin, hairColor, isGrayscale);
 
-                ctx.fillStyle = isGrayscale ? '#222' : '#1e293b';
-                ctx.beginPath();
-                ctx.arc(0, -112, 16, Math.PI * 0.85, Math.PI * 2.15);
-                ctx.lineTo(16, -108);
-                ctx.lineTo(0, -128);
-                ctx.lineTo(-16, -108);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = skin;
+                // Brazos elevados hacia arriba (yemas)
+                ctx.strokeStyle = skin;
+                ctx.lineWidth = 5;
                 ctx.beginPath();
                 ctx.moveTo(-18, -85);
-                ctx.lineTo(-28, -135);
-                ctx.lineTo(-10, -156);
+                ctx.lineTo(-26, -130);
+                ctx.lineTo(-10, -152);
                 ctx.stroke();
 
                 ctx.beginPath();
                 ctx.moveTo(18, -85);
-                ctx.lineTo(28, -135);
-                ctx.lineTo(10, -156);
+                ctx.lineTo(26, -130);
+                ctx.lineTo(10, -152);
                 ctx.stroke();
 
+                // Manos (dedos en copa)
+                ctx.fillStyle = skin;
                 ctx.beginPath();
-                ctx.arc(-10, -156, 4, 0, Math.PI * 2);
-                ctx.arc(10, -156, 4, 0, Math.PI * 2);
+                ctx.arc(-10, -152, 4, 0, Math.PI * 2);
+                ctx.arc(10, -152, 4, 0, Math.PI * 2);
                 ctx.fill();
 
             } else if (pData.pose === 'jump_set') {
-                ctx.fillStyle = '#ffffff';
+                // === ARMADO EN SALTO ===
+                // Piernas
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 6;
                 ctx.beginPath();
                 ctx.moveTo(-8, -40);
-                ctx.lineTo(-20, -15);
+                ctx.lineTo(-18, -15);
                 ctx.lineTo(-10, 8);
                 ctx.stroke();
 
                 ctx.beginPath();
                 ctx.moveTo(8, -40);
-                ctx.lineTo(22, -15);
-                ctx.lineTo(30, 8);
+                ctx.lineTo(20, -15);
+                ctx.lineTo(28, 8);
                 ctx.stroke();
 
+                // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
                 ctx.roundRect(-22, -92, 44, 55, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '900 22px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -56);
 
-                ctx.fillStyle = skin;
-                ctx.fillRect(-6, -100, 12, 10);
-                ctx.beginPath();
-                ctx.arc(0, -104, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
+                // Cabeza + cuello
+                drawHeadNeck(0, -108, 15, 12, 10, skin, hairColor, isGrayscale);
 
-                ctx.fillStyle = isGrayscale ? '#222' : '#1e293b';
-                ctx.beginPath();
-                ctx.arc(0, -108, 16, Math.PI * 0.85, Math.PI * 2.15);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = skin;
+                // Brazos arriba para colocar
+                ctx.strokeStyle = skin;
+                ctx.lineWidth = 5;
                 ctx.beginPath();
                 ctx.moveTo(-16, -82);
-                ctx.lineTo(-24, -135);
-                ctx.lineTo(-6, -148);
+                ctx.lineTo(-22, -128);
+                ctx.lineTo(-6, -142);
                 ctx.stroke();
 
                 ctx.beginPath();
                 ctx.moveTo(16, -82);
-                ctx.lineTo(24, -135);
-                ctx.lineTo(6, -148);
+                ctx.lineTo(22, -128);
+                ctx.lineTo(6, -142);
                 ctx.stroke();
 
             } else if (pData.pose === 'jump_smash') {
-                ctx.fillStyle = '#ffffff';
+                // === REMATE EN SALTO ===
+                // Piernas
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 6;
                 ctx.beginPath();
                 ctx.moveTo(-10, -40);
-                ctx.lineTo(-25, -10);
-                ctx.lineTo(-35, 10);
+                ctx.lineTo(-24, -12);
+                ctx.lineTo(-32, 10);
                 ctx.stroke();
 
                 ctx.beginPath();
                 ctx.moveTo(10, -40);
-                ctx.lineTo(15, -10);
-                ctx.lineTo(20, 15);
+                ctx.lineTo(14, -12);
+                ctx.lineTo(18, 15);
                 ctx.stroke();
 
+                // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
                 ctx.roundRect(-22, -95, 44, 58, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '900 22px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -60);
 
-                ctx.fillStyle = skin;
-                ctx.fillRect(-6, -104, 12, 12);
-                ctx.beginPath();
-                ctx.arc(0, -108, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
+                // Cabeza + cuello
+                drawHeadNeck(0, -112, 15, 12, 10, skin, hairColor, isGrayscale);
 
-                ctx.fillStyle = isGrayscale ? '#222' : '#1e293b';
-                ctx.beginPath();
-                ctx.arc(0, -112, 16, Math.PI * 0.85, Math.PI * 2.15);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = skin;
+                // Brazo izquierdo (equilibrio)
+                ctx.strokeStyle = skin;
+                ctx.lineWidth = 5;
                 ctx.beginPath();
                 ctx.moveTo(-18, -82);
-                ctx.lineTo(-45, -115);
+                ctx.lineTo(-42, -108);
                 ctx.stroke();
 
+                // Brazo derecho (remate alto)
                 ctx.beginPath();
                 ctx.moveTo(18, -82);
-                ctx.lineTo(38, -135);
-                ctx.lineTo(20, -165);
+                ctx.lineTo(36, -130);
+                ctx.lineTo(20, -158);
                 ctx.stroke();
 
             } else if (pData.pose === 'block_wall') {
-                ctx.fillStyle = '#ffffff';
+                // === BLOQUEO EN LA RED ===
+                // Piernas
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 6;
                 ctx.beginPath();
                 ctx.moveTo(-8, -40);
                 ctx.lineTo(-10, 5);
@@ -1416,90 +1441,97 @@
                 ctx.lineTo(10, 5);
                 ctx.stroke();
 
+                // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
                 ctx.roundRect(-22, -92, 44, 55, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '900 22px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -56);
 
-                ctx.fillStyle = skin;
-                ctx.fillRect(-6, -100, 12, 10);
-                ctx.beginPath();
-                ctx.arc(0, -104, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
+                // Cabeza + cuello
+                drawHeadNeck(0, -108, 15, 12, 10, skin, hairColor, isGrayscale);
 
-                ctx.fillStyle = skin;
+                // Brazos arriba bloqueando
+                ctx.strokeStyle = skin;
+                ctx.lineWidth = 5;
                 ctx.beginPath();
                 ctx.moveTo(-16, -85);
-                ctx.lineTo(-14, -155);
+                ctx.lineTo(-14, -148);
                 ctx.moveTo(16, -85);
-                ctx.lineTo(14, -155);
+                ctx.lineTo(14, -148);
                 ctx.stroke();
 
-                ctx.fillRect(-20, -165, 12, 10);
-                ctx.fillRect(8, -165, 12, 10);
+                // Manos bloqueando
+                ctx.fillStyle = skin;
+                ctx.fillRect(-20, -158, 12, 10);
+                ctx.fillRect(8, -158, 12, 10);
 
             } else if (pData.pose === 'kneel_regret') {
-                ctx.fillStyle = '#ffffff';
+                // === ARRODILLADO LAMENTÁNDOSE ===
+                // Piernas dobladas en el suelo
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 6;
                 ctx.beginPath();
-                ctx.moveTo(-15, -20);
-                ctx.lineTo(-30, 0);
-                ctx.lineTo(-10, 0);
+                ctx.moveTo(-15, -18);
+                ctx.lineTo(-28, 0);
+                ctx.lineTo(-8, 0);
                 ctx.stroke();
 
                 ctx.beginPath();
-                ctx.moveTo(15, -20);
-                ctx.lineTo(30, 0);
-                ctx.lineTo(10, 0);
+                ctx.moveTo(15, -18);
+                ctx.lineTo(28, 0);
+                ctx.lineTo(8, 0);
                 ctx.stroke();
 
+                // Torso + cabeza (bloque ligeramente inclinado hacia adelante)
                 ctx.save();
-                ctx.translate(0, -22);
-                ctx.rotate(0.28);
+                ctx.translate(0, -18);
+                ctx.rotate(0.22);
 
+                // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
-                ctx.roundRect(-20, -55, 40, 48, 6);
+                ctx.roundRect(-20, -48, 40, 44, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 ctx.fillStyle = '#ffffff';
-                ctx.font = '900 20px sans-serif';
+                ctx.font = '900 18px sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText(pData.num, 0, -26);
+                ctx.fillText(pData.num, 0, -22);
 
-                ctx.fillStyle = skin;
-                ctx.fillRect(2, -64, 12, 8);
-                ctx.beginPath();
-                ctx.arc(8, -68, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
+                // Cabeza + cuello conectados al torso
+                drawHeadNeck(4, -62, 14, 10, 8, skin, hairColor, isGrayscale);
 
+                // Brazos llevados a la cabeza (lamento)
                 ctx.strokeStyle = skin;
                 ctx.lineWidth = 4;
                 ctx.beginPath();
-                ctx.moveTo(-14, -45);
-                ctx.lineTo(2, -75);
-                ctx.moveTo(14, -45);
-                ctx.lineTo(14, -75);
+                ctx.moveTo(-14, -40);
+                ctx.lineTo(-6, -65);
+                ctx.lineTo(4, -72);
                 ctx.stroke();
 
-                ctx.fillStyle = isGrayscale ? '#222' : '#0f172a';
                 ctx.beginPath();
-                ctx.arc(8, -72, 16, Math.PI * 0.85, Math.PI * 2.15);
-                ctx.fill();
+                ctx.moveTo(14, -40);
+                ctx.lineTo(12, -65);
+                ctx.lineTo(4, -72);
                 ctx.stroke();
 
                 ctx.restore();
 
             } else if (pData.pose === 'disappointed_teammate') {
-                ctx.fillStyle = '#ffffff';
+                // === COMPAÑERO DESILUSIONADO ===
+                // Piernas rectas
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 6;
                 ctx.beginPath();
                 ctx.moveTo(-6, -35);
                 ctx.lineTo(-8, 0);
@@ -1507,35 +1539,37 @@
                 ctx.lineTo(8, 0);
                 ctx.stroke();
 
+                // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
                 ctx.roundRect(-18, -82, 36, 50, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '900 16px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -50);
 
+                // Cabeza + cuello (cabeza ligeramente agachada)
+                drawHeadNeck(0, -97, 14, 10, 8, skin, hairColor, isGrayscale);
+
+                // Brazos caídos (desilusión)
                 ctx.strokeStyle = skin;
                 ctx.lineWidth = 4;
                 ctx.beginPath();
                 ctx.moveTo(-14, -72);
-                ctx.lineTo(-20, -35);
+                ctx.lineTo(-20, -38);
                 ctx.moveTo(14, -72);
-                ctx.lineTo(20, -35);
-                ctx.stroke();
-
-                ctx.fillStyle = skin;
-                ctx.fillRect(-5, -90, 10, 8);
-                ctx.beginPath();
-                ctx.arc(0, -94, 14, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.lineTo(20, -38);
                 ctx.stroke();
 
             } else if (pData.pose === 'anxiety_frozen') {
-                ctx.fillStyle = '#ffffff';
+                // === PARALIZADO POR ANSIEDAD ===
+                // Piernas rígidas
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 6;
                 ctx.beginPath();
                 ctx.moveTo(-8, -35);
                 ctx.lineTo(-8, 0);
@@ -1543,43 +1577,48 @@
                 ctx.lineTo(8, 0);
                 ctx.stroke();
 
+                // Torso
                 ctx.fillStyle = isGrayscale ? '#333333' : jersey;
                 ctx.beginPath();
                 ctx.roundRect(-20, -85, 40, 52, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '900 18px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -52);
 
-                ctx.fillStyle = skin;
-                ctx.fillRect(-5, -92, 10, 10);
-                ctx.beginPath();
-                ctx.arc(0, -96, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
+                // Cabeza + cuello
+                drawHeadNeck(0, -100, 15, 10, 8, skin, hairColor, isGrayscale);
 
+                // Brazos retraídos (duda / manos al pecho)
+                ctx.strokeStyle = skin;
+                ctx.lineWidth = 4;
                 ctx.beginPath();
                 ctx.moveTo(-16, -75);
-                ctx.lineTo(-26, -60);
-                ctx.lineTo(-12, -72);
+                ctx.lineTo(-24, -58);
+                ctx.lineTo(-14, -68);
                 ctx.stroke();
 
                 ctx.beginPath();
                 ctx.moveTo(16, -75);
-                ctx.lineTo(26, -60);
-                ctx.lineTo(12, -72);
+                ctx.lineTo(24, -58);
+                ctx.lineTo(14, -68);
                 ctx.stroke();
 
+                // Gota de sudor
                 ctx.fillStyle = '#00f2fe';
                 ctx.beginPath();
-                ctx.ellipse(20, -92, 3, 5, 0.2, 0, Math.PI * 2);
+                ctx.ellipse(20, -96, 3, 5, 0.2, 0, Math.PI * 2);
                 ctx.fill();
 
             } else {
-                ctx.fillStyle = '#ffffff';
+                // === POSE POR DEFECTO (stand / ready_defense / spiker_loading) ===
+                // Piernas
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 6;
                 ctx.beginPath();
                 ctx.moveTo(-6, -35);
                 ctx.lineTo(-8, 0);
@@ -1587,12 +1626,14 @@
                 ctx.lineTo(8, 0);
                 ctx.stroke();
 
+                // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
                 ctx.roundRect(-18, -85, 36, 52, 6);
                 ctx.fill();
                 ctx.stroke();
 
+                // Número
                 if (pData.num) {
                     ctx.fillStyle = '#ffffff';
                     ctx.font = '900 16px sans-serif';
@@ -1600,19 +1641,10 @@
                     ctx.fillText(pData.num, 0, -52);
                 }
 
-                ctx.fillStyle = skin;
-                ctx.fillRect(-5, -96, 10, 10);
-                ctx.beginPath();
-                ctx.arc(0, -100, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
+                // Cabeza + cuello
+                drawHeadNeck(0, -100, 15, 10, 10, skin, hairColor, isGrayscale);
 
-                ctx.fillStyle = isGrayscale ? '#222' : '#1e293b';
-                ctx.beginPath();
-                ctx.arc(0, -104, 16, Math.PI * 0.85, Math.PI * 2.15);
-                ctx.fill();
-                ctx.stroke();
-
+                // Brazos relajados
                 ctx.strokeStyle = skin;
                 ctx.lineWidth = 4;
                 ctx.beginPath();
@@ -2630,9 +2662,6 @@
                         screenShake = 22;
                         audio.playSpikeSmash();
                         updateHUDLabel("Frame 4: ¡Punto y Victoria por Servicio Colectivo (25-24)!");
-
-                        // REPRODUCCIÓN DEL AUDIO REAL: victoria.mp3
-                        audio.playNarrativeTrack('victoria.mp3');
                     }
                     break;
 
@@ -2646,9 +2675,6 @@
                         screenShake = 26;
                         audio.playMonsterBlock();
                         updateHUDLabel("Frame 5: ¡Triple Bloqueo Rival Monster Block (24-25)!");
-
-                        // REPRODUCCIÓN DEL AUDIO REAL: derrota.mp3
-                        audio.playNarrativeTrack('derrota.mp3');
                     }
                     break;
 
@@ -2660,9 +2686,6 @@
                         currentStage = STAGES.FINAL_3_PARALYSIS;
                         audio.playWhistle();
                         updateHUDLabel("Frame 6: ¡Parálisis por Ansiedad! Balón sin tocar y punto perdido (24-25)");
-
-                        // REPRODUCCIÓN DEL AUDIO REAL: paralisis.mp3
-                        audio.playNarrativeTrack('paralisis.mp3');
                     }
                     break;
 
@@ -2714,12 +2737,18 @@
                 audio.playSoftTouch();
                 currentStage = STAGES.EXECUTE_PASS;
                 updateHUDLabel("Frame 3: Armado suave a Zona 4 • Despegue del Rematador #10");
+                // Audio inmediato al elegir PASAR
+                audio.playNarrativeTrack('victoria.mp3');
             } else if (route === 'SPIKE') {
                 currentStage = STAGES.EXECUTE_SPIKE;
                 updateHUDLabel("Frame 3: Salto individual a la red contra el triple bloqueo");
+                // Audio inmediato al elegir REMATAR
+                audio.playNarrativeTrack('derrota.mp3');
             } else {
                 currentStage = STAGES.EXECUTE_TIMEOUT;
                 updateHUDLabel("Frame 3: ¡Tiempo agotado! Duda en las yemas y balón en caída libre");
+                // Audio inmediato al expirar el tiempo
+                audio.playNarrativeTrack('paralisis.mp3');
             }
         }
 
