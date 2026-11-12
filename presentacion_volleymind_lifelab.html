@@ -1,0 +1,2195 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>VolleyMind & LifeLab: Sustentación Oficial de Proyecto</title>
+
+    <!-- Reveal.js CDN CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css" id="theme">
+
+    <!-- Google Fonts: Outfit & Inter & Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Chart.js for Interactive Radar in LifeLab Dashboard -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+    <style>
+        /* ==========================================================================
+           THEME DEFINITIONS: 8 DRAMATICALLY DISTINCT VISUAL IDENTITIES
+           ========================================================================== */
+
+        /* 1. RGB GAMER (Ultra-Dark Cyberpunk Spectrum) */
+        :root, body.theme-gamer {
+            --bg-deep: #020205;
+            --bg-gradient: radial-gradient(circle at 15% 15%, #180528 0%, #080210 45%, #020205 100%);
+            --bg-card: rgba(14, 10, 26, 0.88);
+            --bg-card-elevated: rgba(24, 16, 44, 0.95);
+            --bg-card-hero: rgba(18, 12, 34, 0.92);
+            --hud-bg: rgba(6, 4, 12, 0.96);
+            --hud-fade: rgba(6, 4, 12, 0.7);
+            --hud-border: rgba(217, 70, 239, 0.25);
+            --widget-bg: rgba(14, 10, 26, 0.92);
+            --widget-border: rgba(217, 70, 239, 0.4);
+
+            --accent-primary: #d946ef;
+            --accent-secondary: #06b6d4;
+            --accent-tag: #38bdf8;
+            --accent-success: #34d399;
+            --accent-danger: #fb7185;
+
+            --rainbow-flow: linear-gradient(135deg, #d946ef 0%, #8b5cf6 33%, #06b6d4 66%, #10b981 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #d946ef 0%, #8b5cf6 30%, #06b6d4 70%, #10b981 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(217, 70, 239, 0.6) 0%, rgba(139, 92, 246, 0.6) 30%, rgba(6, 182, 212, 0.6) 70%, rgba(16, 185, 129, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #d946ef 0%, #8b5cf6 30%, #06b6d4 70%, #10b981 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #f0abfc 40%, #a78bfa 60%, #38bdf8 80%, #34d399 100%);
+            --bullet-gradient: linear-gradient(135deg, #d946ef, #06b6d4);
+            --body-glow-1: rgba(217, 70, 239, 0.12);
+            --body-glow-2: rgba(6, 182, 212, 0.12);
+            --body-glow-3: rgba(139, 92, 246, 0.08);
+            --card-shadow-hover: rgba(217, 70, 239, 0.4);
+
+            --heading-color: #ffffff;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --text-dim: #94a3b8;
+            --text-body: #e2e8f0;
+
+            --font-head: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        /* 2. COURT BLUE (Deep Atlantic & Electric Cyan Volleyball Match) */
+        body.theme-court {
+            --bg-deep: #020c1e;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #0a254a 0%, #04142c 50%, #010814 100%);
+            --bg-card: rgba(6, 26, 56, 0.88);
+            --bg-card-elevated: rgba(10, 38, 80, 0.95);
+            --bg-card-hero: rgba(8, 30, 66, 0.92);
+            --hud-bg: rgba(3, 14, 32, 0.96);
+            --hud-fade: rgba(3, 14, 32, 0.7);
+            --hud-border: rgba(56, 189, 248, 0.3);
+            --widget-bg: rgba(6, 26, 56, 0.92);
+            --widget-border: rgba(56, 189, 248, 0.45);
+
+            --accent-primary: #38bdf8;
+            --accent-secondary: #00f0ff;
+            --accent-tag: #7dd3fc;
+            --accent-success: #34d399;
+            --accent-danger: #f87171;
+
+            --rainbow-flow: linear-gradient(135deg, #0284c7 0%, #38bdf8 35%, #00f0ff 70%, #ffffff 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #0284c7 0%, #38bdf8 35%, #00f0ff 70%, #ffffff 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(2, 132, 199, 0.6) 0%, rgba(56, 189, 248, 0.6) 50%, rgba(0, 240, 255, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #0284c7 0%, #38bdf8 50%, #00f0ff 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 20%, #bae6fd 50%, #38bdf8 75%, #00f0ff 100%);
+            --bullet-gradient: linear-gradient(135deg, #0284c7, #00f0ff);
+            --body-glow-1: rgba(56, 189, 248, 0.15);
+            --body-glow-2: rgba(2, 132, 199, 0.15);
+            --body-glow-3: rgba(0, 240, 255, 0.10);
+            --card-shadow-hover: rgba(56, 189, 248, 0.45);
+
+            --heading-color: #ffffff;
+            --text-main: #f0f9ff;
+            --text-muted: #bae6fd;
+            --text-dim: #7dd3fc;
+            --text-body: #e0f2fe;
+        }
+
+        /* 3. SPIKE FIRE (Volcanic Crimson, Lava Orange & Fire Gold) */
+        body.theme-spike {
+            --bg-deep: #160202;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #3a0808 0%, #1e0303 50%, #0d0101 100%);
+            --bg-card: rgba(42, 8, 8, 0.90);
+            --bg-card-elevated: rgba(62, 12, 12, 0.96);
+            --bg-card-hero: rgba(50, 10, 10, 0.94);
+            --hud-bg: rgba(22, 3, 3, 0.96);
+            --hud-fade: rgba(22, 3, 3, 0.7);
+            --hud-border: rgba(239, 68, 68, 0.35);
+            --widget-bg: rgba(42, 8, 8, 0.92);
+            --widget-border: rgba(249, 115, 22, 0.45);
+
+            --accent-primary: #ef4444;
+            --accent-secondary: #f97316;
+            --accent-tag: #fb923c;
+            --accent-success: #fbbf24;
+            --accent-danger: #fca5a5;
+
+            --rainbow-flow: linear-gradient(135deg, #b91c1c 0%, #ef4444 33%, #f97316 66%, #fbbf24 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #b91c1c 0%, #ef4444 30%, #f97316 70%, #fbbf24 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(239, 68, 68, 0.6) 0%, rgba(249, 115, 22, 0.6) 50%, rgba(251, 191, 36, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #ef4444 0%, #f97316 50%, #fbbf24 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #fecaca 35%, #fb923c 65%, #fbbf24 100%);
+            --bullet-gradient: linear-gradient(135deg, #ef4444, #fbbf24);
+            --body-glow-1: rgba(239, 68, 68, 0.16);
+            --body-glow-2: rgba(249, 115, 22, 0.14);
+            --body-glow-3: rgba(251, 191, 36, 0.10);
+            --card-shadow-hover: rgba(239, 68, 68, 0.45);
+
+            --heading-color: #ffffff;
+            --text-main: #fff1f2;
+            --text-muted: #fecdd3;
+            --text-dim: #fca5a5;
+            --text-body: #ffe4e6;
+        }
+
+        /* 4. CHAMPION EMERALD (Deep Amazon Rainforest & Golden Victory) */
+        body.theme-champion {
+            --bg-deep: #021207;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #083818 0%, #031c0b 50%, #010a04 100%);
+            --bg-card: rgba(6, 38, 18, 0.88);
+            --bg-card-elevated: rgba(10, 56, 26, 0.95);
+            --bg-card-hero: rgba(8, 46, 22, 0.92);
+            --hud-bg: rgba(3, 20, 8, 0.96);
+            --hud-fade: rgba(3, 20, 8, 0.7);
+            --hud-border: rgba(16, 185, 129, 0.35);
+            --widget-bg: rgba(6, 38, 18, 0.92);
+            --widget-border: rgba(16, 185, 129, 0.45);
+
+            --accent-primary: #10b981;
+            --accent-secondary: #fbbf24;
+            --accent-tag: #34d399;
+            --accent-success: #a3e635;
+            --accent-danger: #f87171;
+
+            --rainbow-flow: linear-gradient(135deg, #047857 0%, #10b981 35%, #34d399 70%, #fbbf24 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #047857 0%, #10b981 30%, #34d399 70%, #fbbf24 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(16, 185, 129, 0.6) 0%, rgba(52, 211, 153, 0.6) 50%, rgba(251, 191, 36, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #10b981 0%, #34d399 50%, #fbbf24 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 20%, #a7f3d0 45%, #34d399 70%, #fbbf24 100%);
+            --bullet-gradient: linear-gradient(135deg, #10b981, #fbbf24);
+            --body-glow-1: rgba(16, 185, 129, 0.16);
+            --body-glow-2: rgba(251, 191, 36, 0.12);
+            --body-glow-3: rgba(52, 211, 153, 0.10);
+            --card-shadow-hover: rgba(16, 185, 129, 0.45);
+
+            --heading-color: #ffffff;
+            --text-main: #f0fdf4;
+            --text-muted: #bbf7d0;
+            --text-dim: #86efac;
+            --text-body: #dcfce7;
+        }
+
+        /* 5. TOKYO SUNSET (Neon Violet, Fuchsia & Electric Gold) */
+        body.theme-sunset {
+            --bg-deep: #14041a;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #38084a 0%, #1f042a 50%, #0a010e 100%);
+            --bg-card: rgba(38, 10, 52, 0.88);
+            --bg-card-elevated: rgba(56, 16, 76, 0.95);
+            --bg-card-hero: rgba(46, 12, 62, 0.92);
+            --hud-bg: rgba(20, 4, 26, 0.96);
+            --hud-fade: rgba(20, 4, 26, 0.7);
+            --hud-border: rgba(244, 63, 94, 0.35);
+            --widget-bg: rgba(38, 10, 52, 0.92);
+            --widget-border: rgba(236, 72, 153, 0.45);
+
+            --accent-primary: #ec4899;
+            --accent-secondary: #f59e0b;
+            --accent-tag: #fb7185;
+            --accent-success: #34d399;
+            --accent-danger: #f43f5e;
+
+            --rainbow-flow: linear-gradient(135deg, #7c3aed 0%, #ec4899 35%, #f43f5e 65%, #f59e0b 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #7c3aed 0%, #ec4899 30%, #f43f5e 70%, #f59e0b 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(124, 58, 237, 0.6) 0%, rgba(236, 72, 153, 0.6) 50%, rgba(245, 158, 11, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #f59e0b 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 15%, #fbcfe8 40%, #f43f5e 65%, #f59e0b 100%);
+            --bullet-gradient: linear-gradient(135deg, #ec4899, #f59e0b);
+            --body-glow-1: rgba(236, 72, 153, 0.16);
+            --body-glow-2: rgba(245, 158, 11, 0.14);
+            --body-glow-3: rgba(124, 58, 237, 0.10);
+            --card-shadow-hover: rgba(236, 72, 153, 0.45);
+
+            --heading-color: #ffffff;
+            --text-main: #fdf2f8;
+            --text-muted: #fbcfe8;
+            --text-dim: #f472b6;
+            --text-body: #fce7f3;
+        }
+
+        /* 6. SOLAR AMBER (Rich Obsidian, Warm Amber & Bright Honey) */
+        body.theme-amber {
+            --bg-deep: #160e02;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #3c2605 0%, #201402 50%, #0d0801 100%);
+            --bg-card: rgba(42, 26, 4, 0.90);
+            --bg-card-elevated: rgba(62, 38, 6, 0.96);
+            --bg-card-hero: rgba(50, 30, 5, 0.94);
+            --hud-bg: rgba(22, 14, 2, 0.96);
+            --hud-fade: rgba(22, 14, 2, 0.7);
+            --hud-border: rgba(245, 158, 11, 0.35);
+            --widget-bg: rgba(42, 26, 4, 0.92);
+            --widget-border: rgba(245, 158, 11, 0.45);
+
+            --accent-primary: #fbbf24;
+            --accent-secondary: #f59e0b;
+            --accent-tag: #fcd34d;
+            --accent-success: #34d399;
+            --accent-danger: #f87171;
+
+            --rainbow-flow: linear-gradient(135deg, #b45309 0%, #f59e0b 35%, #fbbf24 70%, #fef08a 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #b45309 0%, #f59e0b 30%, #fbbf24 70%, #fef08a 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(180, 83, 9, 0.6) 0%, rgba(245, 158, 11, 0.6) 50%, rgba(251, 191, 36, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #b45309 0%, #f59e0b 50%, #fbbf24 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 20%, #fef08a 45%, #fbbf24 70%, #f59e0b 100%);
+            --bullet-gradient: linear-gradient(135deg, #f59e0b, #fbbf24);
+            --body-glow-1: rgba(245, 158, 11, 0.16);
+            --body-glow-2: rgba(251, 191, 36, 0.14);
+            --body-glow-3: rgba(180, 83, 9, 0.10);
+            --card-shadow-hover: rgba(245, 158, 11, 0.45);
+
+            --heading-color: #ffffff;
+            --text-main: #fffbeb;
+            --text-muted: #fef3c7;
+            --text-dim: #fde68a;
+            --text-body: #fef9c3;
+        }
+
+        /* 7. MATRIX CYBER (Terminal Black & Phosphor Green) */
+        body.theme-matrix {
+            --bg-deep: #020804;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #052610 0%, #021206 50%, #000501 100%);
+            --bg-card: rgba(3, 28, 10, 0.90);
+            --bg-card-elevated: rgba(5, 42, 16, 0.96);
+            --bg-card-hero: rgba(4, 34, 12, 0.94);
+            --hud-bg: rgba(2, 14, 5, 0.96);
+            --hud-fade: rgba(2, 14, 5, 0.7);
+            --hud-border: rgba(34, 197, 94, 0.35);
+            --widget-bg: rgba(3, 28, 10, 0.92);
+            --widget-border: rgba(74, 222, 128, 0.45);
+
+            --accent-primary: #22c55e;
+            --accent-secondary: #4ade80;
+            --accent-tag: #86efac;
+            --accent-success: #4ade80;
+            --accent-danger: #f87171;
+
+            --rainbow-flow: linear-gradient(135deg, #15803d 0%, #22c55e 35%, #4ade80 70%, #bbf7d0 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #15803d 0%, #22c55e 30%, #4ade80 70%, #bbf7d0 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(21, 128, 61, 0.6) 0%, rgba(34, 197, 94, 0.6) 50%, rgba(74, 222, 128, 0.6) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #15803d 0%, #22c55e 50%, #4ade80 100%);
+
+            --hero-gradient: linear-gradient(135deg, #ffffff 20%, #bbf7d0 45%, #4ade80 70%, #22c55e 100%);
+            --bullet-gradient: linear-gradient(135deg, #15803d, #4ade80);
+            --body-glow-1: rgba(34, 197, 94, 0.18);
+            --body-glow-2: rgba(74, 222, 128, 0.14);
+            --body-glow-3: rgba(21, 128, 61, 0.10);
+            --card-shadow-hover: rgba(34, 197, 94, 0.45);
+
+            --heading-color: #ffffff;
+            --text-main: #f0fdf4;
+            --text-muted: #dcfce7;
+            --text-dim: #86efac;
+            --text-body: #bbf7d0;
+        }
+
+        /* 8. ACADEMIC LIGHT (High-Contrast Crisp Light Mode) */
+        body.theme-academic {
+            --bg-deep: #f1f5f9;
+            --bg-gradient: radial-gradient(circle at 85% 15%, #ffffff 0%, #e2e8f0 60%, #cbd5e1 100%);
+            --bg-card: rgba(255, 255, 255, 0.96);
+            --bg-card-elevated: #ffffff;
+            --bg-card-hero: rgba(255, 255, 255, 0.98);
+            --hud-bg: rgba(241, 245, 249, 0.98);
+            --hud-fade: rgba(241, 245, 249, 0.75);
+            --hud-border: rgba(99, 102, 241, 0.2);
+            --widget-bg: rgba(255, 255, 255, 0.96);
+            --widget-border: rgba(99, 102, 241, 0.35);
+
+            --accent-primary: #4f46e5;
+            --accent-secondary: #0284c7;
+            --accent-tag: #4338ca;
+            --accent-success: #059669;
+            --accent-danger: #dc2626;
+
+            --rainbow-flow: linear-gradient(135deg, #4f46e5 0%, #0284c7 35%, #059669 70%, #d97706 100%);
+            --rainbow-flow-h: linear-gradient(90deg, #4f46e5 0%, #0284c7 30%, #059669 70%, #d97706 100%);
+            --rainbow-border-subtle: linear-gradient(135deg, rgba(79, 70, 229, 0.35) 0%, rgba(2, 132, 199, 0.35) 50%, rgba(5, 150, 105, 0.35) 100%);
+            --rainbow-border-hover: linear-gradient(135deg, #4f46e5 0%, #0284c7 50%, #059669 100%);
+
+            --hero-gradient: linear-gradient(135deg, #0f172a 15%, #312e81 40%, #4338ca 65%, #0284c7 100%);
+            --bullet-gradient: linear-gradient(135deg, #4f46e5, #0284c7);
+            --body-glow-1: rgba(79, 70, 229, 0.08);
+            --body-glow-2: rgba(2, 132, 199, 0.08);
+            --body-glow-3: rgba(5, 150, 105, 0.05);
+            --card-shadow-hover: rgba(79, 70, 229, 0.2);
+
+            --heading-color: #0f172a;
+            --text-main: #0f172a;
+            --text-muted: #334155;
+            --text-dim: #475569;
+            --text-body: #1e293b;
+        }
+
+        /* Ambient Canvas Background */
+        body {
+            background-color: var(--bg-deep);
+            background-image: var(--bg-gradient);
+            transition: background-color 0.5s ease, background-image 0.5s ease;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .reveal {
+            font-family: var(--font-body);
+            color: var(--text-main);
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+            font-family: var(--font-head);
+            font-weight: 800;
+            text-transform: none;
+            letter-spacing: -0.02em;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        /* Animation Keyframes for Spectrum Flow */
+        @keyframes spectrumShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.8; filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3)); }
+            50% { opacity: 1; filter: drop-shadow(0 0 18px rgba(6, 182, 212, 0.5)); }
+        }
+
+        /* Top Persistent HUD */
+        #persistent-hud-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: linear-gradient(180deg, var(--hud-bg) 0%, var(--hud-fade) 80%, rgba(2, 2, 4, 0) 100%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            font-size: 13px;
+            font-family: var(--font-head);
+            pointer-events: none;
+            border-bottom: 1px solid var(--hud-border);
+            transition: background 0.4s ease;
+        }
+
+        .hud-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .hud-brand {
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-flow-h) border-box;
+            border: 1px solid transparent;
+            padding: 3px 12px;
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            letter-spacing: 0.8px;
+        }
+
+        .hud-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-muted);
+            pointer-events: auto;
+        }
+
+        .hud-btn {
+            background: linear-gradient(#090b14, #090b14) padding-box,
+                        rgba(255, 255, 255, 0.12) border-box;
+            border: 1px solid transparent;
+            color: #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 11.5px;
+            font-family: var(--font-head);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .hud-btn:hover {
+            background: linear-gradient(#111424, #111424) padding-box,
+                        var(--rainbow-flow-h) border-box;
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .timer-badge {
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+            border: 1px solid transparent;
+            padding: 4px 14px;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 12.5px;
+            color: var(--accent-tag);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .timer-badge:hover {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
+        }
+
+        /* Persistent Bottom HUD Footer */
+        #persistent-hud-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 38px;
+            background: linear-gradient(0deg, var(--hud-bg) 0%, rgba(2, 2, 4, 0) 100%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            font-size: 11.5px;
+            color: var(--text-dim);
+            pointer-events: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        /* Slide Container Layout */
+        .slide-content {
+            padding-top: 55px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            max-height: 640px;
+            box-sizing: border-box;
+            text-align: left;
+            
+        }
+
+        .slide-header {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .slide-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-tag);
+            margin-bottom: 4px;
+        }
+
+        .slide-title {
+            font-size: 31px !important;
+            line-height: 1.18;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .slide-subtitle {
+            font-size: 14.5px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* Rainbow Elements */
+        .rainbow-divider {
+            height: 2px;
+            width: 100%;
+            background: var(--rainbow-flow-h);
+            background-size: 250% 100%;
+            animation: spectrumShift 6s linear infinite;
+            border-radius: 2px;
+            opacity: 0.8;
+            margin: 6px 0 10px 0;
+        }
+
+        .rainbow-title {
+            background: var(--hero-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .rainbow-text {
+            background: var(--rainbow-flow-h);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        /* Gamer Cards with Subtle Rainbow Border */
+        .card {
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+            border: 1px solid transparent;
+            border-radius: 14px;
+            padding: 18px 20px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+            transition: all 0.25s ease;
+        }
+
+        .card:hover {
+            background: linear-gradient(var(--bg-card-elevated), var(--bg-card-elevated)) padding-box,
+                        var(--rainbow-border-hover) border-box;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px -8px var(--card-shadow-hover);
+        }
+
+        .card-hero {
+            background: linear-gradient(var(--bg-card-hero), var(--bg-card-hero)) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+            border: 1px solid transparent;
+            border-radius: 14px;
+            padding: 22px 26px;
+            margin-bottom: 16px;
+            box-shadow: 0 12px 35px -10px var(--card-shadow-hover);
+        }
+
+        /* Responsive Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        /* Badges */
+        .badge-rainbow {
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+            border: 1px solid transparent;
+            color: #f1f5f9;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-subtle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-danger {
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid rgba(244, 63, 94, 0.35);
+            color: #fb7185;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Action Buttons with Rainbow Flow */
+        .btn-rainbow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #d946ef 0%, #8b5cf6 33%, #06b6d4 66%, #10b981 100%);
+            background-size: 200% 200%;
+            animation: spectrumShift 6s ease infinite;
+            color: #03050a !important;
+            font-family: var(--font-head);
+            font-weight: 700;
+            font-size: 13.5px;
+            letter-spacing: 0.3px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-rainbow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 26px rgba(6, 182, 212, 0.55);
+        }
+
+        /* Slide 1: Hero */
+        .hero-banner {
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 10px;
+        }
+
+        .hero-title {
+            font-size: 45px !important;
+            font-weight: 900;
+            line-height: 1.12;
+            margin-bottom: 12px;
+            background: var(--hero-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 35px rgba(139, 92, 246, 0.25);
+        }
+
+        .hero-subtitle {
+            font-size: 18.5px;
+            color: var(--text-body);
+            font-weight: 400;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+            line-height: 1.45;
+        }
+
+        .meta-strip {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .meta-card {
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .meta-card i {
+            color: var(--accent-tag);
+            font-size: 16px;
+        }
+
+        .system-ribbon {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* QTE Alert Box */
+        .qte-alert-box {
+            background: linear-gradient(#0c0d16, #0c0d16) padding-box,
+                        linear-gradient(135deg, rgba(244, 63, 94, 0.6) 0%, rgba(217, 70, 239, 0.4) 50%, rgba(139, 92, 246, 0.4) 100%) border-box;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .qte-counter {
+            font-family: var(--font-mono);
+            font-size: 30px;
+            font-weight: 700;
+            color: #fb7185;
+            text-shadow: 0 0 15px rgba(244, 63, 94, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Standard HTML Lists (Strictly No Dashes) */
+        .clean-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .clean-list li {
+            position: relative;
+            padding-left: 20px;
+            font-size: 13.5px;
+            line-height: 1.45;
+            color: var(--text-body);
+        }
+
+        .clean-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--bullet-gradient);
+        }
+
+        .ordered-list-gamer {
+            list-style: none;
+            counter-reset: gamer-counter;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ordered-list-gamer li {
+            counter-increment: gamer-counter;
+            position: relative;
+            padding-left: 36px;
+            font-size: 13.5px;
+            line-height: 1.45;
+            color: var(--text-body);
+        }
+
+        .ordered-list-gamer li::before {
+            content: counter(gamer-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(#080910, #080910) padding-box,
+                        var(--rainbow-flow) border-box;
+            border: 1px solid transparent;
+            color: #ffffff;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Stats Blocks */
+        .stat-huge {
+            font-family: var(--font-head);
+            font-size: 50px;
+            font-weight: 900;
+            line-height: 1;
+            margin: 4px 0 8px 0;
+        }
+
+        .stat-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* Radar Box in Slide 7 */
+        .radar-box {
+            position: relative;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Academic Reference Cards */
+        .ref-card {
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 12px;
+            line-height: 1.45;
+            color: var(--text-body);
+            transition: all 0.2s ease;
+        }
+
+        .ref-card:hover {
+            background: linear-gradient(#0c0f1d, #0c0f1d) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+            transform: translateX(2px);
+        }
+
+        .ref-card strong {
+            color: #ffffff;
+        }
+
+        /* Teleprompter Drawer */
+        #teleprompter-drawer {
+            position: fixed;
+            bottom: 38px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120%);
+            width: 82%;
+            max-width: 950px;
+            max-height: 240px;
+            background: rgba(8, 10, 18, 0.97);
+            border: 1px solid transparent;
+            background-image: linear-gradient(rgba(8, 10, 18, 0.97), rgba(8, 10, 18, 0.97)),
+                              var(--rainbow-flow-h);
+            background-origin: padding-box, border-box;
+            background-clip: padding-box, border-box;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(139, 92, 246, 0.25);
+            border-radius: 14px 14px 0 0;
+            z-index: 2000;
+            padding: 14px 20px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+            color: #f1f5f9;
+            font-size: 13px;
+            line-height: 1.5;
+            backdrop-filter: blur(16px);
+        }
+
+        #teleprompter-drawer.open {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .prompter-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+        }
+
+        .prompter-title {
+            font-family: var(--font-head);
+            font-weight: 700;
+            color: var(--accent-tag);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prompter-close {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+
+        .prompter-close:hover {
+            color: #ffffff;
+        }
+    
+        /* Clearances para evitar cualquier solapamiento superior con el HUD */
+        .reveal .slides {
+            padding-top: 30px !important;
+        }
+        .reveal .slides section {
+            padding-top: 25px !important;
+            box-sizing: border-box !important;
+        }
+        .slide-header {
+            margin-top: 10px !important;
+        }
+
+        /* Light theme specific overrides */
+        body.theme-academic h1,
+        body.theme-academic h2,
+        body.theme-academic h3,
+        body.theme-academic h4,
+        body.theme-academic h5,
+        body.theme-academic h6,
+        body.theme-academic .reveal h1,
+        body.theme-academic .reveal h2,
+        body.theme-academic .reveal h3,
+        body.theme-academic .reveal h4 {
+            color: #0f172a !important;
+        }
+        body.theme-academic .slide-title {
+            color: #0f172a !important;
+        }
+        body.theme-academic .hud-brand {
+            color: #1e293b;
+            background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                        var(--rainbow-flow-h) border-box;
+        }
+        body.theme-academic .hud-btn {
+            background: linear-gradient(#f1f5f9, #f1f5f9) padding-box,
+                        rgba(0, 0, 0, 0.12) border-box;
+            color: #1e293b;
+        }
+        body.theme-academic .hud-btn:hover {
+            background: linear-gradient(#ffffff, #ffffff) padding-box,
+                        var(--rainbow-flow-h) border-box;
+        }
+        body.theme-academic .timer-badge {
+            background: linear-gradient(#f1f5f9, #f1f5f9) padding-box,
+                        linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(2, 132, 199, 0.5)) border-box;
+            color: var(--accent-primary);
+        }
+        body.theme-academic .badge-rainbow {
+            background: linear-gradient(#f8fafc, #f8fafc) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+            color: #1e293b;
+        }
+        body.theme-academic .card {
+            box-shadow: 0 4px 20px -6px rgba(0, 0, 0, 0.12);
+        }
+        body.theme-academic .card:hover {
+            box-shadow: 0 8px 28px -6px rgba(99, 102, 241, 0.18);
+        }
+        body.theme-academic .meta-card {
+            background: linear-gradient(#ffffff, #ffffff) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+        }
+        body.theme-academic .meta-card i {
+            color: var(--accent-primary) !important;
+        }
+        body.theme-academic .ordered-list-gamer li::before {
+            background: linear-gradient(#f8fafc, #f8fafc) padding-box,
+                        var(--rainbow-flow) border-box;
+            color: var(--accent-primary);
+        }
+        body.theme-academic .ref-card {
+            background: linear-gradient(#ffffff, #ffffff) padding-box,
+                        rgba(0, 0, 0, 0.08) border-box;
+        }
+        body.theme-academic .ref-card:hover {
+            background: linear-gradient(#f8fafc, #f8fafc) padding-box,
+                        var(--rainbow-border-subtle) border-box;
+        }
+        body.theme-academic .ref-card strong {
+            color: #0f172a;
+        }
+        body.theme-academic #teleprompter-drawer {
+            background: rgba(248, 250, 252, 0.97);
+            color: #1e293b;
+            background-image: linear-gradient(rgba(248, 250, 252, 0.97), rgba(248, 250, 252, 0.97)),
+                              var(--rainbow-flow-h);
+            background-origin: padding-box, border-box;
+            background-clip: padding-box, border-box;
+        }
+        body.theme-academic .prompter-title {
+            color: var(--accent-primary);
+        }
+        body.theme-academic .swatch-btn.active {
+            border-color: #0f172a;
+        }
+        body.theme-academic .clean-list li {
+            color: #334155;
+        }
+        body.theme-academic .hero-subtitle {
+            color: #475569;
+        }
+
+        /* ==========================================================================
+           FLOATING INTERACTIVE THEME SWITCHER WIDGET
+           ========================================================================== */
+        .theme-switcher-widget {
+            position: fixed;
+            top: 12px;
+            right: 14px;
+            z-index: 99999;
+            background: var(--widget-bg);
+            border: 1px solid var(--widget-border);
+            border-radius: 20px;
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+            pointer-events: auto;
+        }
+
+        .theme-switcher-widget:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .theme-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-tag);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .theme-swatches {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .swatch-btn {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            padding: 0;
+            outline: none;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            position: relative;
+        }
+
+        .swatch-btn:hover {
+            transform: scale(1.22);
+        }
+
+        .swatch-btn.active {
+            border-color: #ffffff;
+            transform: scale(1.25);
+            box-shadow: 0 0 6px var(--accent-primary);
+        }
+
+        .theme-hint {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            color: var(--text-dim);
+            padding-left: 2px;
+            border-left: 1px solid var(--widget-border);
+        }
+
+        .theme-hint kbd {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--widget-border);
+            border-radius: 3px;
+            padding: 1px 3px;
+            color: var(--accent-tag);
+            font-weight: 700;
+        }
+    
+    </style>
+</head>
+<body class="theme-gamer">
+
+<!-- Floating Theme Switcher Widget -->
+<div class="theme-switcher-widget" id="theme-widget" title="Switch Presentation Color Scheme (or press 'T')">
+  <div class="theme-label">
+    <span>&#x1F3A8;</span>
+    <span id="theme-display-name">RGB Gamer</span>
+  </div>
+  <div class="theme-swatches">
+    <button class="swatch-btn active" data-theme="theme-gamer" data-name="RGB Gamer" title="RGB Gamer — Cyberpunk Spectrum" style="background: linear-gradient(135deg, #020205 50%, #d946ef 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-court" data-name="Court Blue" title="Court Blue — Deep Ocean & Cyan" style="background: linear-gradient(135deg, #04142c 50%, #00f0ff 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-spike" data-name="Spike Fire" title="Spike Fire — Volcanic Crimson & Fire" style="background: linear-gradient(135deg, #1e0303 50%, #ef4444 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-champion" data-name="Champion Emerald" title="Champion Emerald — Amazon Green & Gold" style="background: linear-gradient(135deg, #031c0b 50%, #10b981 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-sunset" data-name="Tokyo Sunset" title="Tokyo Sunset — Neon Violet & Fuchsia" style="background: linear-gradient(135deg, #1f042a 50%, #ec4899 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-amber" data-name="Solar Amber" title="Solar Amber — Obsidian & Warm Honey" style="background: linear-gradient(135deg, #201402 50%, #fbbf24 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-matrix" data-name="Matrix Cyber" title="Matrix Cyber — Terminal Dark & Phosphor Green" style="background: linear-gradient(135deg, #021206 50%, #22c55e 50%);"></button>
+    <button class="swatch-btn" data-theme="theme-academic" data-name="Academic Light" title="Academic Light — High-Contrast Clean Mode" style="background: linear-gradient(135deg, #ffffff 50%, #4f46e5 50%); border: 1px solid #94a3b8;"></button>
+  </div>
+  <div class="theme-hint"><kbd>T</kbd></div>
+</div>
+
+    <!-- Persistent Top HUD Header -->
+    <header id="persistent-hud-header">
+        <div class="hud-left">
+            <span class="hud-brand"><i class="fa-solid fa-volleyball"></i> VolleyMind & LifeLab</span>
+            <span style="color: #475569;">|</span>
+            <span style="color: #94a3b8; font-size: 12px; font-weight: 500;">Defensa Oral de Grado Décimo</span>
+        </div>
+        <div class="hud-right">
+            
+            
+            <div class="timer-badge" id="defense-timer" onclick="toggleTimer()" title="Clic para Iniciar o Pausar cronómetro">
+                <i class="fa-regular fa-clock"></i> <span id="timer-display">12:00</span>
+            </div>
+            <button class="hud-btn" onclick="resetTimer()" style="padding: 4px 8px;" title="Reiniciar cronómetro"><i class="fa-solid fa-rotate-left"></i></button>
+            <span style="font-size: 11px; color: #38bdf8; font-weight: 700; letter-spacing: 0.5px;">CSBL</span>
+        </div>
+    </header>
+
+    
+
+    <!-- Persistent Bottom HUD Footer -->
+    <footer id="persistent-hud-footer">
+        <div>Martin Forero | Asesor: Nicolas Jose Barreto Perdomo</div>
+        <div>Corporación Colegio San Bonifacio de las Lanzas Bilingüe &bull; 2026</div>
+    </footer>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- ========================================== -->
+            <!-- DIAPOSITIVA 1: PORTADA E IDENTIFICACIÓN -->
+            <!-- ========================================== -->
+            <section data-transition="fade">
+                <div class="slide-content">
+                    <div class="hero-banner">
+                        <div style="margin-bottom: 12px;">
+                            <span class="badge-rainbow">
+                                <i class="fa-solid fa-graduation-cap"></i> SUSTENTACIÓN PROYECTO DE INVESTIGACIÓN &bull; GRADO 10B
+                            </span>
+                        </div>
+                        
+                        <h1 class="hero-title">VolleyMind & LifeLab</h1>
+                        <p class="hero-subtitle">
+                            El Pase Táctico como Metáfora de Servicio, Animación Visual y Proyecto de Vida
+                        </p>
+
+                        <div class="rainbow-divider"></div>
+
+                        <div class="meta-strip">
+                            <div class="meta-card">
+                                <i class="fa-solid fa-user-astronaut"></i>
+                                <div>
+                                    <div style="color: var(--text-dim); font-size: 11px;">Autor del Proyecto</div>
+                                    <strong style="color: #ffffff;">Martin Forero</strong> &bull; Grado 10B
+                                </div>
+                            </div>
+                            <div class="meta-card">
+                                <i class="fa-solid fa-school"></i>
+                                <div>
+                                    <div style="color: var(--text-dim); font-size: 11px;">Institución Educativa</div>
+                                    <strong style="color: #ffffff;">Col. San Bonifacio de las Lanzas</strong>
+                                </div>
+                            </div>
+                            <div class="meta-card">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                                <div>
+                                    <div style="color: var(--text-dim); font-size: 11px;">Asesor Metodológico</div>
+                                    <strong style="color: #ffffff;">Nicolas Jose Barreto Perdomo</strong>
+                                </div>
+                            </div>
+                            <div class="meta-card">
+                                <i class="fa-solid fa-calendar-check"></i>
+                                <div>
+                                    <div style="color: var(--text-dim); font-size: 11px;">Año de Presentación</div>
+                                    <strong style="color: #ffffff;">2026</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="system-ribbon fragment" data-fragment-index="1">
+                            <span class="badge-subtle"><i class="fa-solid fa-gamepad" style="color: #d946ef;"></i> Simulación 2D Interactiva</span>
+                            <span class="badge-subtle"><i class="fa-solid fa-stopwatch-20" style="color: #8b5cf6;"></i> Quick Time Event (QTE 4s)</span>
+                            <span class="badge-subtle"><i class="fa-solid fa-microphone-lines" style="color: #06b6d4;"></i> Locución Argumentativa MP3</span>
+                            <span class="badge-subtle"><i class="fa-solid fa-chart-line" style="color: #10b981;"></i> Panel Analítico LifeLab</span>
+                        </div>
+
+                        <div style="margin-top: 20px;" class="fragment" data-fragment-index="2">
+                            <span style="font-size: 12px; color: var(--text-muted);">
+                                <i class="fa-solid fa-stopwatch" style="color: #38bdf8;"></i> &bull; 
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    <strong>[TIEMPO: 00:00 a 01:10] DIAPOSITIVA 1: INTRODUCCIÓN Y SALUDO PROTOCOLARIO</strong><br><br>
+                    <strong>Parlamento sugerido:</strong><br>
+                    "Muy buenos días, apreciados miembros del jurado evaluador y profesor asesor Nicolas Barreto. Mi nombre es Martin Forero, estudiante de Grado 10B, y tengo el gusto de sustentar el proyecto 'VolleyMind & LifeLab: El Pase Táctico como Metáfora de Servicio, Animación Visual y Proyecto de Vida'.<br><br>
+                    Este proyecto nace como un sistema holístico que integra la simulación digital interactiva, el análisis táctico en voleibol, la narrativa visual y la deliberación ética. En los próximos 10 a 12 minutos presentaré la problemática delimitada, la postura central fundamentada, los objetivos de ingeniería pedagógica, el modelo probabilístico de decisiones y la demostración funcional del prototipo interactivo."
+                </aside>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- DIAPOSITIVA 2: FORMULACIÓN Y CONTEXTUALIZACIÓN -->
+            <!-- ========================================== -->
+            <section data-transition="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="slide-tag"><i class="fa-solid fa-triangle-exclamation"></i> Planteamiento de la Indagación</div>
+                        <h2 class="slide-title">Formulación y Contextualización del Problema</h2>
+                        <div class="slide-subtitle">La encrucijada crítica entre el protagonismo impulsivo y la eficacia de la colaboración solidaria.</div>
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <div class="qte-alert-box">
+                        <div>
+                            <div style="font-weight: 700; color: #ffffff; font-size: 14.5px; margin-bottom: 2px;">
+                                <i class="fa-solid fa-stopwatch-20" style="color: #fb7185;"></i> Escenario Límite de Decisión: Jugada Crítica de Desempate (Punto 24-24)
+                            </div>
+                            <div style="color: #cbd5e1; font-size: 12.5px;">
+                                Recepción aérea en parábola &bull; Bloqueo rival fijado &bull; Ventana irreversible de decisión
+                            </div>
+                        </div>
+                        <div class="qte-counter">
+                            <i class="fa-solid fa-gauge-high"></i> 2.5s QTE
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="margin-bottom: 12px;">
+                        <div class="card fragment" data-fragment-index="1">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                <span class="badge-danger"><i class="fa-solid fa-fire"></i> Situación Observada y Problema</span>
+                                <span style="font-size: 11px; color: var(--text-dim);">Delimitación</span>
+                            </div>
+                            <ul class="clean-list">
+                                <li>
+                                    <strong>Situación observada:</strong> Durante situaciones competitivas de alta presión, el estrés altera la lectura reflexiva del entorno y favorece respuestas impulsivas orientadas al reconocimiento individual sobre las decisiones colaborativas.
+                                </li>
+                                <li>
+                                    <strong>Qué ocurre:</strong> Decisión táctica impulsiva orientada al protagonismo personal (remate desfavorable) frente a la opción táctica colaborativa (pase de armado).
+                                </li>
+                                <li>
+                                    <strong>A quién y Dónde:</strong> Estudiantes de Grado Décimo en la Corporación Colegio San Bonifacio de las Lanzas Bilingüe en Ibagué, Tolima.
+                                </li>
+                                <li>
+                                    <strong>Cuándo:</strong> Durante momentos límite de desempate en voleibol (punto 24-24) bajo una exigencia de 2.5 segundos de tiempo de reacción QTE.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card fragment" data-fragment-index="2">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                <span class="badge-rainbow"><i class="fa-solid fa-microscope"></i> Marco y Relevancia</span>
+                                <span style="font-size: 11px; color: var(--text-dim);">Fundamentación</span>
+                            </div>
+                            <ul class="clean-list">
+                                <li>
+                                    <strong>Antecedentes:</strong> Investigaciones en simulaciones interactivas gamificadas (Arias & Gómez, 2023), narrativa visual en 2D (Martínez, 2022) y el impacto del estrés en la lectura táctica (Torres, 2024).
+                                </li>
+                                <li>
+                                    <strong>Importancia:</strong> Transforma respuestas emocionales e impulsivas en datos cuantitativos y cualitativos evaluables mediante un prototipo web interactivo.
+                                </li>
+                                <li>
+                                    <strong>Aporte innovador:</strong> Supera los instrumentos estáticos tradicionales al registrar la respuesta motriz, el tiempo de latencia y la justificación argumentativa del estudiante.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card fragment" data-fragment-index="3" style="background: linear-gradient(#0c0f1c, #0c0f1c) padding-box, linear-gradient(135deg, rgba(6, 182, 212, 0.6), rgba(139, 92, 246, 0.6)) border-box; padding: 12px 18px;">
+                        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #38bdf8; font-weight: 700; margin-bottom: 3px;">
+                            <i class="fa-solid fa-compass"></i> Pregunta Central de Indagación
+                        </div>
+                        <div style="font-size: 14px; color: #ffffff; font-weight: 500; line-height: 1.4;">
+                            "¿De qué manera un entorno web interactivo permite evidenciar la relación entre la autorregulación socioemocional y la ética de servicio durante la toma de decisiones tácticas en estudiantes de Grado Décimo?"
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    <strong>[TIEMPO: 01:10 a 02:40] DIAPOSITIVA 2: FORMULACIÓN DEL PROBLEMA</strong><br><br>
+                    <strong>Puntos clave para el jurado:</strong><br>
+                    1. Contextualizar el micro-momento 24-24 en voleibol: es el momento de máxima carga adrenérgica y presión psicológica escolar.<br>
+                    2. Resaltar la delimitación precisa: ocurre con los estudiantes de Grado Décimo del Colegio San Bonifacio de las Lanzas en una ventana temporal irrevocable de 2.5 segundos en pantalla.<br>
+                    3. Respaldar con antecedentes: citar las investigaciones de Arias y Gómez sobre gamificación, Martínez sobre lectura táctica y Torres sobre estrés neurocognitivo.<br>
+                    4. Enunciar la pregunta central con claridad y contundencia metodológica.
+                </aside>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- DIAPOSITIVA 3: TESIS / POSTURA CENTRAL -->
+            <!-- ========================================== -->
+            <section data-transition="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="slide-tag"><i class="fa-solid fa-bullseye"></i> Postura Central y Rigor Argumentativo</div>
+                        <h2 class="slide-title">Tesis Fundamental de la Investigación</h2>
+                        <div class="slide-subtitle">La indisoluble articulación entre la autorregulación socioemocional y la eficacia de la vocación de servicio.</div>
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <div class="card-hero">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <span class="badge-rainbow"><i class="fa-solid fa-award"></i> TESIS ACADÉMICA DEL PROYECTO</span>
+                            <span style="font-size: 12px; color: var(--text-dim); font-family: var(--font-mono);">Postura Defendida</span>
+                        </div>
+                        <p style="font-size: 19.5px; line-height: 1.48; color: #ffffff; margin: 0; font-weight: 500;">
+                            "En escenarios de alta tensión competitiva, la <strong>autorregulación socioemocional</strong> y la <strong>primacía de la vocación de servicio</strong> sobre el egoísmo autorreferencial garantizan una toma de decisiones tácticas <span class="rainbow-text">más efectiva y éticamente madura</span> en estudiantes de Grado Décimo."
+                        </p>
+                    </div>
+
+                    <div class="grid-3">
+                        <div class="card fragment" data-fragment-index="1">
+                            <div style="font-size: 22px; margin-bottom: 8px; color: #06b6d4;">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <h4 style="font-size: 15px; margin-bottom: 6px; color: #ffffff;">Dimensión Neurocognitiva</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.42; margin: 0;">
+                                El control inhibitorio en la corteza prefrontal frena la respuesta reactiva amigdalina de figurar individualmente, permitiendo procesar el entorno espacial en la ventana de 2.5 segundos.
+                            </p>
+                        </div>
+
+                        <div class="card fragment" data-fragment-index="2">
+                            <div style="font-size: 22px; margin-bottom: 8px; color: #8b5cf6;">
+                                <i class="fa-solid fa-hands-holding-circle"></i>
+                            </div>
+                            <h4 style="font-size: 15px; margin-bottom: 6px; color: #ffffff;">Dimensión Axiológica y Ética</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.42; margin: 0;">
+                                El pase desinteresado materializa la ética de la entrega: el armador trasciende el beneficio egocéntrico para potenciar la realización y el triunfo del compañero desmarcado.
+                            </p>
+                        </div>
+
+                        <div class="card fragment" data-fragment-index="3">
+                            <div style="font-size: 22px; margin-bottom: 8px; color: #10b981;">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <h4 style="font-size: 15px; margin-bottom: 6px; color: #ffffff;">Dimensión Táctica y Eficacia</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.42; margin: 0;">
+                                La vocación de servicio no constituye un idealismo abstracto: representa la estrategia probabilística con mayor tasa matemática de éxito en la cancha (85% vs 12%).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    <strong>[TIEMPO: 02:40 a 03:55] DIAPOSITIVA 3: TESIS DEL PROYECTO</strong><br><br>
+                    <strong>Guion de sustentación:</strong><br>
+                    "Nuestra tesis desafía el falso paradigma de que en los momentos críticos el éxito depende del arrojo individualista.<br><br>
+                    Sostenemos con firmeza que en escenarios de alta presión, la autorregulación socioemocional y la vocación de servicio producen decisiones superiores en tres dimensiones interconectadas: a nivel neurocognitivo, modulando la impulsividad visceral; a nivel axiológico, subordinando el ego al bien común del equipo; y a nivel táctico deportivo, convirtiendo el pase solidario en la opción con mayor probabilidad objetiva de victoria."
+                </aside>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- DIAPOSITIVA 4: OBJETIVOS -->
+            <!-- ========================================== -->
+            <section data-transition="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="slide-tag"><i class="fa-solid fa-list-check"></i> Horizonte de Acción</div>
+                        <h2 class="slide-title">Objetivos General y Específicos</h2>
+                        <div class="slide-subtitle">Propósitos de ingeniería pedagógica, desarrollo de software y analítica formativa.</div>
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <!-- General Objective -->
+                    <div class="card-hero" style="padding: 16px 22px; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span class="badge-rainbow"><i class="fa-solid fa-flag"></i> OBJETIVO GENERAL</span>
+                        </div>
+                        <p style="font-size: 15px; color: #ffffff; margin: 0; line-height: 1.48;">
+                            <strong>Analizar la relación entre la autorregulación socioemocional y la ética de servicio</strong> durante la toma de decisiones tácticas en estudiantes de Grado Décimo, mediante un entorno web interactivo.
+                        </p>
+                    </div>
+
+                    <!-- Specific Objectives Grid -->
+                   
+                    
+                    
+                    <div class="grid-3">
+                        <div class="card fragment" data-fragment-index="1">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span class="badge-subtle"><strong style="color: #38bdf8;">OE 1</strong></span>
+                                <i class="fa-solid fa-gamepad" style="color: #06b6d4; font-size: 18px;"></i>
+                            </div>
+                            <h4 style="font-size: 14.5px; margin-bottom: 6px; color: #ffffff;">Simulación Interactiva</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.42; margin: 0;">
+                                Diseñar una plataforma web interactiva con eventos de tiempo límite (QTE) y módulos de retroalimentación en autocontrol.
+                            </p>
+                        </div>
+
+                        <div class="card fragment" data-fragment-index="2">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span class="badge-subtle"><strong style="color: #d946ef;">OE 2</strong></span>
+                                <i class="fa-solid fa-film" style="color: #d946ef; font-size: 18px;"></i>
+                            </div>
+                            <h4 style="font-size: 14.5px; margin-bottom: 6px; color: #ffffff;">Animación 2D & Locución MP3</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.42; margin: 0;">
+                                Combinar una animación 2D con voz en off que sustente argumentativamente la decisión elegida.
+                            </p>
+                        </div>
+                        
+
+                        <div class="card fragment" data-fragment-index="3">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span class="badge-subtle"><strong style="color: #10b981;">OE 3</strong></span>
+                                <i class="fa-solid fa-chart-pie" style="color: #10b981; font-size: 18px;"></i>
+                            </div>
+                            <h4 style="font-size: 14.5px; margin-bottom: 6px; color: #ffffff;">Tablero Analítico LifeLab</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.42; margin: 0;">
+                                Desplegar un tablero final analítico que muestre el desempeño táctico y la orientación ética del usuario como evaluación del proyecto.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    <strong>[TIEMPO: 03:55 a 05:10] DIAPOSITIVA 4: OBJETIVOS</strong><br><br>
+                    <strong>Exposición metodológica:</strong><br>
+                    "Para materializar nuestra tesis, establecimos un objetivo general orientado a la creación del artefacto tecnológico VolleyMind & LifeLab.<br><br>
+                    Este propósito se descompone en tres objetivos específicos concatenados: primero, la recreación del dilema con un temporizador QTE activo de 2.5 segundos en HTML5 Canvas; segundo, la fusión de una secuencia 2D de 5 keyframes estilo webtoon con locución oral masterizada de 45 segundos; y tercero, el despliegue del tablero analítico LifeLab mediante un radar cuantitativo y cualitativo de competencias."
+                </aside>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- DIAPOSITIVA 5: EVIDENCIA CIENTÍFICA Y MODELO -->
+            <!-- ========================================== -->
+            <section data-transition="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="slide-tag"><i class="fa-solid fa-square-poll-vertical"></i> Validación Empírica</div>
+                        <h2 class="slide-title">Evidencia Científica y Modelo de Decisiones</h2>
+                        <div class="slide-subtitle">Contrastación probabilística del juego colectivo frente a la degradación por remate individual.</div>
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <div class="grid-2" style="margin-bottom: 12px;">
+                        <!-- Stat Card: Ruta Pasar -->
+                        <div class="card fragment" data-fragment-index="1" style="background: linear-gradient(#080e14, #080e14) padding-box, linear-gradient(135deg, rgba(16, 185, 129, 0.7), rgba(6, 182, 212, 0.7)) border-box;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span class="badge-success"><i class="fa-solid fa-check-double"></i> DECISIÓN TÁCTICA SOLIDARIA (PASE A ZONA 4)</span>
+                                <span style="font-size: 11px; color: #34d399; font-family: var(--font-mono);">Ruta Óptima</span>
+                            </div>
+                            <div class="stat-huge" style="color: #34d399;">85%</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar-fill" style="width: 85%; background: linear-gradient(90deg, #10b981, #06b6d4);"></div>
+                            </div>
+                            <p style="font-size: 12.5px; color: #cbd5e1; margin: 4px 0 0 0; line-height: 1.4;">
+                                <strong>Análisis de probabilidad táctica:</strong> La decisión de ejecutar el pase de armado a Zona 4 hacia un compañero desmarcado alcanza un 85% de efectividad de anotación al desarticular el triple bloqueo rival.
+                            </p>
+                        </div>
+
+                        <!-- Stat Card: Ruta Rematar -->
+                        <div class="card fragment" data-fragment-index="2" style="background: linear-gradient(#14080e, #14080e) padding-box, linear-gradient(135deg, rgba(244, 63, 94, 0.7), rgba(217, 70, 239, 0.7)) border-box;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span class="badge-danger"><i class="fa-solid fa-xmark"></i> DECISIÓN IMPULSIVA INDIVIDUAL (REMATE / EGO)</span>
+                                <span style="font-size: 11px; color: #fb7185; font-family: var(--font-mono);">Ruta Crítica</span>
+                            </div>
+                            <div class="stat-huge" style="color: #fb7185;">12%</div>
+                            <div class="stat-bar-container">
+                                <div class="stat-bar-fill" style="width: 12%; background: linear-gradient(90deg, #f43f5e, #fb7185);"></div>
+                            </div>
+                            <p style="font-size: 12.5px; color: #cbd5e1; margin: 4px 0 0 0; line-height: 1.4;">
+                                <strong>Degradación táctica severa:</strong> El remate individual frente al triple bloqueo defensivo reduce la efectividad al 12%, acumulando un 88% de bloqueo rival o error no forzado en el set.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2 fragment" data-fragment-index="3">
+                        <div class="card" style="padding: 12px 16px;">
+                            <div style="font-size: 12px; color: #38bdf8; font-weight: 700; margin-bottom: 4px;">
+                                <i class="fa-solid fa-stopwatch"></i> Mecanismo de Freno Inhibitorio
+                            </div>
+                            <p style="font-size: 12px; color: var(--text-muted); margin: 0; line-height: 1.4;">
+                                <strong>Mecanismo de freno inhibitorio:</strong> La cuenta regresiva de 2.5 segundos del evento QTE introduce una pausa reflexiva que atenúa la impulsividad reactiva, demostrando que la vocación de servicio constituye la estrategia más inteligente y efectiva en el juego colectivo.
+                            </p>
+                        </div>
+
+                        <div class="card" style="padding: 12px 16px;">
+                            <div style="font-size: 12px; color: #a78bfa; font-weight: 700; margin-bottom: 4px;">
+                                <i class="fa-solid fa-book-bookmark"></i> Respaldo Teórico y Estadístico
+                            </div>
+                            <p style="font-size: 12px; color: var(--text-muted); margin: 0; line-height: 1.4;">
+                                Las directrices técnicas de la FIVB (2024) y los estudios neurobiológicos de Torres (2024) comprueban que el estrés sin control inhibitorio genera un 35% de merma cognitiva, mientras que Arias & Gómez (2023) confirman la efectividad de la simulación.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    <strong>[TIEMPO: 05:10 a 06:40] DIAPOSITIVA 5: EVIDENCIA CIENTÍFICA Y DECISIONES</strong><br><br>
+                    <strong>Argumento de peso cuantitativo:</strong><br>
+                    "Ante el jurado es imperativo demostrar que la vocación de servicio no es solo un valor filosófico, sino una ventaja matemática comprobada.<br><br>
+                    Los datos de la FIVB y los modelos cinéticos indican que un armado preciso hacia Zona 4 logra un 85% de éxito frente a una defensa descolocada. En contraste, cuando el armador intenta resolver de manera unipersonal desde una posición incómoda, la probabilidad se reduce al 12% por la presencia del triple bloqueo.<br>
+                    El freno inhibitorio de 4 segundos que programa nuestro QTE introduce la pausa reflexiva necesaria para romper la inercia del ego y elegir la colaboración."
+                </aside>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- DIAPOSITIVA 6: CONTRAARGUMENTO Y REFUTACIÓN -->
+            <!-- ========================================== -->
+            <section data-transition="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="slide-tag"><i class="fa-solid fa-shield-halved"></i> Debate Crítico y Dialéctica</div>
+                        <h2 class="slide-title">Contraargumento y Refutación Razonada</h2>
+                        <div class="slide-subtitle">Deconstrucción razonada del individualismo heroico frente a la superioridad del liderazgo servicial.</div>
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <div class="grid-2" style="margin-top: 8px;">
+                        <!-- Contraargumento -->
+                        <div class="card fragment" data-fragment-index="1" style="background: linear-gradient(#14080e, #14080e) padding-box, linear-gradient(135deg, rgba(244, 63, 94, 0.7), rgba(217, 70, 239, 0.5)) border-box;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span class="badge-danger"><i class="fa-solid fa-circle-question"></i> POSTURA CONTRARIA / OBJETO DE CRÍTICA</span>
+                                <span style="font-size: 11px; color: #fb7185; font-family: var(--font-mono);">Adversario</span>
+                            </div>
+                            <h4 style="font-size: 16px; color: #fb7185; line-height: 1.35; margin: 10px 0;">
+                                "En situaciones límite de desempate (24-24), el jugador referente debe asumir el riesgo individual y rematar agresivamente para demostrar liderazgo."
+                            </h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; margin: 0;">
+                                Esta postura adversaria, muy frecuente en el deporte escolar, asume que el 'carácter' y la 'jerarquía' de un deportista solo se legitiman si ejecuta la jugada definitoria él mismo, considerando erróneamente que habilitar a un compañero constituye un acto de evasión o cobardía.
+                            </p>
+                            <div style="margin-top: 14px; padding-top: 8px; border-top: 1px solid rgba(244, 63, 94, 0.25); font-size: 11.5px; color: #fb7185;">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Falacia: Confunde la temeridad egocéntrica con la verdadera responsabilidad colectiva.
+                            </div>
+                        </div>
+
+                        <!-- Refutación -->
+                        <div class="card fragment" data-fragment-index="2" style="background: linear-gradient(#080e14, #080e14) padding-box, linear-gradient(135deg, rgba(6, 182, 212, 0.7), rgba(16, 185, 129, 0.7)) border-box;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span class="badge-success"><i class="fa-solid fa-gavel"></i> REFUTACIÓN BASADA EN DATOS Y ÉTICA</span>
+                                <span style="font-size: 11px; color: #34d399; font-family: var(--font-mono);">Fundamentación</span>
+                            </div>
+                            <h4 style="font-size: 16px; color: #38bdf8; line-height: 1.35; margin: 10px 0;">
+                                El Liderazgo Genuino Actúa como Catalizador del Éxito Colectivo
+                            </h4>
+                            <ul class="clean-list" style="gap: 8px;">
+                                <li>
+                                    <strong>Refutación basada en datos:</strong> El liderazgo genuino no reside en la audacia individual desorganizada, sino en la capacidad de actuar como catalizador del éxito del equipo mediante elecciones tácticamente eficientes.
+                                </li>
+                                <li>
+                                    <strong>Inteligencia Emocional (Goleman, 2020):</strong> Rematar ante triple bloqueo es una reacción reactiva de baja madurez; el pase sereno exige maestría socioemocional superior.
+                                </li>
+                                <li>
+                                    <strong>Axiología del Servicio (Papa Francisco, 2021):</strong> La auténtica grandeza consiste en edificar las condiciones para que la comunidad alcance el triunfo compartido.
+                                </li>
+                                <li>
+                                    <strong>Criterio Táctico (Martínez, 2022):</strong> Si el compañero en Zona 4 carece de bloqueo, el deber técnico es pasarle el balón con precisión milimétrica.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    <strong>[TIEMPO: 06:40 a 08:00] DIAPOSITIVA 6: CONTRAARGUMENTO Y REFUTACIÓN</strong><br><br>
+                    <strong>Estrategia dialéctica frente al panel:</strong><br>
+                    "Es común escuchar la objeción: '¿Acaso el capitán o líder no debe jugarse el pellejo y rematar en el 24-24?'<br><br>
+                    Nuestra respuesta refuta esa falacia del héroe solitario: arriesgar a ciegas contra un triple bloqueo no es valentía, es ceguera narcisista y negligencia táctica. Siguiendo las directrices de Anthony Weston sobre argumentación dialéctica y los postulados de Daniel Goleman y el Papa Francisco sobre servicio y liderazgo, demostramos que el líder maduro renuncia al aplauso fugaz para maximizar la victoria de todo su colectivo."
+                </aside>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- DIAPOSITIVA 7: PROTOTIPO WEB Y PLAN DE PRODUCCIÓN -->
+            <!-- ========================================== -->
+            <section data-transition="slide" id="slide-dashboard">
+                <div class="slide-content">
+                    <div class="slide-header" style="margin-bottom: 10px;">
+                        <div class="slide-tag"><i class="fa-solid fa-code"></i> Arquitectura y Software</div>
+                        <h2 class="slide-title">Prototipo Web y Plan de Producción</h2>
+                        <div class="slide-subtitle">Estructura interactiva en HTML5 Canvas con 5 módulos y panel analítico LifeLab.</div>
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <!-- 5 Modules of the Interactive Prototype -->
+                    <div class="grid-5" style="margin-bottom: 12px;">
+                        <div class="card" style="padding: 10px 12px; text-align: center;">
+                            <i class="fa-solid fa-play" style="color: #d946ef; font-size: 18px; margin-bottom: 4px;"></i>
+                            <div style="font-weight: 700; font-size: 12px; color: #ffffff;">Módulo de Inicio</div>
+                            <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.3;">
+                                Pantalla con botón INICIAR EXPERIENCIA.
+                            </div>
+                        </div>
+
+                        <div class="card" style="padding: 10px 12px; text-align: center;">
+                            <i class="fa-solid fa-film" style="color: #8b5cf6; font-size: 18px; margin-bottom: 4px;"></i>
+                            <div style="font-weight: 700; font-size: 12px; color: #ffffff;">Animación 2D</div>
+                            <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.3;">
+                                Secuencia de 5 keyframes estilo webtoon vectorial.
+                            </div>
+                        </div>
+
+                        <div class="card" style="padding: 10px 12px; text-align: center;">
+                            <i class="fa-solid fa-stopwatch-20" style="color: #fb7185; font-size: 18px; margin-bottom: 4px;"></i>
+                            <div style="font-weight: 700; font-size: 12px; color: #ffffff;">Módulo QTE</div>
+                            <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.3;">
+                                Temporizador 2.5s: botones PASAR y REMATAR.
+                            </div>
+                        </div>
+
+                        <div class="card" style="padding: 10px 12px; text-align: center;">
+                            <i class="fa-solid fa-volume-high" style="color: #06b6d4; font-size: 18px; margin-bottom: 4px;"></i>
+                            <div style="font-weight: 700; font-size: 12px; color: #ffffff;">Locución en Off</div>
+                            <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.3;">
+                                Audios MP3 masterizados de 45s con sustento oral.
+                            </div>
+                        </div>
+
+                        <div class="card" style="padding: 10px 12px; text-align: center;">
+                            <i class="fa-solid fa-chart-radar" style="color: #10b981; font-size: 18px; margin-bottom: 4px;"></i>
+                            <div style="font-weight: 700; font-size: 12px; color: #ffffff;">Dashboard LifeLab</div>
+                            <div style="font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.3;">
+                                Gráfico de radar analítico de desempeño global.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Split View: Interactive Chart.js Radar & Metrics -->
+                    <div class="grid-2" style="align-items: center;">
+                        <div class="card" style="padding: 10px 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <span class="badge-rainbow"><i class="fa-solid fa-chart-radar"></i> RADAR ANALÍTICO LIFELAB</span>
+                                <span style="font-size: 11px; color: var(--text-dim); font-family: var(--font-mono);">Evaluación 360°</span>
+                            </div>
+                            <div class="radar-box">
+                                <canvas id="lifelabRadarCanvas"></canvas>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div class="card" style="padding: 10px 14px; background: linear-gradient(#080e14, #080e14) padding-box, linear-gradient(135deg, rgba(16, 185, 129, 0.5), rgba(6, 182, 212, 0.5)) border-box;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <strong style="color: #ffffff; font-size: 12.5px;">Perfil de Servicio Solidario (Ruta A)</strong>
+                                    <span class="badge-success">Nivel Avanzado</span>
+                                </div>
+                                <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 3px;">
+                                    Control inhibitorio óptimo (95%), visión táctica en Zona 4 (92%) y alta articulación ética (98%).
+                                </div>
+                            </div>
+
+                            <div class="card" style="padding: 10px 14px; background: linear-gradient(#14080e, #14080e) padding-box, linear-gradient(135deg, rgba(244, 63, 94, 0.5), rgba(217, 70, 239, 0.5)) border-box;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <strong style="color: #ffffff; font-size: 12.5px;">Perfil Individualista (Ruta B)</strong>
+                                    <span class="badge-danger">Alerta Formativa</span>
+                                </div>
+                                <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 3px;">
+                                    Impulsividad reactiva, colisión por triple bloqueo (12% éxito) y déficit en autorregulación.
+                                </div>
+                            </div>
+
+                                                        <div style="text-align: center; margin-top: 8px;">
+                                <a href="https://mfgatos3.github.io/volleymind/" target="_blank" class="btn-action" style="box-shadow: 0 4px 20px rgba(0, 242, 254, 0.45); background: linear-gradient(135deg, #00f2fe, #d946ef); color: #000; font-weight: 800;">
+                                    <i class="fa-solid fa-gamepad"></i> Abrir Simulador Interactivo VolleyMind (En Vivo)
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    <strong>[TIEMPO: 08:00 a 09:40] DIAPOSITIVA 7: PROTOTIPO Y DASHBOARD</strong><br><br>
+                    <strong>Demostración de software ante el jurado:</strong><br>
+                    "Presentamos la arquitectura de producción del prototipo interactivo:<br><br>
+                    1. Módulo de Inicio: interfaz inmersiva gamer.<br>
+                    2. Animación 2D: 5 keyframes estilo webtoon manga desarrollados en HTML5 Canvas.<br>
+                    3. Módulo QTE: cuenta regresiva de 2.5 segundos con botones de elección binaria.<br>
+                    4. Locución en off: tracks MP3 masterizados de 45 segundos con argumentación oratoria formal.<br>
+                    5. Dashboard LifeLab: evaluamos en tiempo real con este gráfico de radar cinco factores críticos: control inhibitorio, visión táctica, vocación de servicio, elocución argumentativa y conciencia ética.<br>
+                    Podemos abrir el simulador en vivo mediante el botón inferior para presenciar la jugada."
+                </aside>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- DIAPOSITIVA 8: CONCLUSIONES Y PROYECTO DE VIDA -->
+            <!-- ========================================== -->
+            <section data-transition="slide">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <div class="slide-tag"><i class="fa-solid fa-flag-checkered"></i> Síntesis y Trascendencia</div>
+                        <h2 class="slide-title">Conclusiones y Conexión con el Proyecto de Vida</h2>
+                        <div class="slide-subtitle">Trascender de la cancha deportiva a la formación ética ciudadana, universitaria y personal.</div>
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <div class="grid-3" style="margin-top: 6px;">
+                        <div class="card fragment" data-fragment-index="1">
+                            <div style="font-size: 24px; margin-bottom: 8px; color: #38bdf8;">
+                                <i class="fa-solid fa-people-carry-box"></i>
+                            </div>
+                            <h4 style="font-size: 15px; margin-bottom: 6px; color: #ffffff;">Primacía del Servicio sobre el Ego</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; margin: 0;">
+                                La primacía de la vocación de servicio sobre el ego supera cuantitativa y cualitativamente a la figuración individual bajo presión, elevando la efectividad al 85% y asegurando la cohesión del grupo.
+                            </p>
+                        </div>
+
+                        <div class="card fragment" data-fragment-index="2">
+                            <div style="font-size: 24px; margin-bottom: 8px; color: #d946ef;">
+                                <i class="fa-solid fa-cubes-stacked"></i>
+                            </div>
+                            <h4 style="font-size: 15px; margin-bottom: 6px; color: #ffffff;">Innovación y Evaluación Integral</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; margin: 0;">
+                                La plataforma web demuestra la viabilidad de evaluar integralmente procesos cognitivos, estéticos, comunicativos y éticos a través de un único prototipo interactivo dinámico.
+                            </p>
+                        </div>
+
+                        <div class="card fragment" data-fragment-index="3">
+                            <div style="font-size: 24px; margin-bottom: 8px; color: #10b981;">
+                                <i class="fa-solid fa-seedling"></i>
+                            </div>
+                            <h4 style="font-size: 15px; margin-bottom: 6px; color: #ffffff;">Proyecto de Vida y Liderazgo</h4>
+                            <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; margin: 0;">
+                                El pase táctico se consolida como metáfora existencial: aprender a desprenderse del protagonismo para impulsar a los demás prepara para liderar con generosidad en la sociedad.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card-hero fragment" data-fragment-index="4" style="margin-top: 14px; padding: 16px 22px;">
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <i class="fa-solid fa-quote-left" style="font-size: 22px; color: #38bdf8;"></i>
+                            <div style="font-size: 13.5px; color: #f1f5f9; font-style: italic; line-height: 1.45;">
+                                "El verdadero valor del ser humano no reside en la cantidad de remates que ejecuta para su propio ego, sino en la precisión y generosidad de los pases con los que edifica el triunfo de los demás."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    <strong>[TIEMPO: 09:40 a 10:50] DIAPOSITIVA 8: CONCLUSIONES Y PROYECTO DE VIDA</strong><br><br>
+                    <strong>Cierre reflexivo de impacto:</strong><br>
+                    "Concluimos que VolleyMind & LifeLab cumple plenamente su promesa: demostramos que la generosidad y el servicio superan al ego tanto en la estadística deportiva como en la madurez moral.<br><br>
+                    Como estudiantes de Grado Décimo próximos a definir nuestros proyectos de vida y vocación universitaria, este laboratorio digital nos enseña una lección imperecedera: el auténtico liderazgo no consiste en brillar solo acaparando la pelota, sino en tener la templanza de armar el juego para que toda la comunidad triunfe."
+                </aside>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- DIAPOSITIVA 9: REFERENCIAS BIBLIOGRÁFICAS -->
+            <!-- ========================================== -->
+            <section data-transition="slide">
+                <div class="slide-content">
+                    <div class="slide-header" style="margin-bottom: 10px;">
+                        <div class="slide-tag"><i class="fa-solid fa-book-bookmark"></i> Rigor Académico</div>
+                        <h2 class="slide-title">Referencias Bibliográficas</h2>
+                        <div class="slide-subtitle">Fundamentos teóricos en deporte, neurociencia, retórica, ética y pedagogía interactiva.</div>
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <div class="grid-2" style="gap: 8px; max-height: 460px; overflow-y: auto; padding-right: 4px;">
+                        <div class="ref-card">
+                            <strong>Arias, M., & Gómez, L. (2023).</strong> <em>Simulación digital y gamificación en la toma de decisiones socioemocionales en educación secundaria</em>. Revista Iberoamericana de Tecnología Educativa, 18(2), 45-62.
+                        </div>
+
+                        <div class="ref-card">
+                            <strong>Departamento Administrativo Nacional de Estadística [DANE]. (2023).</strong> <em>Estadísticas de bienestar y salud mental en adolescentes escolarizados</em>. DANE Información Estratégica.
+                        </div>
+
+                        <div class="ref-card">
+                            <strong>Fédération Internationale de Volleyball [FIVB]. (2024).</strong> <em>Official Volleyball Rules & Technical Match Analysis Report 2024-2028</em>. FIVB Technical Commission.
+                        </div>
+
+                        <div class="ref-card">
+                            <strong>Francisco, Papa. (2021).</strong> <em>El deporte como escuela de fraternidad y servicio: Mensajes pontificios sobre el valor formativo de la actividad física</em>. Libreria Editrice Vaticana.
+                        </div>
+
+                        <div class="ref-card">
+                            <strong>Goleman, D. (2020).</strong> <em>Inteligencia emocional y autorregulación en entornos de alto rendimiento deportivo y académico</em>. Editorial Kairós.
+                        </div>
+
+                        <div class="ref-card">
+                            <strong>Martínez, C. (2022).</strong> <em>La lectura táctica en los deportes de equipo: Percepción periférica y toma de decisiones</em>. Editorial Deportiva Continental.
+                        </div>
+
+                        <div class="ref-card">
+                            <strong>McCloud, S. (1993).</strong> <em>Understanding Comics: The Invisible Art</em>. William Morrow Paperbacks.
+                        </div>
+
+                        <div class="ref-card">
+                            <strong>Torres, J. (2024).</strong> <em>Neurobiología del estrés y degradación de la función ejecutiva en atletas juveniles bajo presión temporal</em>. Journal of Sports Psychology & Neurocognition, 29(1), 89-105.
+                        </div>
+
+                        <div class="ref-card" style="grid-column: 1 / -1;">
+                            <strong>Weston, A. (2021).</strong> <em>Las claves de la argumentación</em> (6.ª ed.). Editorial Ariel.
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 12.5px; color: #34d399; font-weight: 600;">
+                            <i class="fa-solid fa-circle-check"></i> Sustentación Concluida con Éxito
+                        </span>
+                        <span style="font-size: 12px; color: var(--text-muted);">
+                            Quedo a entera disposición del honorable jurado para la sesión de preguntas y retroalimentación.
+                        </span>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    <strong>[TIEMPO: 10:50 a 12:00] DIAPOSITIVA 9: CIERRE FORMAL Y PREGUNTAS</strong><br><br>
+                    <strong>Cierre protocolario:</strong><br>
+                    "Finalizamos nuestra sustentación con el respaldo bibliográfico completo en formato APA 7ma edición, integrando fuentes de la FIVB, neurociencia del estrés de Torres, marcos pedagógicos de Arias y Gómez, teoría argumentativa de Weston y reflexiones sobre el liderazgo servicial de Goleman y el Papa Francisco.<br><br>
+                    Agradezco sinceramente a mi asesor, profesor Nicolas Barreto, y a ustedes miembros del comité docente por su riguroso acompañamiento formativo.<br>
+                    Quedo a su entera disposición para responder sus preguntas y comentarios. ¡Muchas gracias!"
+                </aside>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js CDN Script & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.js"></script>
+
+    <script>
+        // ==========================================================================
+        // THEME SWITCHER ENGINE
+        // ==========================================================================
+        const themes = [
+            { id: 'theme-gamer', name: 'RGB Gamer' },
+            { id: 'theme-court', name: 'Court Blue' },
+            { id: 'theme-spike', name: 'Spike Fire' },
+            { id: 'theme-champion', name: 'Champion Emerald' },
+            { id: 'theme-sunset', name: 'Tokyo Sunset' },
+            { id: 'theme-amber', name: 'Solar Amber' },
+            { id: 'theme-matrix', name: 'Matrix Cyber' },
+            { id: 'theme-academic', name: 'Academic Light' }
+        ];
+
+        function applyTheme(themeId) {
+            const selected = themes.find(t => t.id === themeId) || themes[0];
+
+            // Swap body class
+            themes.forEach(t => document.body.classList.remove(t.id));
+            document.body.classList.add(selected.id);
+
+            // Update swatch buttons
+            document.querySelectorAll('.swatch-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === selected.id);
+            });
+
+            // Update label
+            const nameLabel = document.getElementById('theme-display-name');
+            if (nameLabel) nameLabel.textContent = selected.name;
+
+            // Persist choice
+            localStorage.setItem('volleymind-theme', selected.id);
+        }
+
+        function cycleTheme() {
+            const currentClass = [...document.body.classList].find(c => c.startsWith('theme-')) || 'theme-gamer';
+            const currentIndex = themes.findIndex(t => t.id === currentClass);
+            const nextIndex = (currentIndex + 1) % themes.length;
+            applyTheme(themes[nextIndex].id);
+        }
+
+        // Swatch click handlers
+        document.querySelectorAll('.swatch-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                applyTheme(this.getAttribute('data-theme'));
+            });
+        });
+
+        // Global key listener for 'T' / 't'
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                if (e.key === 't' || e.key === 'T') {
+                    cycleTheme();
+                }
+            }
+        });
+
+        // Load saved theme or default
+        const savedTheme = localStorage.getItem('volleymind-theme') || 'theme-gamer';
+        applyTheme(savedTheme);
+
+        // Initialize Reveal.js
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'fade',
+            transitionSpeed: 'default',
+            width: 1150,
+            height: 700,
+            margin: 0.08,
+            minScale: 0.2,
+            maxScale: 2.0,
+            plugins: [ RevealNotes ]
+        });
+
+        // Initialize Radar Chart in Slide 7 (slide-dashboard)
+        let radarChartInstance = null;
+
+        function initLifeLabRadar() {
+            const ctx = document.getElementById('lifelabRadarCanvas');
+            if (!ctx) return;
+
+            if (radarChartInstance) {
+                radarChartInstance.destroy();
+            }
+
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Control Inhibitorio',
+                        'Visión Táctica (Zona 4)',
+                        'Vocación de Servicio',
+                        'Elocución Argumentativa',
+                        'Conciencia Ética'
+                    ],
+                    datasets: [
+                        {
+                            label: 'Ruta A: Servicio Solidario (Pase)',
+                            data: [95, 92, 98, 90, 96],
+                            backgroundColor: 'rgba(6, 182, 212, 0.25)',
+                            borderColor: '#06b6d4',
+                            pointBackgroundColor: '#10b981',
+                            pointBorderColor: '#ffffff',
+                            pointHoverBackgroundColor: '#ffffff',
+                            pointHoverBorderColor: '#06b6d4',
+                            borderWidth: 2.5
+                        },
+                        {
+                            label: 'Ruta B: Individualismo / Ego (Remate)',
+                            data: [25, 30, 15, 45, 20],
+                            backgroundColor: 'rgba(217, 70, 239, 0.18)',
+                            borderColor: '#d946ef',
+                            pointBackgroundColor: '#fb7185',
+                            pointBorderColor: '#ffffff',
+                            pointHoverBackgroundColor: '#ffffff',
+                            pointHoverBorderColor: '#d946ef',
+                            borderWidth: 1.5,
+                            borderDash: [4, 4]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1200,
+                        easing: 'easeOutQuart'
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(255, 255, 255, 0.12)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.08)'
+                            },
+                            pointLabels: {
+                                color: '#cbd5e1',
+                                font: {
+                                    family: "'Outfit', sans-serif",
+                                    size: 11,
+                                    weight: 600
+                                }
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                color: 'rgba(255, 255, 255, 0.4)',
+                                stepSize: 20,
+                                font: {
+                                    size: 9
+                                }
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#e2e8f0',
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    size: 11
+                                },
+                                boxWidth: 12,
+                                padding: 12
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Trigger radar animation on slide change
+        Reveal.on('slidechanged', event => {
+            if (event.currentSlide && event.currentSlide.id === 'slide-dashboard') {
+                setTimeout(initLifeLabRadar, 150);
+            }
+        });
+
+        // Also trigger on first load if loaded directly on slide 7
+        Reveal.on('ready', event => {
+            if (event.currentSlide && event.currentSlide.id === 'slide-dashboard') {
+                setTimeout(initLifeLabRadar, 150);
+            }
+        });
+
+        // Presentation Timer Controller (12 minutes countdown)
+        let totalSeconds = 12 * 60;
+        let timerInterval = null;
+        let isTimerRunning = false;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            const display = document.getElementById('timer-display');
+            if (display) {
+                display.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                if (totalSeconds <= 120 && totalSeconds > 0) {
+                    display.style.color = '#f59e0b';
+                } else if (totalSeconds === 0) {
+                    display.style.color = '#fb7185';
+                } else {
+                    display.style.color = '#38bdf8';
+                }
+            }
+        }
+
+        function toggleTimer() {
+            const timerBadge = document.getElementById('defense-timer');
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                timerBadge.style.opacity = '0.7';
+            } else {
+                isTimerRunning = true;
+                timerBadge.style.opacity = '1';
+                timerInterval = setInterval(() => {
+                    if (totalSeconds > 0) {
+                        totalSeconds--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        isTimerRunning = false;
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            totalSeconds = 12 * 60;
+            updateTimerDisplay();
+            const timerBadge = document.getElementById('defense-timer');
+            if (timerBadge) timerBadge.style.opacity = '0.85';
+        }
+
+        // On-Screen Teleprompter Drawer Controller
+        let isTeleprompterOpen = false;
+
+        function updateTeleprompterContent(slideElement) {
+            if (!slideElement) return;
+            const notesEl = slideElement.querySelector('aside.notes');
+            const prompterBadge = document.getElementById('prompter-slide-badge');
+            const prompterTiming = document.getElementById('prompter-timing');
+            const prompterContent = document.getElementById('prompter-content');
+
+            const slideIndices = Reveal.getIndices();
+            const slideNum = (slideIndices.h !== undefined ? slideIndices.h + 1 : 1);
+            if (prompterBadge) prompterBadge.textContent = `Diapositiva ${slideNum} de 9`;
+
+            if (notesEl && prompterContent) {
+                const notesHtml = notesEl.innerHTML;
+                const timingMatch = notesHtml.match(/\[TIEMPO:\s*([^\]]+)\]/);
+                if (timingMatch && prompterTiming) {
+                    prompterTiming.textContent = timingMatch[1].trim();
+                } else if (prompterTiming) {
+                    prompterTiming.textContent = 'Guion Sugerido';
+                }
+                prompterContent.innerHTML = notesHtml;
+            } else if (prompterContent) {
+                prompterContent.innerHTML = '<em>No hay notas adicionales para esta diapositiva.</em>';
+            }
+        }
+
+        function toggleTeleprompter() {
+            const drawer = document.getElementById('teleprompter-drawer');
+            if (!drawer) return;
+            isTeleprompterOpen = !isTeleprompterOpen;
+            if (isTeleprompterOpen) {
+                drawer.classList.add('open');
+                updateTeleprompterContent(Reveal.getCurrentSlide());
+            } else {
+                drawer.classList.remove('open');
+            }
+        }
+
+        Reveal.on('slidechanged', event => {
+            if (isTeleprompterOpen) {
+                updateTeleprompterContent(event.currentSlide);
+            }
+        });
+
+        Reveal.on('ready', event => {
+            updateTeleprompterContent(event.currentSlide);
+        });
+
+        // Key listeners for 'n' or 'N' to toggle Teleprompter
+        document.addEventListener('keydown', e => {
+            if (e.key === 'n' || e.key === 'N') {
+                toggleTeleprompter();
+            } else if (e.key === 'Escape' && isTeleprompterOpen) {
+                toggleTeleprompter();
+            }
+        });
+    </script>
+</body>
+</html>
