@@ -845,6 +845,7 @@
         let passSoundPlayed = false;
         let spikeSoundPlayed = false;
         let monsterBlockSoundPlayed = false;
+        let paralysisWhistlePlayed = false;
 
         function getDecisionElapsedTime() {
             if (audio.currentAudioElement && !audio.currentAudioElement.paused && audio.currentAudioElement.currentTime > 0) {
@@ -926,6 +927,7 @@
             passSoundPlayed = false;
             spikeSoundPlayed = false;
             monsterBlockSoundPlayed = false;
+            paralysisWhistlePlayed = false;
             screenShake = 0;
             flashOpacity = 0;
             sceneZoom = 1.0;
@@ -2864,48 +2866,100 @@
             ctx.restore();
         }
 
-        function renderExecuteTimeoutExtended(p) {
-            const isGray = (p > 0.35);
-            drawCourtBackground(1.0, 0, 0, isGray);
+        function renderExecuteTimeoutExtended(t) {
+            const isGray = (t > 4.0);
+
+            // Manejo cinemático de cámara según los segundos del audio de parálisis
+            if (t < 6.0) {
+                const progress = t / 6.0;
+                sceneZoom = 1.0 + progress * 0.16;
+                scenePanX = -((NET_X - 70) - W * 0.5) * (sceneZoom - 1.0);
+                scenePanY = -((FLOOR_Y - 145) - H * 0.5) * (sceneZoom - 1.0);
+                updateHUDLabel("Parálisis por Ansiedad (0-6s): Sobrecarga cognitiva • El pánico al error congela la respuesta motora...");
+            } else if (t < 11.0) {
+                sceneZoom = 1.16;
+                scenePanX = -((NET_X - 70) - W * 0.5) * (sceneZoom - 1.0);
+                scenePanY = -((FLOOR_Y - 145) - H * 0.5) * (sceneZoom - 1.0);
+                updateHUDLabel("Parálisis por Ansiedad (6-11s): Pánico motriz • La sombra de la duda atrapa la decisión...");
+            } else if (t < 17.0) {
+                const progress = (t - 11.0) / 6.0;
+                sceneZoom = 1.16 - progress * 0.16;
+                scenePanX = scenePanX * (1 - progress * 0.1);
+                scenePanY = scenePanY * (1 - progress * 0.1);
+                const remainSec = Math.max(0, 17.0 - t).toFixed(1);
+                updateHUDLabel(`Parálisis por Ansiedad (11-17s): Manos retiradas al pecho • Caída en ${remainSec}s...`);
+            } else {
+                sceneZoom = 1.0;
+                scenePanX = 0;
+                scenePanY = 0;
+                updateHUDLabel("¡¡SEGUNDO 17: EL BALÓN EN EL SUELO!! Caída por parálisis • Silbato y falta (24-25)");
+            }
+
+            drawCourtBackground(sceneZoom, scenePanX, scenePanY, isGray);
             drawScoreboard(24, 24);
 
             drawPlayerFigure(players.teammateCover, false, isGray);
             drawPlayerFigure(players.spiker, false, isGray);
             drawPlayerFigure(players.libero, false, isGray);
 
-            if (p < 0.35) {
-                const t1 = p / 0.35;
+            if (t < 6.0) {
+                // ============================================================
+                // SUBFASE 1 (0-6s): Sobrecarga cognitiva y duda inicial
+                // ============================================================
+                const tDoubt = t / 6.0;
                 players.setter.x = NET_X - 70;
-                players.setter.jump = 52;
+                players.setter.jump = 52 + Math.sin(t * 8) * 1.5;
                 players.setter.pose = 'setter_fingertips_reach';
-                drawPlayerFigure(players.setter, false, false);
+                drawPlayerFigure(players.setter, false, isGray);
 
                 ball.x = NET_X - 70;
-                ball.y = (FLOOR_Y - 52) - 156 - 12;
+                ball.y = (FLOOR_Y - 52) - 156 - 12 + Math.sin(t * 3) * 2;
+                ball.rot += 0.02;
 
-                ctx.strokeStyle = 'rgba(255, 23, 68, 0.7)';
+                // Ondas concéntricas de duda
+                ctx.save();
+                ctx.strokeStyle = `rgba(255, 23, 68, ${0.8 - tDoubt * 0.3})`;
                 ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.arc(players.setter.x, ball.y + 40, 45 * t1, 0, Math.PI * 2);
+                ctx.arc(players.setter.x, ball.y + 40, 20 + tDoubt * 50, 0, Math.PI * 2);
                 ctx.stroke();
 
                 drawMangaOnomatopoeia("¡¡DUDA...!!", NET_X - 70, ball.y - 45, 38, "#ff3366");
+                ctx.restore();
 
-            } else if (p < 0.70) {
-                const t2 = (p - 0.35) / 0.35;
+            } else if (t < 11.0) {
+                // ============================================================
+                // SUBFASE 2 (6-11s): Pánico motriz y manifestación de la sombra
+                // ============================================================
+                const tPanic = (t - 6.0) / 5.0;
                 players.setter.x = NET_X - 70;
-                players.setter.jump = Math.max(0, 52 - t2 * 52);
-                players.setter.pose = 'anxiety_frozen';
+                // Temblor involuntario por estrés
+                players.setter.jump = 52 + (Math.random() - 0.5) * 2.5;
+                players.setter.pose = 'setter_fingertips_reach';
+
+                ball.x = NET_X - 70;
+                ball.y = (FLOOR_Y - 52) - 156 - 12;
+                ball.rot += 0.01;
+
+                // Sombra espectral oscura que emerge detrás del armador
+                const shadowX = NET_X - 70;
+                const shadowY = (FLOOR_Y - 52) - 80;
+                ctx.save();
+                const shadowGrad = ctx.createRadialGradient(shadowX, shadowY, 15, shadowX, shadowY, 90 + tPanic * 40);
+                shadowGrad.addColorStop(0, 'rgba(10, 15, 25, 0.92)');
+                shadowGrad.addColorStop(0.7, 'rgba(30, 41, 59, 0.65)');
+                shadowGrad.addColorStop(1, 'transparent');
+                ctx.fillStyle = shadowGrad;
+                ctx.beginPath();
+                ctx.ellipse(shadowX, shadowY, 60 + tPanic * 35, 90 + tPanic * 45, 0, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
                 drawPlayerFigure(players.setter, false, true);
 
-                const startY = (FLOOR_Y - 52) - 156 - 12;
-                const targetY = FLOOR_Y - 40;
-                ball.x = NET_X - 70;
-                ball.y = startY + t2 * (targetY - startY);
-                ball.rot += 0.06;
-
+                // Cuadro de monólogo interior congelado
                 ctx.save();
-                ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
                 ctx.strokeStyle = '#94a3b8';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
@@ -2915,25 +2969,101 @@
                 ctx.font = 'italic 700 11px "Inter", sans-serif';
                 ctx.fillStyle = '#e2e8f0';
                 ctx.textAlign = 'center';
-                ctx.fillText("«El miedo a errar me paralizó...»", NET_X - 70, (FLOOR_Y - 113));
+                ctx.fillText("«¿Y si fallo?... Mis manos no responden...»", NET_X - 70, (FLOOR_Y - 113));
+                ctx.restore();
+
+            } else if (t < 17.0) {
+                // ============================================================
+                // SUBFASE 3 (11-17s): Manos retiradas al pecho y caída agónica
+                // ============================================================
+                const tDrop = (t - 11.0) / 6.0; // 0 a 1 en 6 segundos hacia el segundo 17
+                players.setter.x = NET_X - 70;
+                // Va perdiendo altura desde 52px hasta tocar el suelo en t=17
+                players.setter.jump = Math.max(0, 52 * (1 - tDrop * tDrop));
+                players.setter.pose = 'anxiety_frozen';
+
+                // Balón desciende libremente junto a él
+                const startBallY = (FLOOR_Y - 52) - 156 - 12;
+                const endBallY = FLOOR_Y - 10;
+                ball.x = NET_X - 70;
+                ball.y = startBallY + (tDrop * tDrop) * (endBallY - startBallY);
+                ball.rot += 0.03;
+
+                // Sombra espectral envolvente
+                const shadowX = NET_X - 70;
+                const shadowY = (FLOOR_Y - players.setter.jump) - 80;
+                ctx.save();
+                const shadowGrad = ctx.createRadialGradient(shadowX, shadowY, 20, shadowX, shadowY, 130);
+                shadowGrad.addColorStop(0, 'rgba(10, 15, 25, 0.95)');
+                shadowGrad.addColorStop(0.7, 'rgba(30, 41, 59, 0.7)');
+                shadowGrad.addColorStop(1, 'transparent');
+                ctx.fillStyle = shadowGrad;
+                ctx.beginPath();
+                ctx.ellipse(shadowX, shadowY, 80, 115, 0.1, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                drawPlayerFigure(players.setter, false, true);
+
+                // Cuenta regresiva al colapso
+                const timeToDrop = Math.max(0, 17.0 - t);
+                ctx.save();
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(NET_X - 155, (FLOOR_Y - 140), 230, 38, 8);
+                ctx.fill();
+                ctx.stroke();
+                ctx.font = '900 12px "Outfit", sans-serif';
+                ctx.fillStyle = '#e2e8f0';
+                ctx.textAlign = 'center';
+                ctx.fillText(`⚡ CAÍDA EN ${timeToDrop.toFixed(1)}s • SIN TOCAR EL BALÓN`, NET_X - 40, (FLOOR_Y - 116));
                 ctx.restore();
 
             } else {
-                const t3 = (p - 0.70) / 0.30;
+                // ============================================================
+                // SUBFASE 4 (17.0s a 21.0s): ¡¡EL SEGUNDO 17!! Balón y jugador en el suelo
+                // ============================================================
+                if (!paralysisWhistlePlayed) {
+                    audio.playWhistle();
+                    paralysisWhistlePlayed = true;
+                    screenShake = 12;
+                }
+
+                const tImpact = Math.min(1.0, (t - 17.0) / 4.0);
                 players.setter.x = NET_X - 70;
                 players.setter.jump = 0;
                 players.setter.pose = 'anxiety_frozen';
-                drawPlayerFigure(players.setter, false, true);
 
+                // Balón descansa en el suelo
                 ball.x = NET_X - 70;
                 ball.y = FLOOR_Y;
 
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                // Ondas concéntricas de impacto en el suelo
+                ctx.save();
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.8 - tImpact * 0.5})`;
                 ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.ellipse(ball.x, FLOOR_Y, 35 * t3, 10 * t3, 0, 0, Math.PI * 2);
+                ctx.ellipse(ball.x, FLOOR_Y, 35 * tImpact + 15, 10 * tImpact + 5, 0, 0, Math.PI * 2);
                 ctx.stroke();
 
+                // Sombra espectral envolvente sobre el jugador caído
+                const shadowX = NET_X - 70;
+                const shadowY = FLOOR_Y - 80;
+                const shadowGrad = ctx.createRadialGradient(shadowX, shadowY, 20, shadowX, shadowY, 130);
+                shadowGrad.addColorStop(0, 'rgba(10, 15, 25, 0.95)');
+                shadowGrad.addColorStop(0.7, 'rgba(30, 41, 59, 0.7)');
+                shadowGrad.addColorStop(1, 'transparent');
+                ctx.fillStyle = shadowGrad;
+                ctx.beginPath();
+                ctx.ellipse(shadowX, shadowY, 85, 120, 0.1, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                drawPlayerFigure(players.setter, false, true);
+
+                drawMangaOnomatopoeia("¡¡PLAF!!", ball.x - 65, FLOOR_Y - 60, 48, "#94a3b8");
                 drawMangaOnomatopoeia("¡¡SILBATO!!", ball.x + 30, FLOOR_Y - 70, 54, "#ffffff");
             }
 
@@ -3122,12 +3252,11 @@
                     break;
 
                 case STAGES.EXECUTE_TIMEOUT:
-                    stageProgress = Math.min(1.0, stageProgress + 0.0052);
-                    renderExecuteTimeoutExtended(stageProgress);
+                    const tTimeout = getDecisionElapsedTime();
+                    renderExecuteTimeoutExtended(tTimeout);
 
-                    if (stageProgress >= 1.0) {
+                    if (tTimeout >= 21.0) {
                         currentStage = STAGES.FINAL_3_PARALYSIS;
-                        audio.playWhistle();
                         updateHUDLabel("Frame 6: ¡Parálisis por Ansiedad! Balón sin tocar y punto perdido (24-25)");
                     }
                     break;
@@ -3171,6 +3300,7 @@
             passSoundPlayed = false;
             spikeSoundPlayed = false;
             monsterBlockSoundPlayed = false;
+            paralysisWhistlePlayed = false;
 
             if (heartbeatInterval) {
                 clearInterval(heartbeatInterval);
