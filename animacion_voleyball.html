@@ -15,8 +15,8 @@
 
     <style>
         :root {
-            --bg-space: #05070f;
-            --bg-card: rgba(13, 19, 33, 0.85);
+            --bg-space: #03060f;
+            --bg-card: rgba(11, 17, 32, 0.90);
             --border-glow: rgba(0, 242, 254, 0.35);
             
             /* Paleta Spectrum Flow Neón */
@@ -44,36 +44,36 @@
         body {
             background-color: var(--bg-space);
             background-image: 
-                radial-gradient(circle at 50% 8%, rgba(0, 136, 255, 0.12) 0%, transparent 60%),
-                radial-gradient(circle at 80% 85%, rgba(217, 70, 239, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 20% 90%, rgba(0, 242, 254, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 50% 5%, rgba(0, 136, 255, 0.15) 0%, transparent 65%),
+                radial-gradient(circle at 85% 85%, rgba(217, 70, 239, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 15% 90%, rgba(0, 242, 254, 0.08) 0%, transparent 50%);
             background-attachment: fixed;
             color: var(--text-main);
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
             overflow-y: auto;
-            padding: 24px 16px 80px 16px;
+            padding: 20px 16px 80px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Contenedor Principal */
+        /* Contenedor Principal Estilo Presentación / Slideshow */
         .app-container {
             width: 100%;
-            max-width: 1120px;
+            max-width: 1140px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 18px;
         }
 
         /* Encabezado */
         header.simulator-header {
             text-align: center;
             width: 100%;
-            padding: 10px 0;
+            padding: 6px 0;
         }
 
         .project-badge {
@@ -85,17 +85,17 @@
             color: var(--neon-cyan);
             font-size: 11px;
             font-weight: 800;
-            letter-spacing: 2.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            padding: 6px 16px;
+            padding: 5px 16px;
             border-radius: 30px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
         }
 
         h1.simulator-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -103,18 +103,18 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 30px rgba(0, 242, 254, 0.3);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .simulator-subtitle {
-            font-size: 13.5px;
+            font-size: 13px;
             color: var(--text-dim);
-            max-width: 780px;
+            max-width: 760px;
             margin: 0 auto;
-            line-height: 1.5;
+            line-height: 1.45;
         }
 
-        /* Marco del Stage Canvas */
+        /* Marco del Stage / Slideshow Cinema Viewport */
         #comic-stage-wrapper {
             position: relative;
             width: 1080px;
@@ -123,8 +123,8 @@
             border-radius: 14px;
             overflow: hidden;
             box-shadow: 
-                0 25px 70px rgba(0, 0, 0, 0.95),
-                0 0 35px rgba(0, 242, 254, 0.25),
+                0 30px 80px rgba(0, 0, 0, 0.95),
+                0 0 40px rgba(0, 242, 254, 0.25),
                 inset 0 0 2px rgba(255, 255, 255, 0.3);
             border: 2px solid #1e293b;
             background: #000000;
@@ -134,6 +134,81 @@
             display: block;
             width: 100%;
             height: 100%;
+        }
+
+        /* Pantalla de Inicio / Start Screen (Overlay Inicial) */
+        #start-screen-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 45%, rgba(9, 16, 35, 0.94) 0%, rgba(2, 4, 10, 0.98) 100%);
+            z-index: 25;
+            padding: 30px;
+            text-align: center;
+            gap: 16px;
+        }
+
+        .start-badge-pulse {
+            font-family: 'Fira Code', monospace;
+            font-size: 11.5px;
+            font-weight: 800;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            padding: 5px 16px;
+            border-radius: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .start-main-headline {
+            font-family: 'Outfit', sans-serif;
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 35px rgba(0, 242, 254, 0.6);
+            line-height: 1.2;
+        }
+
+        .start-description {
+            font-size: 14px;
+            color: #cbd5e1;
+            max-width: 640px;
+            line-height: 1.6;
+        }
+
+        .btn-launch-experience {
+            background: linear-gradient(135deg, #00f2fe 0%, #0088ff 50%, #d946ef 100%);
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 16px 42px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.6), 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .btn-launch-experience:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.9), 0 15px 30px rgba(0, 0, 0, 0.6);
         }
 
         /* Overlay QTE de Alta Presión (2.5 Segundos) */
@@ -147,8 +222,8 @@
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
-            padding-bottom: 30px;
-            background: linear-gradient(to top, rgba(3, 5, 12, 0.96) 0%, rgba(3, 5, 12, 0.70) 50%, rgba(3, 5, 12, 0.2) 100%);
+            padding-bottom: 28px;
+            background: linear-gradient(to top, rgba(3, 5, 12, 0.97) 0%, rgba(3, 5, 12, 0.65) 50%, rgba(3, 5, 12, 0.2) 100%);
             z-index: 20;
             animation: fadeInOverlay 0.25s ease-out;
         }
@@ -160,7 +235,7 @@
 
         .qte-top-indicator {
             position: absolute;
-            top: 25px;
+            top: 22px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -188,7 +263,7 @@
 
         .qte-main-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 22px;
+            font-size: 21px;
             font-weight: 900;
             letter-spacing: 1.5px;
             text-transform: uppercase;
@@ -200,9 +275,9 @@
         /* Indicador Circular QTE de Alta Presión */
         .qte-circular-timer-container {
             position: relative;
-            width: 110px;
-            height: 110px;
-            margin-bottom: 16px;
+            width: 105px;
+            height: 105px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -225,7 +300,7 @@
             stroke: var(--neon-cyan);
             stroke-width: 8;
             stroke-linecap: round;
-            stroke-dasharray: 301.6; /* 2 * PI * 48 */
+            stroke-dasharray: 301.6;
             stroke-dashoffset: 0;
             transition: stroke-dashoffset 0.05s linear, stroke 0.3s ease;
             filter: drop-shadow(0 0 10px var(--neon-cyan));
@@ -238,14 +313,14 @@
             align-items: center;
             justify-content: center;
             font-family: 'Outfit', monospace;
-            font-size: 27px;
+            font-size: 26px;
             font-weight: 900;
             color: #ffffff;
             text-shadow: 0 0 15px var(--neon-cyan);
         }
 
         .timer-unit-label {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 700;
             color: var(--text-dim);
             letter-spacing: 1px;
@@ -253,19 +328,19 @@
         }
 
         .qte-warning-text {
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 800;
             color: #ff9100;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             text-shadow: 0 0 10px rgba(255, 145, 0, 0.6);
         }
 
         /* Botones de Acción QTE */
         .qte-buttons-wrapper {
             display: flex;
-            gap: 22px;
+            gap: 20px;
             width: 100%;
             max-width: 880px;
             justify-content: center;
@@ -275,7 +350,7 @@
             flex: 1;
             max-width: 410px;
             position: relative;
-            padding: 16px 22px;
+            padding: 15px 20px;
             border-radius: 12px;
             border: 2px solid;
             background: rgba(10, 16, 30, 0.94);
@@ -300,7 +375,7 @@
 
         .qte-action-btn .btn-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 16px;
+            font-size: 15.5px;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -411,9 +486,17 @@
         }
 
         .hud-btn.btn-primary {
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(0, 136, 255, 0.3));
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.25), rgba(0, 136, 255, 0.35));
             border-color: var(--neon-cyan);
             color: #ffffff;
+            font-weight: 800;
+        }
+
+        .hud-btn.btn-callout {
+            background: linear-gradient(135deg, rgba(217, 70, 239, 0.25), rgba(0, 242, 254, 0.25));
+            border-color: var(--neon-magenta);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(217, 70, 239, 0.3);
         }
 
         .frame-indicator {
@@ -445,17 +528,40 @@
             100% { transform: scale(0.9); opacity: 0.7; }
         }
 
+        /* Banner de Transición Manual al Diagnóstico (Sin Scroll Forzado) */
+        .manual-diagnostic-banner {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(16, 24, 44, 0.95), rgba(8, 12, 24, 0.95));
+            border: 1.5px solid rgba(0, 242, 254, 0.4);
+            border-radius: 12px;
+            padding: 14px 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 242, 254, 0.2);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .manual-banner-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13.5px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
         /* Tarjeta de Audio y Locución (Fallback Visual & Transcripción) */
         .audio-fallback-card {
             width: 100%;
             background: linear-gradient(135deg, rgba(14, 23, 42, 0.95), rgba(7, 11, 22, 0.95));
             border: 1.5px solid rgba(0, 242, 254, 0.3);
             border-radius: 12px;
-            padding: 18px 22px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 242, 254, 0.15);
+            padding: 16px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
             display: none;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -469,7 +575,7 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
         .audio-badge-info {
@@ -494,7 +600,7 @@
             display: flex;
             align-items: center;
             gap: 3px;
-            height: 18px;
+            height: 16px;
         }
 
         .soundwave-bar {
@@ -517,7 +623,7 @@
 
         .audio-transcript-body {
             font-size: 13.5px;
-            line-height: 1.6;
+            line-height: 1.55;
             color: #e2e8f0;
             font-style: italic;
             border-left: 3px solid var(--neon-cyan);
@@ -528,7 +634,7 @@
             display: flex;
             gap: 10px;
             align-items: center;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         /* Sección Dashboard LifeLab */
@@ -583,7 +689,6 @@
             }
         }
 
-        /* Contenedor del Radar */
         .radar-box-container {
             position: relative;
             width: 100%;
@@ -602,7 +707,6 @@
             height: 100%;
         }
 
-        /* Métricas y Tarjetas del Dashboard */
         .metrics-column {
             display: flex;
             flex-direction: column;
@@ -684,7 +788,6 @@
             line-height: 1.45;
         }
 
-        /* 5 Mini Barras de Rendimiento */
         .mini-stats-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -729,10 +832,9 @@
             border-radius: 14px;
             padding: 24px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 30px rgba(217, 70, 239, 0.15);
-            display: none; /* Se despliega automáticamente en Final 2 y 3 */
+            display: flex;
             flex-direction: column;
             gap: 20px;
-            animation: fadeIn training 0.4s ease;
         }
 
         .training-header {
@@ -772,7 +874,6 @@
             margin-top: 4px;
         }
 
-        /* 3 Tarjetas de Entrenamiento Formativo */
         .training-cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -919,17 +1020,33 @@
         <!-- Encabezado del Módulo -->
         <header class="simulator-header">
             <div class="project-badge">
-                <i class="fa-solid fa-brain"></i> VolleyMind & LifeLab • Simulador Neurodeportivo 2D
+                <i class="fa-solid fa-brain"></i> VolleyMind & LifeLab • Prototipo Interactivo 2D
             </div>
-            <h1 class="simulator-title">Secuencia Motion Comic 2D • Jugada Decisiva 24-24</h1>
+            <h1 class="simulator-title">Secuencia Motion Comic • Jugada Decisiva 24-24</h1>
             <p class="simulator-subtitle">
                 Entrenamiento en toma de decisiones bajo estrés adrenérgico. En el segundo 2.5 de la jugada, la acción se congela en las yemas del armador #8: ¿Priorizarás el Servicio Colectivo o el Ego Individual?
             </p>
         </header>
 
-        <!-- Marco del Stage Canvas con Overlay QTE -->
+        <!-- Marco del Stage Canvas con Pantalla de Inicio y Overlay QTE -->
         <div id="comic-stage-wrapper">
             <canvas id="comicStage" width="1080" height="600"></canvas>
+
+            <!-- Pantalla de Inicio / Start Screen (Módulo de Inicio) -->
+            <div id="start-screen-overlay">
+                <div class="start-badge-pulse">
+                    <i class="fa-solid fa-volleyball"></i> Match Point 24 - 24 • Desempate Oficial
+                </div>
+                <div class="start-main-headline">
+                    Simulador de Decisión Táctica & Liderazgo de Servicio
+                </div>
+                <p class="start-description">
+                    Presenciarás el saque rival y el rescate del líbero. En el segundo 2.5, el tiempo se congelará con el balón en las yemas del armador #8. Tendrás exactamente <strong>2.5 segundos de QTE</strong> para elegir tu camino.
+                </p>
+                <button class="btn-launch-experience" id="btnStartExperience">
+                    <i class="fa-solid fa-play"></i> Iniciar Jugada Decisiva (24-24)
+                </button>
+            </div>
 
             <!-- Overlay Interactivo QTE de 2.5 Segundos -->
             <div id="qte-overlay">
@@ -991,7 +1108,7 @@
                 </button>
                 <div class="frame-indicator" id="frameLabel">
                     <div class="status-dot"></div>
-                    <span id="frameText">Frame 1: Saque rival y recepción milagrosa del Líbero #5</span>
+                    <span id="frameText">Listo para iniciar la secuencia</span>
                 </div>
             </div>
 
@@ -1011,12 +1128,23 @@
             </div>
         </div>
 
+        <!-- Banner de Transición Manual al Diagnóstico (Sin Scroll Forzado) -->
+        <div class="manual-diagnostic-banner" id="manualDiagnosticBanner">
+            <div class="manual-banner-text">
+                <i class="fa-solid fa-chart-line" style="color: var(--neon-cyan); font-size: 20px;"></i>
+                <span id="bannerOutcomeSummary">Jugada concluida. Puedes examinar el análisis psicotáctico de LifeLab cuando lo desees.</span>
+            </div>
+            <button class="hud-btn btn-callout" id="btnScrollToDiagnostic">
+                <i class="fa-solid fa-arrow-down"></i> Ver Diagnóstico & Módulo Formativo
+            </button>
+        </div>
+
         <!-- Tarjeta de Audio y Locución (Fallback Visual & Transcripción) -->
         <div class="audio-fallback-card" id="audioFallbackCard">
             <div class="audio-fallback-header">
                 <div class="audio-badge-info">
                     <i class="fa-solid fa-headphones" style="color: var(--neon-cyan);"></i>
-                    <span style="font-weight: 800; font-size: 12.5px; text-transform: uppercase; letter-spacing: 1px;">Locución en Off LifeLab</span>
+                    <span style="font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Locución en Off LifeLab</span>
                     <span class="audio-status-pill" id="audioTrackLabel">audio_servicio_exito.mp3</span>
                 </div>
                 <div class="soundwave-visualizer">
@@ -1121,7 +1249,7 @@
             </div>
         </section>
 
-        <!-- Módulo Formativo de Autorregulación Socioemocional (Abre en Final 2 y 3) -->
+        <!-- Módulo Formativo de Autorregulación Socioemocional -->
         <section class="training-module-container" id="trainingModuleSection">
             <div class="training-header">
                 <div class="training-tag">
@@ -1211,7 +1339,6 @@
             constructor() {
                 this.ctx = null;
                 this.enabled = true;
-                this.heartbeatTimer = null;
                 this.currentAudioElement = null;
             }
 
@@ -1232,14 +1359,14 @@
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(450, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.28);
+                osc.frequency.setValueAtTime(440, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.3);
                 gain.gain.setValueAtTime(0.7, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.28);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.3);
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
                 osc.start();
-                osc.stop(this.ctx.currentTime + 0.28);
+                osc.stop(this.ctx.currentTime + 0.3);
             }
 
             playReceive() {
@@ -1247,14 +1374,14 @@
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(240, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(50, this.ctx.currentTime + 0.32);
+                osc.frequency.setValueAtTime(220, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(45, this.ctx.currentTime + 0.35);
                 gain.gain.setValueAtTime(0.85, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.32);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
                 osc.start();
-                osc.stop(this.ctx.currentTime + 0.32);
+                osc.stop(this.ctx.currentTime + 0.35);
             }
 
             playHeartbeat() {
@@ -1262,8 +1389,8 @@
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(85, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(32, this.ctx.currentTime + 0.18);
+                osc.frequency.setValueAtTime(90, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.18);
                 gain.gain.setValueAtTime(0.9, this.ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.18);
                 osc.connect(gain);
@@ -1278,13 +1405,13 @@
                 const gain = this.ctx.createGain();
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(520, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(280, this.ctx.currentTime + 0.15);
+                osc.frequency.exponentialRampToValueAtTime(280, this.ctx.currentTime + 0.16);
                 gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.16);
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
                 osc.start();
-                osc.stop(this.ctx.currentTime + 0.15);
+                osc.stop(this.ctx.currentTime + 0.16);
             }
 
             playSpikeSmash() {
@@ -1309,16 +1436,16 @@
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 osc.type = 'square';
-                osc.frequency.setValueAtTime(260, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(40, this.ctx.currentTime + 0.38);
+                osc.frequency.setValueAtTime(280, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(35, this.ctx.currentTime + 0.45);
                 gain.gain.setValueAtTime(1.0, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.38);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.45);
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
                 osc.start();
-                osc.stop(this.ctx.currentTime + 0.38);
+                osc.stop(this.ctx.currentTime + 0.45);
 
-                setTimeout(() => this.playWhistle(), 300);
+                setTimeout(() => this.playWhistle(), 340);
             }
 
             playWhistle() {
@@ -1337,7 +1464,6 @@
                 osc.stop(this.ctx.currentTime + 0.65);
             }
 
-            // Tono armónico sintético secundario (Fallback Web Audio API)
             playSyntheticNarrativeTone(endingType) {
                 if (!this.enabled || !this.ctx) return;
 
@@ -1390,19 +1516,14 @@
                 }
             }
 
-            // Gestor de Audio con Verificación Fallback
             playNarrativeTrack(filename, transcriptText, endingType) {
                 this.init();
 
-                // Detener audio previo si existiese
                 if (this.currentAudioElement) {
-                    try {
-                        this.currentAudioElement.pause();
-                    } catch (e) {}
+                    try { this.currentAudioElement.pause(); } catch (e) {}
                     this.currentAudioElement = null;
                 }
 
-                // Mostrar la tarjeta visual de transcripción en la UI
                 const card = document.getElementById('audioFallbackCard');
                 const trackLabel = document.getElementById('audioTrackLabel');
                 const textContainer = document.getElementById('audioTranscriptText');
@@ -1413,7 +1534,6 @@
                     card.style.display = 'flex';
                 }
 
-                // Intentar cargar y reproducir el archivo .mp3
                 let audioObj = new Audio(filename);
                 this.currentAudioElement = audioObj;
 
@@ -1426,7 +1546,6 @@
                 };
 
                 audioObj.addEventListener('error', () => triggerFallback('Error de red o archivo inexistente'));
-
                 audioObj.play().catch((err) => {
                     triggerFallback('Reproducción bloqueada o recurso no encontrado');
                 });
@@ -1445,11 +1564,13 @@
         const W = canvas.width;
         const H = canvas.height;
 
-        const NET_X = 540;          // Posición X central de la red (divide cancha)
+        const NET_X = 540;          // Posición X central de la red
         const FLOOR_Y = 490;        // Nivel Y del suelo de la cancha
         const NET_TOP_Y = 320;      // Borde superior de la red reglamentaria
 
         // Elementos del DOM
+        const startScreenOverlay = document.getElementById('start-screen-overlay');
+        const btnStartExperience = document.getElementById('btnStartExperience');
         const qteOverlay = document.getElementById('qte-overlay');
         const qteTimerCircle = document.getElementById('qteTimerCircle');
         const qteCountdownText = document.getElementById('qteCountdownText');
@@ -1464,7 +1585,9 @@
         const btnTestTimeout = document.getElementById('btnTestTimeout');
         const btnPlaySyntheticTone = document.getElementById('btnPlaySyntheticTone');
         const btnPlayTTS = document.getElementById('btnPlayTTS');
-        const trainingModuleSection = document.getElementById('trainingModuleSection');
+        const manualDiagnosticBanner = document.getElementById('manualDiagnosticBanner');
+        const btnScrollToDiagnostic = document.getElementById('btnScrollToDiagnostic');
+        const bannerOutcomeSummary = document.getElementById('bannerOutcomeSummary');
         const currentOutcomeBadge = document.getElementById('currentOutcomeBadge');
 
         /**
@@ -1473,17 +1596,18 @@
          * =========================================================================
          */
         const STAGES = {
-            PRE_QTE: 'PRE_QTE',           // Saque rival, recepción líbero, carrera armador
-            QTE_FREEZE: 'QTE_FREEZE',     // Congelamiento exacto en yemas del armador (2.5s)
-            EXECUTE_PASS: 'EXECUTE_PASS', // Pase a Zona 4 y remate demoledor
-            EXECUTE_SPIKE: 'EXECUTE_SPIKE', // Salto individual y choque con triple bloqueo
-            EXECUTE_TIMEOUT: 'EXECUTE_TIMEOUT', // Balón cae al piso sin ser tocado
-            FINAL_1_WIN: 'FINAL_1_WIN',   // Celebración con trofeo y auras doradas (25-24)
-            FINAL_2_BLOCK: 'FINAL_2_BLOCK', // Bloqueo brutal y frustración arrodillado (24-25)
+            START_IDLE: 'START_IDLE',         // Pantalla inicial antes de dar clic a Iniciar
+            PRE_QTE: 'PRE_QTE',               // Saque rival, recepción líbero, carrera armador
+            QTE_FREEZE: 'QTE_FREEZE',         // Congelamiento exacto en yemas del armador (2.5s)
+            EXECUTE_PASS: 'EXECUTE_PASS',     // Pase a Zona 4 y remate demoledor
+            EXECUTE_SPIKE: 'EXECUTE_SPIKE',   // Salto individual, triple bloqueo y colisión extendida
+            EXECUTE_TIMEOUT: 'EXECUTE_TIMEOUT', // Ansiedad, duda motriz y caída libre prolongada
+            FINAL_1_WIN: 'FINAL_1_WIN',       // Celebración con trofeo y auras doradas (25-24)
+            FINAL_2_BLOCK: 'FINAL_2_BLOCK',   // Bloqueo brutal y frustración arrodillado (24-25)
             FINAL_3_PARALYSIS: 'FINAL_3_PARALYSIS' // Escala de grises, balón estático y sombra (24-25)
         };
 
-        let currentStage = STAGES.PRE_QTE;
+        let currentStage = STAGES.START_IDLE;
         let stageProgress = 0.0;
         let selectedRoute = null;
 
@@ -1500,7 +1624,7 @@
         let scenePanX = 0;
         let scenePanY = 0;
 
-        // Textos narrativos formales LifeLab para los tres finales
+        // Textos narrativos formales LifeLab
         const NARRATIVES = {
             PASS: "«Lectura impecable. Al inhibir el impulso de gloria individual y confiar en el rematador desmarcado de Zona 4, activaste la inteligencia colectiva. La victoria no nace de brillar solo, sino de elevar el potencial de todo el equipo. 25-24: Victoria ética y deportiva.»",
             SPIKE: "«Colisión frontal por sesgo de autoafirmación. Al ignorar la ventaja táctica en Zona 4 y buscar el punto personal, chocaste contra el triple bloqueo. La impulsividad reactiva anuló el criterio estratégico. Aprender a frenar el ego es el primer paso hacia el liderazgo real.»",
@@ -1509,8 +1633,8 @@
 
         // Entidades y Jugadores
         const players = {
-            libero: { x: 280, y: FLOOR_Y, pose: 'dive_receive', jump: 0, num: '5', color: '#0052e6', name: 'Líbero #5' },
-            setter: { x: 380, y: FLOOR_Y, pose: 'crouch_prejump', jump: 0, num: '8', color: '#0052e6', name: 'Armador #8' },
+            libero: { x: 280, y: FLOOR_Y, pose: 'ready_defense', jump: 0, num: '5', color: '#0052e6', name: 'Líbero #5' },
+            setter: { x: 370, y: FLOOR_Y, pose: 'crouch_prejump', jump: 0, num: '8', color: '#0052e6', name: 'Armador #8' },
             spiker: { x: 180, y: FLOOR_Y, pose: 'spiker_loading', jump: 0, num: '10', color: '#0052e6', name: 'Rematador #10' },
             teammateCover: { x: 105, y: FLOOR_Y, pose: 'stand', jump: 0, num: '3', color: '#0052e6', name: 'Apoyo #3' },
 
@@ -1529,7 +1653,7 @@
             radius: 22
         };
 
-        // Sistema de líneas cinéticas de velocidad (Manga Speedlines)
+        // Sistema de líneas cinéticas de velocidad
         let speedLines = [];
         for (let i = 0; i < 40; i++) {
             speedLines.push({
@@ -1561,9 +1685,8 @@
          * REINICIO Y CONFIGURACIÓN DE ESCENA
          * =========================================================================
          */
-        function resetSimulation() {
+        function resetSimulation(goToStartScreen = false) {
             audio.init();
-            currentStage = STAGES.PRE_QTE;
             stageProgress = 0.0;
             selectedRoute = null;
             screenShake = 0;
@@ -1577,13 +1700,13 @@
                 heartbeatInterval = null;
             }
 
-            // Ocultar Overlay QTE y tarjeta de audio
             qteOverlay.style.display = 'none';
+            manualDiagnosticBanner.style.display = 'none';
             document.getElementById('audioFallbackCard').style.display = 'none';
 
-            // Resetear posiciones y poses
+            // Resetear entidades
             players.libero.x = 280;
-            players.libero.pose = 'dive_receive';
+            players.libero.pose = 'ready_defense'; // Inicia conectado de pie, sin decapitación
             players.libero.jump = 0;
 
             players.setter.x = 370;
@@ -1598,10 +1721,15 @@
             players.teammateCover.pose = 'stand';
             players.teammateCover.jump = 0;
 
+            players.rivalBlockerCenter.x = 605;
             players.rivalBlockerCenter.jump = 0;
             players.rivalBlockerCenter.pose = 'stand';
+
+            players.rivalBlockerWing.x = 655;
             players.rivalBlockerWing.jump = 0;
             players.rivalBlockerWing.pose = 'stand';
+
+            players.rivalBlockerSide.x = 705;
             players.rivalBlockerSide.jump = 0;
             players.rivalBlockerSide.pose = 'stand';
 
@@ -1613,8 +1741,16 @@
             ball.y = 220;
             ball.rot = 0;
 
-            // Actualizar interfaz y Dashboard a estado inicial
-            updateHUDLabel("Frame 1: Saque rival cruzando la red y recepción del Líbero #5");
+            if (goToStartScreen) {
+                currentStage = STAGES.START_IDLE;
+                startScreenOverlay.style.display = 'flex';
+                updateHUDLabel("Listo para iniciar la secuencia en pantalla completa");
+            } else {
+                currentStage = STAGES.PRE_QTE;
+                startScreenOverlay.style.display = 'none';
+                updateHUDLabel("Frame 1: Saque rival cruzando la red y recepción del Líbero #5");
+            }
+
             currentOutcomeBadge.textContent = "Esperando Decisión QTE";
             currentOutcomeBadge.className = "project-badge";
             updateDashboardMetrics(50, 50, 50, 50, 50, 'INITIAL');
@@ -1630,7 +1766,7 @@
          * =========================================================================
          */
 
-        // 1. Dibujo de Cancha Lateral con perspectiva y graderías neón
+        // 1. Dibujo de Cancha Lateral con perspectiva
         function drawCourtBackground(zoom = 1.0, panX = 0, panY = 0, isGrayscale = false) {
             ctx.save();
             ctx.translate(panX, panY);
@@ -1640,7 +1776,7 @@
                 ctx.translate(-W * 0.5, -H * 0.5);
             }
 
-            // Fondo de estadio oscuro en penumbra
+            // Fondo de estadio oscuro
             const gradStadium = ctx.createLinearGradient(0, 0, 0, FLOOR_Y);
             if (isGrayscale) {
                 gradStadium.addColorStop(0, '#0a0a0a');
@@ -1654,7 +1790,7 @@
             ctx.fillStyle = gradStadium;
             ctx.fillRect(-200, -100, W + 400, H + 200);
 
-            // Conos de reflectores de estadio
+            // Conos de reflectores
             ctx.fillStyle = isGrayscale ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 210, 255, 0.035)';
             for (let i = 1; i <= 4; i++) {
                 ctx.beginPath();
@@ -1664,7 +1800,7 @@
                 ctx.fill();
             }
 
-            // Multitud en graderías (puntos difusos)
+            // Multitud en gradas
             for (let r = 0; r < 4; r++) {
                 const y = H * 0.35 + r * 20;
                 for (let c = 20; c < W; c += 24) {
@@ -1675,7 +1811,7 @@
                 }
             }
 
-            // Valla publicitaria de fondo con neón
+            // Valla publicitaria de fondo
             ctx.fillStyle = '#060912';
             ctx.fillRect(0, H * 0.46, W, 24);
             ctx.strokeStyle = isGrayscale ? '#444444' : '#00f2fe';
@@ -1686,7 +1822,7 @@
             ctx.textAlign = 'left';
             ctx.fillText("VOLLEYMIND & LIFELAB CHAMPIONSHIP • DECISIÓN DE ORO 24-24", 25, H * 0.488);
 
-            // Suelo perimetral de madera oscura
+            // Suelo perimetral de madera
             const gradFloor = ctx.createLinearGradient(0, FLOOR_Y, 0, H);
             if (isGrayscale) {
                 gradFloor.addColorStop(0, '#333333');
@@ -1702,7 +1838,7 @@
             ctx.fillStyle = isGrayscale ? '#262626' : '#144cb8';
             ctx.fillRect(45, FLOOR_Y - 5, W - 90, H - FLOOR_Y + 10);
 
-            // Líneas reglamentarias
+            // Líneas de cancha
             ctx.strokeStyle = '#ffffff';
             ctx.lineWidth = 4;
             ctx.beginPath();
@@ -1710,21 +1846,20 @@
             ctx.lineTo(W - 45, FLOOR_Y);
             ctx.stroke();
 
-            // Líneas de 3 metros (Ataque)
+            // Líneas 3 metros
             ctx.lineWidth = 3;
             ctx.strokeStyle = isGrayscale ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 242, 254, 0.7)';
-            // Línea 3m Nuestro Campo (Izquierda)
             ctx.beginPath();
             ctx.moveTo(NET_X - 180, FLOOR_Y);
             ctx.lineTo(NET_X - 180, FLOOR_Y + 70);
             ctx.stroke();
-            // Línea 3m Campo Rival (Derecha)
+
             ctx.beginPath();
             ctx.moveTo(NET_X + 180, FLOOR_Y);
             ctx.lineTo(NET_X + 180, FLOOR_Y + 70);
             ctx.stroke();
 
-            // Línea central (Bajo la red)
+            // Línea central
             ctx.lineWidth = 5;
             ctx.strokeStyle = '#ffffff';
             ctx.beginPath();
@@ -1742,25 +1877,21 @@
             ctx.restore();
         }
 
-        // 2. Dibujo de la Red Reglamentaria Central con antena
+        // 2. Dibujo de la Red Reglamentaria Central
         function drawCenterNet(isGrayscale = false) {
             ctx.save();
-            // Poste central
             ctx.fillStyle = isGrayscale ? '#444' : '#2e3d48';
             ctx.fillRect(NET_X - 4, NET_TOP_Y - 40, 8, (FLOOR_Y - NET_TOP_Y) + 40);
 
-            // Banda superior blanca con cable tensor
             ctx.fillStyle = '#f8fafc';
             ctx.strokeStyle = '#05070e';
             ctx.lineWidth = 1.5;
             ctx.fillRect(NET_X - 3, NET_TOP_Y, 6, 14);
             ctx.strokeRect(NET_X - 3, NET_TOP_Y, 6, 14);
 
-            // Banda inferior
             ctx.fillRect(NET_X - 2.5, FLOOR_Y - 10, 5, 10);
             ctx.strokeRect(NET_X - 2.5, FLOOR_Y - 10, 5, 10);
 
-            // Malla cuadriculada
             ctx.strokeStyle = 'rgba(240, 248, 255, 0.85)';
             ctx.lineWidth = 1.2;
             for (let y = NET_TOP_Y + 14; y < FLOOR_Y - 10; y += 12) {
@@ -1770,7 +1901,6 @@
                 ctx.stroke();
             }
 
-            // Antena reglamentaria (Franjas rojas y blancas)
             const antX = NET_X - 1;
             const antTop = NET_TOP_Y - 70;
             ctx.lineWidth = 3;
@@ -1784,7 +1914,7 @@
             ctx.restore();
         }
 
-        // 3. Dibujo de Figuras de Jugadores en estilo Manga Vectorial
+        // 3. Dibujo de Figuras de Jugadores en estilo Manga Vectorial (Sin Desmembramientos)
         function drawPlayerFigure(pData, facingLeft = false, isGrayscale = false) {
             ctx.save();
             ctx.translate(pData.x, pData.y);
@@ -1797,7 +1927,7 @@
             ctx.ellipse(0, 0, pData.jump ? 16 : 30, 7, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Desplazamiento por elevación aérea
+            // Desplazamiento aéreo
             if (pData.jump) ctx.translate(0, -pData.jump);
 
             ctx.strokeStyle = isGrayscale ? '#000000' : '#05070e';
@@ -1809,68 +1939,75 @@
             let skin = isGrayscale ? '#d4d4d4' : '#ffdfba';
 
             if (pData.pose === 'dive_receive') {
-                // Líbero #5 en plancha salvadora a ras de suelo
-                ctx.fillStyle = '#ffffff';
+                // LÍBERO EN PLANCHA BAJA CON CONEXIÓN ANATÓMICA RIGIDA (CABEZA Y CUELLO SIEMPRE UNIDOS)
+                // 1. Piernas deslizándose pegadas al suelo hacia atrás
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 7;
                 ctx.beginPath();
-                ctx.moveTo(-15, -40);
-                ctx.lineTo(-65, -15);
-                ctx.lineTo(-80, 0);
+                ctx.moveTo(-25, -28);
+                ctx.lineTo(-65, -12);
+                ctx.lineTo(-85, -2);
                 ctx.stroke();
 
-                ctx.beginPath();
-                ctx.moveTo(15, -40);
-                ctx.lineTo(55, -15);
-                ctx.lineTo(70, 0);
-                ctx.stroke();
+                // Rodillera negra
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(-62, -18, 14, 12);
 
-                // Rodilleras
-                ctx.fillStyle = '#111';
-                ctx.fillRect(-70, -20, 10, 12);
-                ctx.fillRect(48, -20, 10, 12);
+                // 2. Torso, cuello, cabeza y brazos en un solo bloque rotado
+                ctx.save();
+                ctx.translate(0, -32);
+                ctx.rotate(0.35); // Inclinación atlética hacia adelante
 
                 // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
-                ctx.moveTo(-20, -95);
-                ctx.lineTo(30, -95);
-                ctx.lineTo(20, -35);
-                ctx.lineTo(-15, -35);
-                ctx.closePath();
+                ctx.roundRect(-22, -28, 44, 46, 6);
                 ctx.fill();
                 ctx.stroke();
 
-                // Número
+                // Número en camiseta
                 ctx.fillStyle = '#ffffff';
-                ctx.font = '900 20px sans-serif';
+                ctx.font = '900 18px sans-serif';
                 ctx.textAlign = 'center';
-                ctx.fillText(pData.num, 5, -60);
+                ctx.fillText(pData.num, 0, -2);
 
-                // Brazos rígidos en plataforma de recepción
+                // Cuello sólido fijado al torso
                 ctx.fillStyle = skin;
-                ctx.beginPath();
-                ctx.moveTo(25, -85);
-                ctx.lineTo(85, -55);
-                ctx.lineTo(78, -45);
-                ctx.lineTo(15, -75);
-                ctx.closePath();
-                ctx.fill();
-                ctx.stroke();
+                ctx.fillRect(10, -38, 14, 12);
+                ctx.strokeRect(10, -38, 14, 12);
 
-                // Cabeza levantada con mirada en el balón
+                // Cabeza unida firmemente al cuello mirando hacia arriba
                 ctx.beginPath();
-                ctx.arc(38, -100, 15, 0, Math.PI * 2);
+                ctx.arc(24, -45, 14, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
 
                 // Cabello manga
                 ctx.fillStyle = isGrayscale ? '#222' : '#1e293b';
                 ctx.beginPath();
-                ctx.arc(38, -104, 16, Math.PI * 0.9, Math.PI * 2.1);
-                ctx.lineTo(55, -98);
-                ctx.lineTo(38, -120);
-                ctx.lineTo(22, -98);
+                ctx.arc(24, -48, 15, Math.PI * 0.85, Math.PI * 2.15);
+                ctx.lineTo(38, -45);
+                ctx.lineTo(24, -62);
+                ctx.lineTo(10, -45);
                 ctx.fill();
                 ctx.stroke();
+
+                // Brazos extendidos formando plataforma de recepción
+                ctx.strokeStyle = skin;
+                ctx.lineWidth = 7;
+                ctx.beginPath();
+                ctx.moveTo(14, -20);
+                ctx.lineTo(65, -8);
+                ctx.stroke();
+
+                // Manos juntas
+                ctx.fillStyle = skin;
+                ctx.beginPath();
+                ctx.arc(68, -8, 6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.restore();
 
             } else if (pData.pose === 'crouch_prejump') {
                 // Pose atlética en cuclillas cargando el salto
@@ -1887,7 +2024,6 @@
                 ctx.lineTo(24, 0);
                 ctx.stroke();
 
-                // Torso inclinado
                 ctx.save();
                 ctx.translate(0, -32);
                 ctx.rotate(0.22);
@@ -1903,13 +2039,14 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -28);
 
-                // Brazos cargados hacia atrás
                 ctx.fillStyle = skin;
                 ctx.beginPath();
                 ctx.moveTo(-12, -50);
                 ctx.lineTo(-44, -20);
                 ctx.stroke();
 
+                // Cuello y cabeza
+                ctx.fillRect(-6, -72, 12, 10);
                 ctx.beginPath();
                 ctx.arc(0, -74, 15, 0, Math.PI * 2);
                 ctx.fill();
@@ -1927,8 +2064,7 @@
                 ctx.restore();
 
             } else if (pData.pose === 'setter_fingertips_reach') {
-                // ARMADOR EN EL AIRE: BRAZOS EN COPA CON LAS YEMAS ROZANDO EL BALÓN (FREEZE DRAMÁTICO)
-                // Piernas dobladas en suspensión aérea
+                // ARMADOR SUSPENDIDO EN EL AIRE: BRAZOS EN COPA CON LAS YEMAS EN EL BALÓN
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-10, -40);
@@ -1942,7 +2078,6 @@
                 ctx.lineTo(32, 5);
                 ctx.stroke();
 
-                // Torso vertical firme
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
                 ctx.roundRect(-22, -95, 44, 58, 6);
@@ -1954,29 +2089,9 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -58);
 
-                // Brazos en copa simétrica alzados hacia el balón
+                // Cuello y cabeza
                 ctx.fillStyle = skin;
-                // Brazo izquierdo
-                ctx.beginPath();
-                ctx.moveTo(-18, -85);
-                ctx.lineTo(-28, -135);
-                ctx.lineTo(-10, -156); // Yema de los dedos izquierda
-                ctx.stroke();
-
-                // Brazo derecho
-                ctx.beginPath();
-                ctx.moveTo(18, -85);
-                ctx.lineTo(28, -135);
-                ctx.lineTo(10, -156); // Yema de los dedos derecha
-                ctx.stroke();
-
-                // Manos en copa abierta
-                ctx.beginPath();
-                ctx.arc(-10, -156, 4, 0, Math.PI * 2);
-                ctx.arc(10, -156, 4, 0, Math.PI * 2);
-                ctx.fill();
-
-                // Cabeza mirando exactamente arriba al balón
+                ctx.fillRect(-6, -104, 12, 12);
                 ctx.beginPath();
                 ctx.arc(0, -108, 15, 0, Math.PI * 2);
                 ctx.fill();
@@ -1991,8 +2106,26 @@
                 ctx.fill();
                 ctx.stroke();
 
+                // Brazos en copa hacia el balón
+                ctx.fillStyle = skin;
+                ctx.beginPath();
+                ctx.moveTo(-18, -85);
+                ctx.lineTo(-28, -135);
+                ctx.lineTo(-10, -156);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(18, -85);
+                ctx.lineTo(28, -135);
+                ctx.lineTo(10, -156);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(-10, -156, 4, 0, Math.PI * 2);
+                ctx.arc(10, -156, 4, 0, Math.PI * 2);
+                ctx.fill();
+
             } else if (pData.pose === 'jump_set') {
-                // Salto y colocación parabólica suave
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-8, -40);
@@ -2018,6 +2151,19 @@
                 ctx.fillText(pData.num, 0, -56);
 
                 ctx.fillStyle = skin;
+                ctx.fillRect(-6, -100, 12, 10);
+                ctx.beginPath();
+                ctx.arc(0, -104, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = isGrayscale ? '#222' : '#1e293b';
+                ctx.beginPath();
+                ctx.arc(0, -108, 16, Math.PI * 0.85, Math.PI * 2.15);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = skin;
                 ctx.beginPath();
                 ctx.moveTo(-16, -82);
                 ctx.lineTo(-24, -135);
@@ -2030,19 +2176,7 @@
                 ctx.lineTo(6, -148);
                 ctx.stroke();
 
-                ctx.beginPath();
-                ctx.arc(0, -104, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = isGrayscale ? '#222' : '#1e293b';
-                ctx.beginPath();
-                ctx.arc(0, -108, 16, Math.PI * 0.85, Math.PI * 2.15);
-                ctx.fill();
-                ctx.stroke();
-
             } else if (pData.pose === 'jump_smash') {
-                // Rematador en arco aéreo con brazo cargado
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-10, -40);
@@ -2068,19 +2202,7 @@
                 ctx.fillText(pData.num, 0, -60);
 
                 ctx.fillStyle = skin;
-                // Brazo no dominante de mira
-                ctx.beginPath();
-                ctx.moveTo(-18, -82);
-                ctx.lineTo(-45, -115);
-                ctx.stroke();
-
-                // Brazo ejecutor extendido
-                ctx.beginPath();
-                ctx.moveTo(18, -82);
-                ctx.lineTo(38, -135);
-                ctx.lineTo(20, -165);
-                ctx.stroke();
-
+                ctx.fillRect(-6, -104, 12, 12);
                 ctx.beginPath();
                 ctx.arc(0, -108, 15, 0, Math.PI * 2);
                 ctx.fill();
@@ -2092,8 +2214,19 @@
                 ctx.fill();
                 ctx.stroke();
 
+                ctx.fillStyle = skin;
+                ctx.beginPath();
+                ctx.moveTo(-18, -82);
+                ctx.lineTo(-45, -115);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(18, -82);
+                ctx.lineTo(38, -135);
+                ctx.lineTo(20, -165);
+                ctx.stroke();
+
             } else if (pData.pose === 'block_wall') {
-                // Muro de bloqueo con 2 brazos estirados verticalmente sobre la red
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-8, -40);
@@ -2113,7 +2246,13 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -56);
 
-                // Manos y brazos verticales altos sobre la red
+                ctx.fillStyle = skin;
+                ctx.fillRect(-6, -100, 12, 10);
+                ctx.beginPath();
+                ctx.arc(0, -104, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
                 ctx.fillStyle = skin;
                 ctx.beginPath();
                 ctx.moveTo(-16, -85);
@@ -2122,19 +2261,12 @@
                 ctx.lineTo(14, -155);
                 ctx.stroke();
 
-                // Palmas abiertas hacia el frente
                 ctx.fillRect(-20, -165, 12, 10);
                 ctx.fillRect(8, -165, 12, 10);
 
-                ctx.beginPath();
-                ctx.arc(0, -104, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-
             } else if (pData.pose === 'kneel_regret') {
-                // ARMADOR ARRODILLADO CON MANOS EN LA CABEZA (FRUSTRACIÓN POR EGO)
+                // ARMADOR ARRODILLADO CON MANOS EN LA CABEZA (FRUSTRACIÓN)
                 ctx.fillStyle = '#ffffff';
-                // Piernas dobladas en el suelo
                 ctx.beginPath();
                 ctx.moveTo(-15, -20);
                 ctx.lineTo(-30, 0);
@@ -2147,7 +2279,6 @@
                 ctx.lineTo(10, 0);
                 ctx.stroke();
 
-                // Torso encorvado hacia adelante
                 ctx.save();
                 ctx.translate(0, -22);
                 ctx.rotate(0.28);
@@ -2163,14 +2294,13 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -26);
 
-                // Cabeza gacha
                 ctx.fillStyle = skin;
+                ctx.fillRect(2, -64, 12, 8);
                 ctx.beginPath();
                 ctx.arc(8, -68, 15, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
 
-                // Ambas manos sobre la cabeza en lamento
                 ctx.strokeStyle = skin;
                 ctx.lineWidth = 4;
                 ctx.beginPath();
@@ -2189,7 +2319,6 @@
                 ctx.restore();
 
             } else if (pData.pose === 'disappointed_teammate') {
-                // Compañero cabizbajo con hombros caídos en señal de desilusión
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-6, -35);
@@ -2209,7 +2338,6 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -50);
 
-                // Brazos caídos y hombros caídos
                 ctx.strokeStyle = skin;
                 ctx.lineWidth = 4;
                 ctx.beginPath();
@@ -2219,15 +2347,15 @@
                 ctx.lineTo(20, -35);
                 ctx.stroke();
 
-                // Cabeza inclinada hacia abajo
                 ctx.fillStyle = skin;
+                ctx.fillRect(-5, -90, 10, 8);
                 ctx.beginPath();
                 ctx.arc(0, -94, 14, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
 
             } else if (pData.pose === 'anxiety_frozen') {
-                // PARÁLISIS POR ANSIEDAD: ARMADOR CONGELADO MIRANDO SUS MANOS VACÍAS
+                // PARÁLISIS POR ANSIEDAD: ARMADOR CONGELADO CON MANOS EN RETIRADA
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-8, -35);
@@ -2247,8 +2375,15 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -52);
 
-                // Brazos recogidos con palmas abiertas hacia el rostro (incredulidad / duda)
+                // Cuello y cabeza
                 ctx.fillStyle = skin;
+                ctx.fillRect(-5, -92, 10, 10);
+                ctx.beginPath();
+                ctx.arc(0, -96, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // Brazos recogidos con palmas abiertas hacia el rostro (duda y pánico)
                 ctx.beginPath();
                 ctx.moveTo(-16, -75);
                 ctx.lineTo(-26, -60);
@@ -2261,20 +2396,14 @@
                 ctx.lineTo(12, -72);
                 ctx.stroke();
 
-                // Cabeza inclinada mirando fijamente sus manos
-                ctx.beginPath();
-                ctx.arc(0, -96, 15, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-
-                // Gotas de sudor frío cayendo
+                // Gotas de sudor frío
                 ctx.fillStyle = '#00f2fe';
                 ctx.beginPath();
                 ctx.ellipse(20, -92, 3, 5, 0.2, 0, Math.PI * 2);
                 ctx.fill();
 
             } else {
-                // Pose estándar en guardia o de pie
+                // Pose estándar en guardia (ready_defense) o de pie
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-6, -35);
@@ -2297,6 +2426,7 @@
                 }
 
                 ctx.fillStyle = skin;
+                ctx.fillRect(-5, -96, 10, 10);
                 ctx.beginPath();
                 ctx.arc(0, -100, 15, 0, Math.PI * 2);
                 ctx.fill();
@@ -2327,7 +2457,6 @@
             ctx.translate(x, y);
             ctx.rotate(rot);
 
-            // Resplandor neón
             if (!isGrayscale) {
                 const glow = ctx.createRadialGradient(0, 0, r * 0.4, 0, 0, r * 1.8);
                 glow.addColorStop(0, 'rgba(255, 235, 59, 0.45)');
@@ -2338,13 +2467,11 @@
                 ctx.fill();
             }
 
-            // Cuerpo del balón
             ctx.fillStyle = '#ffffff';
             ctx.beginPath();
             ctx.arc(0, 0, r, 0, Math.PI * 2);
             ctx.fill();
 
-            // Paneles azul y amarillo
             ctx.fillStyle = isGrayscale ? '#555555' : '#0066ff';
             ctx.beginPath();
             ctx.arc(0, 0, r, 0, Math.PI * 0.65);
@@ -2357,7 +2484,6 @@
             ctx.lineTo(0, 0);
             ctx.fill();
 
-            // Costuras curvas
             ctx.strokeStyle = isGrayscale ? '#111111' : '#05070e';
             ctx.lineWidth = 2.5;
             ctx.beginPath();
@@ -2387,16 +2513,13 @@
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
-            // Sombra cómic dura
             ctx.fillStyle = '#000000';
             ctx.fillText(text, 5, 5);
 
-            // Borde grueso
             ctx.strokeStyle = '#05070e';
             ctx.lineWidth = 7;
             ctx.strokeText(text, 0, 0);
 
-            // Relleno de alto contraste
             ctx.fillStyle = color;
             ctx.fillText(text, 0, 0);
 
@@ -2440,7 +2563,6 @@
             ctx.translate(cx, cy);
             ctx.scale(scale, scale);
 
-            // Resplandor dorado radial
             const glow = ctx.createRadialGradient(0, -30, 20, 0, -30, 140);
             glow.addColorStop(0, 'rgba(255, 215, 0, 0.75)');
             glow.addColorStop(0.5, 'rgba(0, 242, 254, 0.35)');
@@ -2450,7 +2572,6 @@
             ctx.arc(0, -30, 140, 0, Math.PI * 2);
             ctx.fill();
 
-            // Rayos de sol rotantes
             ctx.strokeStyle = 'rgba(255, 215, 0, 0.25)';
             ctx.lineWidth = 3;
             for (let i = 0; i < 12; i++) {
@@ -2461,7 +2582,6 @@
                 ctx.stroke();
             }
 
-            // Base de mármol negro
             ctx.fillStyle = '#0f172a';
             ctx.strokeStyle = '#ffd700';
             ctx.lineWidth = 2.5;
@@ -2470,7 +2590,6 @@
             ctx.fill();
             ctx.stroke();
 
-            // Placa dorada en pedestal
             ctx.fillStyle = '#ffd700';
             ctx.fillRect(-30, 36, 60, 10);
             ctx.font = 'bold 8px sans-serif';
@@ -2478,7 +2597,6 @@
             ctx.textAlign = 'center';
             ctx.fillText("CAMPEÓN 2026", 0, 44);
 
-            // Tallo del trofeo
             ctx.fillStyle = '#ffd700';
             ctx.beginPath();
             ctx.moveTo(-14, 30);
@@ -2489,7 +2607,6 @@
             ctx.fill();
             ctx.stroke();
 
-            // Copa principal
             const cupGrad = ctx.createLinearGradient(-40, -60, 40, 5);
             cupGrad.addColorStop(0, '#fff4b8');
             cupGrad.addColorStop(0.4, '#ffd700');
@@ -2504,19 +2621,15 @@
             ctx.fill();
             ctx.stroke();
 
-            // Asas curvas
             ctx.strokeStyle = '#ffd700';
             ctx.lineWidth = 7;
-            // Asa izquierda
             ctx.beginPath();
             ctx.arc(-44, -30, 22, Math.PI * 0.5, Math.PI * 1.5);
             ctx.stroke();
-            // Asa derecha
             ctx.beginPath();
             ctx.arc(44, -30, 22, -Math.PI * 0.5, Math.PI * 0.5);
             ctx.stroke();
 
-            // Estrella central
             ctx.fillStyle = '#ffffff';
             ctx.beginPath();
             ctx.arc(0, -25, 12, 0, Math.PI * 2);
@@ -2534,12 +2647,11 @@
          * =========================================================================
          */
 
-        // Secuencia A: Pre-QTE (Saque rival, recepción líbero y aproximación del armador)
+        // Secuencia A: Pre-QTE (Saque rival, recepción líbero sin decapitación y aproximación del armador)
         function renderPreQTESequence(p) {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(24, 24);
 
-            // Speed lines horizontales
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.25)';
             for (let sl of speedLines) {
                 ctx.lineWidth = sl.width;
@@ -2554,11 +2666,10 @@
             // Sub-fase 1: Saque rival cruzando la red (0.0 a 0.35)
             if (p < 0.35) {
                 const tServe = p / 0.35;
-                ball.x = 840 - tServe * 560; // Viaja de 840 a 280 (hacia el líbero)
-                ball.y = 220 + Math.sin(tServe * Math.PI) * (-80) + tServe * 210; // Curva sobre la red
+                ball.x = 840 - tServe * 560;
+                ball.y = 220 + Math.sin(tServe * Math.PI) * (-80) + tServe * 210;
                 ball.rot += 0.25;
 
-                // Estela cinética roja/púrpura del saque rival
                 ctx.strokeStyle = 'rgba(255, 23, 68, 0.7)';
                 ctx.lineWidth = 4;
                 ctx.beginPath();
@@ -2567,7 +2678,8 @@
                 ctx.stroke();
 
                 players.libero.x = 280;
-                players.libero.pose = (tServe > 0.6) ? 'dive_receive' : 'stand';
+                // Transición fluida: de guardia atenta a plancha de recepción
+                players.libero.pose = (tServe > 0.45) ? 'dive_receive' : 'ready_defense';
 
                 players.setter.x = 370;
                 players.setter.pose = 'stand';
@@ -2580,14 +2692,12 @@
                 const startX = 280;
                 const startY = FLOOR_Y - 50;
                 const apexX = NET_X - 70; // 470
-                const apexY = 160;        // En lo alto para las yemas
+                const apexY = 160;
 
-                // Curva cuadrática hacia arriba
                 ball.x = startX + tDig * (apexX - startX);
                 ball.y = (1 - tDig) * (1 - tDig) * startY + 2 * (1 - tDig) * tDig * (apexY - 70) + tDig * tDig * apexY;
                 ball.rot += 0.18;
 
-                // Estela dorada de la parábola del líbero
                 ctx.strokeStyle = 'rgba(255, 215, 0, 0.75)';
                 ctx.lineWidth = 4;
                 ctx.setLineDash([8, 6]);
@@ -2597,32 +2707,26 @@
                 ctx.stroke();
                 ctx.setLineDash([]);
 
-                // Movimiento coordinado de jugadores
                 players.libero.x = 280 - tDig * 20;
                 players.libero.pose = 'dive_receive';
 
-                // El armador corre y se coloca justo debajo de la trayectoria
-                players.setter.x = 370 + tDig * 100; // Llega a 470
+                players.setter.x = 370 + tDig * 100;
                 players.setter.jump = (tDig > 0.8) ? (tDig - 0.8) / 0.2 * 50 : 0;
                 players.setter.pose = (tDig > 0.85) ? 'setter_fingertips_reach' : 'crouch_prejump';
 
-                // Rematador #10 corre y carga batida en Zona 4
                 players.spiker.x = 180 + tDig * 45;
                 players.spiker.pose = 'spiker_loading';
 
                 drawMangaOnomatopoeia("¡¡BAM!!", startX + 30, startY - 20, 44, "#ffd700");
             }
 
-            // Dibujar jugadores propios
             drawPlayerFigure(players.teammateCover, false);
             drawPlayerFigure(players.spiker, false);
             drawPlayerFigure(players.libero, false);
             drawPlayerFigure(players.setter, false);
 
-            // Red central
             drawCenterNet();
 
-            // Dibujar rivales
             drawPlayerFigure(players.rivalBlockerCenter, true);
             drawPlayerFigure(players.rivalBlockerWing, true);
             drawPlayerFigure(players.rivalBlockerSide, true);
@@ -2632,16 +2736,14 @@
             drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
         }
 
-        // Pausa Dramática: Freeze-Frame en las yemas del armador (Zoom táctico + anotaciones en Canvas)
+        // Pausa Dramática: Freeze-Frame en las yemas del armador (Zoom táctico)
         function renderTacticalFreezeFrame() {
-            // Zoom cinematográfico centrado en el armador y el balón
             sceneZoom = 1.14;
             scenePanX = -((NET_X - 70) - W * 0.5) * (sceneZoom - 1);
             scenePanY = -((FLOOR_Y - 160) - H * 0.5) * (sceneZoom - 1);
 
             drawCourtBackground(sceneZoom, scenePanX, scenePanY);
 
-            // Viñeta radial oscura con foco en las yemas y el balón
             const focalX = (NET_X - 70) * sceneZoom + scenePanX;
             const focalY = (FLOOR_Y - 145) * sceneZoom + scenePanY;
             const darkOverlay = ctx.createRadialGradient(focalX, focalY, 110, focalX, focalY, 680);
@@ -2653,26 +2755,21 @@
 
             drawScoreboard(24, 24);
 
-            // Compañeros en pista
             drawPlayerFigure(players.teammateCover, false);
             drawPlayerFigure(players.libero, false);
 
-            // Rematador #10 cargando batida desmarcado en Zona 4
             players.spiker.x = 225;
             players.spiker.jump = 0;
             players.spiker.pose = 'spiker_loading';
             drawPlayerFigure(players.spiker, false);
 
-            // Armador suspendido con yemas exactamente a milímetros del balón
-            players.setter.x = NET_X - 70; // 470
+            players.setter.x = NET_X - 70;
             players.setter.jump = 52;
             players.setter.pose = 'setter_fingertips_reach';
             drawPlayerFigure(players.setter, false);
 
-            // Red central
             drawCenterNet();
 
-            // Rivales alineados en la red en posición de muro
             players.rivalBlockerCenter.x = NET_X + 45;
             players.rivalBlockerWing.x = NET_X + 90;
             players.rivalBlockerSide.x = NET_X + 135;
@@ -2682,20 +2779,14 @@
             drawPlayerFigure(players.rivalSpiker, true);
             drawPlayerFigure(players.rivalLibero, true);
 
-            // Balón suspendido justo encima de las yemas
             ball.x = NET_X - 70;
-            ball.y = (FLOOR_Y - 52) - 156 - 12; // Justo sobre las manos (-156)
+            ball.y = (FLOOR_Y - 52) - 156 - 12;
             drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
 
-            // =========================================================
-            // ANOTACIONES TÁCTICAS HOLOGRÁFICAS EN CANVAS
-            // =========================================================
-
-            // 1. ZONA 4 DESMARCADA (Lado Izquierdo - Opción Colectiva)
+            // Anotaciones Tácticas
             const z4X = 225;
             const z4Y = FLOOR_Y - 140;
 
-            // Anillo táctico pulsante
             ctx.save();
             ctx.strokeStyle = '#00e676';
             ctx.lineWidth = 2.5;
@@ -2705,7 +2796,6 @@
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // Flecha parabólica punteada desde las manos del armador a Zona 4
             ctx.strokeStyle = '#00f2fe';
             ctx.lineWidth = 3;
             ctx.setLineDash([5, 5]);
@@ -2715,7 +2805,6 @@
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // Cartel Táctico Zona 4
             ctx.fillStyle = 'rgba(5, 30, 18, 0.92)';
             ctx.strokeStyle = '#00e676';
             ctx.lineWidth = 2;
@@ -2733,11 +2822,9 @@
             ctx.fillText("ÉXITO: 85% • PASE SOLIDARIO", z4X, z4Y - 68);
             ctx.restore();
 
-            // 2. TRIPLE BLOQUEO RIVAL (Lado Derecho / Red - Opción Ego)
             const blkX = NET_X + 90;
             const blkY = NET_TOP_Y - 40;
 
-            // Barrera de advertencia roja sobre la red
             ctx.save();
             ctx.strokeStyle = 'rgba(255, 23, 68, 0.85)';
             ctx.lineWidth = 3;
@@ -2745,7 +2832,6 @@
             ctx.strokeRect(NET_X + 25, NET_TOP_Y - 80, 130, 130);
             ctx.setLineDash([]);
 
-            // Cartel Táctico Triple Bloqueo
             ctx.fillStyle = 'rgba(38, 6, 12, 0.92)';
             ctx.strokeStyle = '#ff1744';
             ctx.lineWidth = 2;
@@ -2763,7 +2849,6 @@
             ctx.fillText("ÉXITO: 12% • MURALLA RIVAL", blkX, blkY - 43);
             ctx.restore();
 
-            // Líneas de concentración visual en el balón
             ctx.strokeStyle = 'rgba(0, 242, 254, 0.5)';
             ctx.lineWidth = 2;
             for (let a = 0; a < 6; a++) {
@@ -2775,7 +2860,7 @@
             }
         }
 
-        // Final 1: Animación de Ruta de Servicio (Pase suave y remate ganador a campo rival)
+        // Final 1: Animación de Ruta de Servicio (Pase suave y remate)
         function renderExecutePass(p) {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(24, 24);
@@ -2784,13 +2869,11 @@
             drawPlayerFigure(players.libero, false);
 
             if (p < 0.45) {
-                // Fase 1: Pase parabólico suave y limpio hacia Zona 4
                 const tPass = p / 0.45;
                 players.setter.x = NET_X - 70;
                 players.setter.jump = Math.max(0, 52 - tPass * 35);
                 players.setter.pose = 'jump_set';
 
-                // El balón viaja con estela esmeralda hacia Zona 4
                 const startX = NET_X - 70;
                 const startY = (FLOOR_Y - 52) - 156;
                 const targetX = 320;
@@ -2807,7 +2890,6 @@
                 ctx.quadraticCurveTo((startX + targetX) * 0.5, startY - 80, ball.x, ball.y);
                 ctx.stroke();
 
-                // Rematador #10 inicia despegue aéreo
                 players.spiker.x = 225 + tPass * 80;
                 players.spiker.jump = tPass * 115;
                 players.spiker.pose = (tPass > 0.6) ? 'jump_smash' : 'spiker_loading';
@@ -2815,7 +2897,6 @@
                 drawMangaOnomatopoeia("¡¡SUAVE!!", startX - 45, startY - 30, 42, "#00e676");
 
             } else {
-                // Fase 2: Rematador #10 impacta en el aire y clava el balón en cancha rival
                 const tSmash = (p - 0.45) / 0.55;
                 players.setter.x = NET_X - 80;
                 players.setter.jump = 0;
@@ -2825,7 +2906,6 @@
                 players.spiker.jump = Math.max(0, 115 - tSmash * 35);
                 players.spiker.pose = 'jump_smash';
 
-                // Balón viaja desde la mano del rematador (330, NET_TOP_Y - 60) al piso rival (820, FLOOR_Y)
                 const startX = 330;
                 const startY = NET_TOP_Y - 60;
                 const floorX = 820;
@@ -2835,7 +2915,6 @@
                 ball.y = startY + tSmash * (floorY - startY);
                 ball.rot += 0.4;
 
-                // Estela de fuego dorado y cian
                 ctx.strokeStyle = 'rgba(255, 215, 0, 0.85)';
                 ctx.lineWidth = 5;
                 ctx.beginPath();
@@ -2843,11 +2922,9 @@
                 ctx.lineTo(ball.x, ball.y);
                 ctx.stroke();
 
-                // Bloqueadores rivales superados por elevación
                 players.rivalBlockerCenter.jump = 80;
                 players.rivalBlockerWing.jump = 75;
 
-                // Ondas de choque en suelo rival al impactar
                 if (tSmash > 0.75) {
                     for (let r = 1; r <= 3; r++) {
                         ctx.strokeStyle = `rgba(0, 242, 254, ${1.0 - r * 0.28})`;
@@ -2874,16 +2951,14 @@
             drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
         }
 
-        // Final 1: Frame de Cierre Definitorio (Celebración con Trofeo y Auras Doradas/Cian)
+        // Final 1: Frame de Cierre Definitorio (Celebración con Trofeo)
         function renderFinal1Celebration() {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(25, 24);
 
-            // Auras resplandecientes rotatorias
             const cx = W * 0.5;
             const cy = FLOOR_Y - 80;
 
-            // Rayos dorados de victoria
             ctx.save();
             ctx.translate(cx, cy);
             ctx.strokeStyle = 'rgba(255, 215, 0, 0.2)';
@@ -2897,7 +2972,6 @@
             }
             ctx.restore();
 
-            // Lluvia de confeti animada
             for (let c of confettiParticles) {
                 ctx.save();
                 ctx.translate(c.x, c.y);
@@ -2915,8 +2989,6 @@
                 }
             }
 
-            // Jugadores abrazados en el centro de la cancha con auras cian y doradas
-            // Aura de equipo
             const teamAura = ctx.createRadialGradient(cx, FLOOR_Y - 50, 40, cx, FLOOR_Y - 50, 220);
             teamAura.addColorStop(0, 'rgba(0, 242, 254, 0.45)');
             teamAura.addColorStop(0.6, 'rgba(255, 215, 0, 0.35)');
@@ -2926,7 +2998,6 @@
             ctx.ellipse(cx, FLOOR_Y - 50, 220, 110, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Dibujar a los 4 compañeros celebrando abrazados
             const hugPlayers = [
                 { x: cx - 110, y: FLOOR_Y, pose: 'stand', jump: 12 * Math.abs(Math.sin(Date.now() * 0.006)), num: '5', color: '#0052e6' },
                 { x: cx - 40,  y: FLOOR_Y, pose: 'stand', jump: 18 * Math.abs(Math.sin(Date.now() * 0.006 + 0.5)), num: '8', color: '#0052e6' },
@@ -2936,10 +3007,8 @@
 
             hugPlayers.forEach(p => drawPlayerFigure(p, false));
 
-            // Trofeo de Victoria flotando en la parte superior central
             drawVictoryTrophy(cx, 130, 1.15);
 
-            // Rótulo destacado de Victoria Colectiva
             ctx.save();
             ctx.translate(cx, H * 0.88);
             ctx.fillStyle = 'rgba(2, 28, 14, 0.95)';
@@ -2961,66 +3030,128 @@
             ctx.restore();
         }
 
-        // Final 2: Animación de Ruta de Ego (Salto solo a la malla, choque violento y rebote)
-        function renderExecuteSpike(p) {
+        // Final 2: Animación de Ruta de Ego EXTENDIDA Y CON MÁS DETALLES (Fases múltiples de tensión)
+        function renderExecuteSpikeExtended(p) {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(24, 24);
 
             drawPlayerFigure(players.teammateCover, false);
-            drawPlayerFigure(players.spiker, false);
-            drawPlayerFigure(players.libero, false);
 
-            if (p < 0.4) {
-                // Fase 1: El armador salta solo hacia la red ignorando a Zona 4
-                const tJump = p / 0.4;
-                players.setter.x = NET_X - 55 + tJump * 15; // Se acerca peligrosamente a la red
-                players.setter.jump = tJump * 95;
+            if (p < 0.28) {
+                // FASE 1: Armador ignora el pedido desesperado de Zona 4 y carga con ego hacia la red
+                const t1 = p / 0.28;
+                players.spiker.x = 220;
+                players.spiker.jump = 15;
+                players.spiker.pose = 'stand'; // Pide el pase con las manos
+                drawPlayerFigure(players.spiker, false);
+
+                // Cartel manga del compañero pidiendo el balón
+                drawMangaOnomatopoeia("¡¡DÁMELA A MÍ!!", 230, FLOOR_Y - 170, 24, "#00f2fe");
+
+                players.setter.x = NET_X - 65 + t1 * 18;
+                players.setter.jump = t1 * 85;
                 players.setter.pose = 'jump_smash';
 
-                // Balón baja a la altura de su remate
-                ball.x = players.setter.x + 10;
-                ball.y = (FLOOR_Y - 95) - 60;
+                ball.x = players.setter.x + 8;
+                ball.y = (FLOOR_Y - 85) - 55;
 
-                // Triple bloqueo rival salta en masa a sellar la red
-                players.rivalBlockerCenter.jump = tJump * 115;
-                players.rivalBlockerWing.jump = tJump * 110;
-                players.rivalBlockerSide.jump = tJump * 105;
+                // Rivales todavía en preparación
+                players.rivalBlockerCenter.jump = t1 * 40;
+                players.rivalBlockerWing.jump = t1 * 35;
+                players.rivalBlockerSide.jump = t1 * 30;
+
+            } else if (p < 0.55) {
+                // FASE 2: El Triple Bloqueo se alza como una muralla infranqueable
+                const t2 = (p - 0.28) / 0.27;
+                players.spiker.x = 220;
+                players.spiker.jump = 0;
+                players.spiker.pose = 'disappointed_teammate';
+                drawPlayerFigure(players.spiker, false);
+
+                players.setter.x = NET_X - 46;
+                players.setter.jump = 85 + t2 * 15; // Máxima altura
+                players.setter.pose = 'jump_smash';
+
+                ball.x = players.setter.x + 12;
+                ball.y = (FLOOR_Y - 100) - 55;
+
+                // El triple bloqueo salta al unísono sellando la red con 6 manos
+                players.rivalBlockerCenter.jump = 40 + t2 * 80;
+                players.rivalBlockerWing.jump = 35 + t2 * 78;
+                players.rivalBlockerSide.jump = 30 + t2 * 75;
                 players.rivalBlockerCenter.pose = 'block_wall';
                 players.rivalBlockerWing.pose = 'block_wall';
                 players.rivalBlockerSide.pose = 'block_wall';
 
-            } else {
-                // Fase 2: ¡IMPACTO VIOLENTO CONTRA LAS 6 MANOS Y REBOTE A NUESTRO SUELO!
-                const tBlock = (p - 0.4) / 0.6;
-                players.setter.x = NET_X - 40;
-                players.setter.jump = Math.max(0, 95 - tBlock * 95);
-                players.setter.pose = (tBlock > 0.6) ? 'kneel_regret' : 'dive_receive';
+                // Efecto de sombra roja intimidante del bloqueo
+                ctx.fillStyle = 'rgba(255, 23, 68, 0.25)';
+                ctx.fillRect(NET_X - 30, NET_TOP_Y - 90, 160, 180);
 
-                // El balón rebota contra las manos (NET_X, NET_TOP_Y - 20) y cae hacia nuestro piso (X: 430, FLOOR_Y)
-                const impactX = NET_X - 10;
-                const impactY = NET_TOP_Y - 25;
-                const ownFloorX = 420;
-                const ownFloorY = FLOOR_Y;
+                drawMangaOnomatopoeia("¡¡MURALLA TRIPLE!!", NET_X + 70, NET_TOP_Y - 120, 36, "#ff1744");
 
-                ball.x = impactX - tBlock * (impactX - ownFloorX);
-                ball.y = impactY + (tBlock * tBlock) * (ownFloorY - impactY);
-                ball.rot -= 0.35;
+            } else if (p < 0.78) {
+                // FASE 3: Choque brutal contra las 6 manos, destello, fracturas y sonido estruendoso
+                const t3 = (p - 0.55) / 0.23;
+                players.spiker.x = 220;
+                players.spiker.jump = 0;
+                players.spiker.pose = 'disappointed_teammate';
+                drawPlayerFigure(players.spiker, false);
 
-                // Líneas de fractura manga rojas en el punto de bloqueo
-                ctx.strokeStyle = 'rgba(255, 23, 68, 0.85)';
-                ctx.lineWidth = 3.5;
-                for (let i = 0; i < 8; i++) {
-                    const ang = (i / 8) * Math.PI * 2;
+                players.setter.x = NET_X - 46;
+                players.setter.jump = Math.max(0, 100 - t3 * 60);
+                players.setter.pose = 'dive_receive';
+
+                // Impacto y rebote violento
+                const impactX = NET_X - 8;
+                const impactY = NET_TOP_Y - 30;
+                const reboundFloorX = 420;
+                const reboundFloorY = FLOOR_Y;
+
+                ball.x = impactX - t3 * (impactX - reboundFloorX);
+                ball.y = impactY + (t3 * t3) * (reboundFloorY - impactY);
+                ball.rot -= 0.4;
+
+                // Fracturas rojas en el cristal de la pantalla
+                ctx.strokeStyle = 'rgba(255, 23, 68, 0.9)';
+                ctx.lineWidth = 4;
+                for (let i = 0; i < 10; i++) {
+                    const ang = (i / 10) * Math.PI * 2;
                     ctx.beginPath();
                     ctx.moveTo(impactX, impactY);
-                    ctx.lineTo(impactX + Math.cos(ang) * 90, impactY + Math.sin(ang) * 90);
+                    ctx.lineTo(impactX + Math.cos(ang) * (110 + (i % 3) * 25), impactY + Math.sin(ang) * (110 + (i % 3) * 25));
                     ctx.stroke();
                 }
 
-                drawMangaOnomatopoeia("¡¡MONSTER BLOCK!!", NET_X + 60, NET_TOP_Y - 110, 62, "#ff1744");
-                drawMangaOnomatopoeia("¡¡CRASH!!", NET_X - 60, NET_TOP_Y - 20, 48, "#ffffff");
+                drawMangaOnomatopoeia("¡¡MONSTER BLOCK!!", NET_X + 60, NET_TOP_Y - 110, 64, "#ff1744");
+                drawMangaOnomatopoeia("¡¡CRASH!!", NET_X - 60, NET_TOP_Y - 20, 50, "#ffffff");
+
+            } else {
+                // FASE 4: Balón golpea fuertemente nuestro piso y el armador cae arrodillado
+                const t4 = (p - 0.78) / 0.22;
+                players.spiker.x = 220;
+                players.spiker.jump = 0;
+                players.spiker.pose = 'disappointed_teammate';
+                drawPlayerFigure(players.spiker, false);
+
+                players.setter.x = 420;
+                players.setter.jump = 0;
+                players.setter.pose = 'kneel_regret';
+
+                ball.x = 420;
+                ball.y = FLOOR_Y - Math.abs(Math.sin(t4 * Math.PI * 3)) * (24 * (1 - t4));
+                ball.rot -= 0.2;
+
+                // Ondas de frustración en suelo
+                ctx.strokeStyle = 'rgba(255, 23, 68, 0.7)';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.ellipse(ball.x, FLOOR_Y, 50 * t4, 15 * t4, 0, 0, Math.PI * 2);
+                ctx.stroke();
+
+                drawMangaOnomatopoeia("¡¡PUNTO PERDIDO!!", ball.x - 30, FLOOR_Y - 70, 42, "#ff1744");
             }
 
+            drawPlayerFigure(players.libero, false);
             drawPlayerFigure(players.setter, false);
             drawCenterNet();
 
@@ -3033,26 +3164,24 @@
             drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
         }
 
-        // Final 2: Frame de Cierre Definitorio (Bloqueo Brutal, Iluminación Rojo/Magenta y Frustración)
+        // Final 2: Frame de Cierre Definitorio (Bloqueo Brutal y Frustración)
         function renderFinal2Frustration() {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(24, 25);
 
-            // Atmósfera densa monocromática en tonos rojos y magenta
             const darkOverlay = ctx.createLinearGradient(0, 0, 0, H);
-            darkOverlay.addColorStop(0, 'rgba(45, 5, 18, 0.7)');
+            darkOverlay.addColorStop(0, 'rgba(45, 5, 18, 0.72)');
             darkOverlay.addColorStop(0.5, 'rgba(22, 2, 8, 0.88)');
             darkOverlay.addColorStop(1, 'rgba(5, 0, 2, 0.96)');
             ctx.fillStyle = darkOverlay;
             ctx.fillRect(0, 0, W, H);
 
-            // Destellos de luz carmesí
             ctx.fillStyle = 'rgba(255, 23, 68, 0.12)';
             ctx.beginPath();
             ctx.arc(W * 0.4, FLOOR_Y, 280, 0, Math.PI * 2);
             ctx.fill();
 
-            // Compañeros en gestos de desilusión y hombros caídos
+            // Compañeros en desilusión
             players.spiker.x = 220;
             players.spiker.jump = 0;
             players.spiker.pose = 'disappointed_teammate';
@@ -3077,18 +3206,15 @@
 
             drawCenterNet();
 
-            // Rivales celebrando detrás del muro
             drawPlayerFigure(players.rivalBlockerCenter, true);
             drawPlayerFigure(players.rivalBlockerWing, true);
             drawPlayerFigure(players.rivalBlockerSide, true);
             drawPlayerFigure(players.rivalSpiker, true);
             drawPlayerFigure(players.rivalLibero, true);
 
-            // Balón botando débilmente en el piso
             const bounceY = FLOOR_Y - Math.abs(Math.sin(Date.now() * 0.005)) * 12;
             drawMangaBall(470, bounceY, ball.radius, 0.2);
 
-            // Rótulo dramático de Bloqueo Brutal
             ctx.save();
             ctx.translate(W * 0.5, H * 0.88);
             ctx.fillStyle = 'rgba(38, 5, 12, 0.95)';
@@ -3110,59 +3236,104 @@
             ctx.restore();
         }
 
-        // Final 3: Animación de Parálisis por Ansiedad (Balón cae libre al suelo sin tocarse)
-        function renderExecuteTimeout(p) {
-            drawCourtBackground(1.0, 0, 0);
+        // Final 3: Animación de Parálisis por Ansiedad EXTENDIDA Y PSICOLÓGICA (Desaturación progresiva y congelamiento)
+        function renderExecuteTimeoutExtended(p) {
+            // Desaturación progresiva según el avance de la parálisis
+            const isGray = (p > 0.35);
+            drawCourtBackground(1.0, 0, 0, isGray);
             drawScoreboard(24, 24);
 
-            drawPlayerFigure(players.teammateCover, false);
-            drawPlayerFigure(players.spiker, false);
-            drawPlayerFigure(players.libero, false);
+            drawPlayerFigure(players.teammateCover, false, isGray);
+            drawPlayerFigure(players.spiker, false, isGray);
+            drawPlayerFigure(players.libero, false, isGray);
 
-            // El armador duda, retira las manos hacia su cuerpo y desciende rígido
-            players.setter.x = NET_X - 70;
-            players.setter.jump = Math.max(0, 52 - p * 52);
-            players.setter.pose = 'anxiety_frozen';
-            drawPlayerFigure(players.setter, false);
+            if (p < 0.35) {
+                // FASE 1: 0.0s sin selección -> Sobrecarga de estrés y temblor de manos
+                const t1 = p / 0.35;
+                players.setter.x = NET_X - 70;
+                players.setter.jump = 52;
+                players.setter.pose = 'setter_fingertips_reach';
+                drawPlayerFigure(players.setter, false, false);
 
-            drawCenterNet();
+                ball.x = NET_X - 70;
+                ball.y = (FLOOR_Y - 52) - 156 - 12;
 
-            drawPlayerFigure(players.rivalBlockerCenter, true);
-            drawPlayerFigure(players.rivalBlockerWing, true);
-            drawPlayerFigure(players.rivalBlockerSide, true);
-            drawPlayerFigure(players.rivalSpiker, true);
-            drawPlayerFigure(players.rivalLibero, true);
+                // Ondas de estrés y duda
+                ctx.strokeStyle = 'rgba(255, 23, 68, 0.7)';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.arc(players.setter.x, ball.y + 40, 45 * t1, 0, Math.PI * 2);
+                ctx.stroke();
 
-            // El balón desciende libremente por gravedad vertical hacia el piso sin que nadie lo toque
-            const startBallY = (FLOOR_Y - 52) - 156;
-            const targetFloorY = FLOOR_Y;
+                drawMangaOnomatopoeia("¡¡DUDA...!!", NET_X - 70, ball.y - 45, 38, "#ff3366");
 
-            ball.x = NET_X - 70;
-            ball.y = startBallY + (p * p) * (targetFloorY - startBallY);
-            ball.rot += 0.05;
+            } else if (p < 0.70) {
+                // FASE 2: Retirada de manos en pánico y caída en cámara lenta
+                const t2 = (p - 0.35) / 0.35;
+                players.setter.x = NET_X - 70;
+                players.setter.jump = Math.max(0, 52 - t2 * 52); // Desciende rígido
+                players.setter.pose = 'anxiety_frozen';
+                drawPlayerFigure(players.setter, false, true);
 
-            // Silbato arbitral al llegar al suelo
-            if (p > 0.85) {
-                // Ondas de polvo opacas en el piso
+                // El balón cae libremente sin ser tocado jamás
+                const startY = (FLOOR_Y - 52) - 156 - 12;
+                const targetY = FLOOR_Y - 40;
+                ball.x = NET_X - 70;
+                ball.y = startY + t2 * (targetY - startY);
+                ball.rot += 0.06;
+
+                // Pensamiento de pánico en la mente del armador
+                ctx.save();
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(NET_X - 180, (FLOOR_Y - 140), 220, 44, 8);
+                ctx.fill();
+                ctx.stroke();
+                ctx.font = 'italic 700 11px "Inter", sans-serif';
+                ctx.fillStyle = '#e2e8f0';
+                ctx.textAlign = 'center';
+                ctx.fillText("«El miedo a errar me paralizó...»", NET_X - 70, (FLOOR_Y - 113));
+                ctx.restore();
+
+            } else {
+                // FASE 3: El balón toca el piso con un golpe sordo y suena el silbato
+                const t3 = (p - 0.70) / 0.30;
+                players.setter.x = NET_X - 70;
+                players.setter.jump = 0;
+                players.setter.pose = 'anxiety_frozen';
+                drawPlayerFigure(players.setter, false, true);
+
+                ball.x = NET_X - 70;
+                ball.y = FLOOR_Y;
+
+                // Ondas de polvo opacas y silbato
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.ellipse(ball.x, targetFloorY, 35, 10, 0, 0, Math.PI * 2);
+                ctx.ellipse(ball.x, FLOOR_Y, 35 * t3, 10 * t3, 0, 0, Math.PI * 2);
                 ctx.stroke();
 
-                drawMangaOnomatopoeia("¡¡SILBATO!!", ball.x + 30, targetFloorY - 70, 54, "#ffffff");
+                drawMangaOnomatopoeia("¡¡SILBATO!!", ball.x + 30, FLOOR_Y - 70, 54, "#ffffff");
             }
 
-            drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
+            drawCenterNet(isGray);
+
+            drawPlayerFigure(players.rivalBlockerCenter, true, isGray);
+            drawPlayerFigure(players.rivalBlockerWing, true, isGray);
+            drawPlayerFigure(players.rivalBlockerSide, true, isGray);
+            drawPlayerFigure(players.rivalSpiker, true, isGray);
+            drawPlayerFigure(players.rivalLibero, true, isGray);
+
+            drawMangaBall(ball.x, ball.y, ball.radius, ball.rot, isGray);
         }
 
-        // Final 3: Frame de Cierre Definitorio (Escala de Grises, Balón Estático y Sombra Ominosa)
+        // Final 3: Frame de Cierre Definitorio (Escala de Grises y Sombra Ominosa)
         function renderFinal3Inaction() {
-            // Cancha en estricta escala de grises
             drawCourtBackground(1.0, 0, 0, true);
             drawScoreboard(24, 25);
 
-            // Viñeta oscura pesada en los bordes
             const darkVignette = ctx.createRadialGradient(W * 0.5, H * 0.5, 140, W * 0.5, H * 0.5, 590);
             darkVignette.addColorStop(0, 'rgba(0, 0, 0, 0.15)');
             darkVignette.addColorStop(0.7, 'rgba(0, 0, 0, 0.85)');
@@ -3170,7 +3341,6 @@
             ctx.fillStyle = darkVignette;
             ctx.fillRect(0, 0, W, H);
 
-            // Compañeros en escala de grises
             players.spiker.x = 220;
             players.spiker.jump = 0;
             players.spiker.pose = 'anxiety_frozen';
@@ -3183,7 +3353,7 @@
             drawPlayerFigure(players.libero, false, true);
             drawPlayerFigure(players.spiker, false, true);
 
-            // Sombra espectral ominosa que simboliza el bloqueo emocional y la parálisis
+            // Sombra espectral de la ansiedad
             const shadowX = NET_X - 70;
             const shadowY = FLOOR_Y - 90;
 
@@ -3197,7 +3367,6 @@
             ctx.ellipse(shadowX - 10, shadowY - 20, 85, 120, 0.1, 0, Math.PI * 2);
             ctx.fill();
 
-            // Armador congelado mirando sus manos
             players.setter.x = NET_X - 70;
             players.setter.jump = 0;
             players.setter.pose = 'anxiety_frozen';
@@ -3211,10 +3380,8 @@
             drawPlayerFigure(players.rivalSpiker, true, true);
             drawPlayerFigure(players.rivalLibero, true, true);
 
-            // Balón descansando estático e inmóvil en el suelo
             drawMangaBall(NET_X - 70, FLOOR_Y, ball.radius, 0, true);
 
-            // Rótulo sobrio de Parálisis por Ansiedad
             ctx.save();
             ctx.translate(W * 0.5, H * 0.88);
             ctx.fillStyle = 'rgba(15, 23, 42, 0.96)';
@@ -3244,7 +3411,6 @@
         function animationLoop() {
             ctx.save();
 
-            // Temblor de pantalla sísmico (Screen Shake)
             if (screenShake > 0.5) {
                 const ox = (Math.random() - 0.5) * screenShake;
                 const oy = (Math.random() - 0.5) * screenShake;
@@ -3254,21 +3420,30 @@
 
             ctx.clearRect(0, 0, W, H);
 
-            // Máquina de estados
             switch (currentStage) {
+                case STAGES.START_IDLE:
+                    // Fondo animado sutil en espera del clic
+                    drawCourtBackground(1.0, 0, 0);
+                    drawScoreboard(24, 24);
+                    drawPlayerFigure(players.setter, false);
+                    drawPlayerFigure(players.libero, false);
+                    drawPlayerFigure(players.spiker, false);
+                    drawCenterNet();
+                    drawPlayerFigure(players.rivalBlockerCenter, true);
+                    drawPlayerFigure(players.rivalSpiker, true);
+                    break;
+
                 case STAGES.PRE_QTE:
-                    stageProgress += 0.0075; // Secuencia fluida hacia las yemas
+                    stageProgress += 0.0075;
                     renderPreQTESequence(Math.min(1.0, stageProgress));
 
                     if (stageProgress >= 1.0) {
-                        // Iniciar Freeze Frame y QTE de 2.5 segundos
                         currentStage = STAGES.QTE_FREEZE;
                         qteStartTime = performance.now();
                         qteTimeRemainingMs = QTE_TOTAL_DURATION_MS;
                         qteOverlay.style.display = 'flex';
                         audio.playHeartbeat();
 
-                        // Latido acelerado continuo
                         heartbeatInterval = setInterval(() => {
                             audio.playHeartbeat();
                         }, 580);
@@ -3280,7 +3455,6 @@
                 case STAGES.QTE_FREEZE:
                     renderTacticalFreezeFrame();
 
-                    // Temporizador exacto de 2.50 segundos
                     const elapsed = performance.now() - qteStartTime;
                     qteTimeRemainingMs = Math.max(0, QTE_TOTAL_DURATION_MS - elapsed);
                     const remainingSec = (qteTimeRemainingMs / 1000).toFixed(1);
@@ -3288,11 +3462,9 @@
 
                     qteCountdownText.textContent = remainingSec;
 
-                    // Actualizar barra circular SVG
                     const circumference = 301.6;
                     qteTimerCircle.style.strokeDashoffset = (1.0 - ratio) * circumference;
 
-                    // Cambio de color por tensión adrenérgica
                     if (ratio < 0.35) {
                         qteTimerCircle.style.stroke = '#ff1744';
                         qteCountdownText.style.color = '#ff1744';
@@ -3307,7 +3479,6 @@
                         qteCountdownText.style.textShadow = '0 0 15px #00f2fe';
                     }
 
-                    // Expiración del temporizador (0.0s sin selección) -> Parálisis
                     if (qteTimeRemainingMs <= 0) {
                         triggerDecision('TIMEOUT');
                     }
@@ -3324,15 +3495,15 @@
                         audio.playSpikeSmash();
                         updateHUDLabel("Frame 4: ¡Punto y Victoria por Servicio Colectivo (25-24)!");
 
-                        // Disparar audio narrativo y actualizar Dashboard
                         audio.playNarrativeTrack('audio_servicio_exito.mp3', NARRATIVES.PASS, 'PASS');
                         onEndingReached('PASS');
                     }
                     break;
 
                 case STAGES.EXECUTE_SPIKE:
-                    stageProgress = Math.min(1.0, stageProgress + 0.012);
-                    renderExecuteSpike(stageProgress);
+                    // Animación más larga y con más detalles (progreso suave ~4.5 segundos)
+                    stageProgress = Math.min(1.0, stageProgress + 0.0055);
+                    renderExecuteSpikeExtended(stageProgress);
 
                     if (stageProgress >= 1.0) {
                         currentStage = STAGES.FINAL_2_BLOCK;
@@ -3341,22 +3512,21 @@
                         audio.playMonsterBlock();
                         updateHUDLabel("Frame 5: ¡Triple Bloqueo Rival Monster Block (24-25)!");
 
-                        // Disparar audio narrativo, Dashboard y Módulo de Autorregulación
                         audio.playNarrativeTrack('audio_ego_refutacion.mp3', NARRATIVES.SPIKE, 'SPIKE');
                         onEndingReached('SPIKE');
                     }
                     break;
 
                 case STAGES.EXECUTE_TIMEOUT:
-                    stageProgress = Math.min(1.0, stageProgress + 0.010);
-                    renderExecuteTimeout(stageProgress);
+                    // Animación más larga, psicológica y con desaturación progresiva (~4.5 segundos)
+                    stageProgress = Math.min(1.0, stageProgress + 0.0052);
+                    renderExecuteTimeoutExtended(stageProgress);
 
                     if (stageProgress >= 1.0) {
                         currentStage = STAGES.FINAL_3_PARALYSIS;
                         audio.playWhistle();
                         updateHUDLabel("Frame 6: ¡Parálisis por Ansiedad! Balón sin tocar y punto perdido (24-25)");
 
-                        // Disparar audio narrativo, Dashboard y Módulo de Autorregulación
                         audio.playNarrativeTrack('audio_paralisis_estres.mp3', NARRATIVES.TIMEOUT, 'TIMEOUT');
                         onEndingReached('TIMEOUT');
                     }
@@ -3375,14 +3545,12 @@
                     break;
             }
 
-            // Destello flash blanco en remates e impactos
             if (flashOpacity > 0.02) {
                 ctx.fillStyle = `rgba(255, 255, 255, ${flashOpacity})`;
                 ctx.fillRect(0, 0, W, H);
                 flashOpacity *= 0.82;
             }
 
-            // Borde estético de viñeta cómic
             ctx.strokeStyle = '#1e293b';
             ctx.lineWidth = 4;
             ctx.strokeRect(0, 0, W, H);
@@ -3423,7 +3591,7 @@
 
         /**
          * =========================================================================
-         * CONEXIÓN CON EL DASHBOARD Y MÓDULO FORMATIVO DE AUTORREGULACIÓN
+         * CONEXIÓN CON EL DASHBOARD (SIN SCROLL FORZADO)
          * =========================================================================
          */
         function onEndingReached(endingType) {
@@ -3435,55 +3603,40 @@
             cardSpike.className = 'outcome-card';
             cardTimeout.className = 'outcome-card';
 
+            manualDiagnosticBanner.style.display = 'flex';
+
             if (endingType === 'PASS') {
-                // Final 1: Servicio Colectivo
                 cardPass.className = 'outcome-card active-success';
                 currentOutcomeBadge.textContent = "🏆 Victoria por Servicio Colectivo (25-24)";
                 currentOutcomeBadge.className = "project-badge";
                 currentOutcomeBadge.style.color = "var(--neon-green)";
                 currentOutcomeBadge.style.borderColor = "var(--neon-green)";
 
-                // Métricas altas en Dashboard LifeLab
+                bannerOutcomeSummary.innerHTML = `<strong>¡Victoria 25-24!</strong> Has alcanzado la maestría colectiva (85% éxito).`;
                 updateDashboardMetrics(95, 96, 99, 98, 92, 'PASS');
 
-                // En el éxito no es obligatoria la intervención, pero se puede revisar
-                trainingModuleSection.style.display = 'none';
-
             } else if (endingType === 'SPIKE') {
-                // Final 2: Ego Individualista
                 cardSpike.className = 'outcome-card active-alert';
                 currentOutcomeBadge.textContent = "⚠️ Alerta: Impulsividad Reactiva (24-25)";
                 currentOutcomeBadge.className = "project-badge";
                 currentOutcomeBadge.style.color = "var(--neon-crimson)";
                 currentOutcomeBadge.style.borderColor = "var(--neon-crimson)";
 
+                bannerOutcomeSummary.innerHTML = `<strong>Punto Perdido 24-25:</strong> Colisión por triple bloqueo. Módulo de Autorregulación disponible.`;
                 updateDashboardMetrics(22, 35, 15, 25, 30, 'SPIKE');
 
-                // Despliegue automático del Módulo Formativo de Autorregulación
-                trainingModuleSection.style.display = 'flex';
-                setTimeout(() => {
-                    trainingModuleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 600);
-
             } else {
-                // Final 3: Parálisis por Ansiedad
                 cardTimeout.className = 'outcome-card active-paralysis';
                 currentOutcomeBadge.textContent = "⏳ Alerta: Parálisis por Ansiedad (24-25)";
                 currentOutcomeBadge.className = "project-badge";
                 currentOutcomeBadge.style.color = "#94a3b8";
                 currentOutcomeBadge.style.borderColor = "#94a3b8";
 
+                bannerOutcomeSummary.innerHTML = `<strong>Punto Perdido 24-25:</strong> Parálisis por sobrecarga cognitiva. Módulo de Autorregulación disponible.`;
                 updateDashboardMetrics(28, 30, 40, 35, 10, 'TIMEOUT');
-
-                // Despliegue automático del Módulo Formativo de Autorregulación
-                trainingModuleSection.style.display = 'flex';
-                setTimeout(() => {
-                    trainingModuleSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 600);
             }
         }
 
-        // Actualización de Métricas y Radar Canvas
         function updateDashboardMetrics(inhibition, vision, service, ethics, resolution, type) {
             document.getElementById('statInhibition').textContent = inhibition + '%';
             document.getElementById('statVision').textContent = vision + '%';
@@ -3494,7 +3647,6 @@
             renderRadarChart([inhibition, vision, service, ethics, resolution], type);
         }
 
-        // Dibujo del Radar Canvas 360° LifeLab
         function renderRadarChart(values, type) {
             const rCanvas = document.getElementById('radarCanvas');
             if (!rCanvas) return;
@@ -3516,7 +3668,6 @@
             ];
             const numSides = 5;
 
-            // Anillos concéntricos del radar
             for (let ring = 1; ring <= 4; ring++) {
                 const r = (ring / 4) * maxR;
                 rCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
@@ -3533,7 +3684,6 @@
                 rCtx.stroke();
             }
 
-            // Ejes radiales y etiquetas
             rCtx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
             rCtx.fillStyle = '#94a3b8';
             rCtx.font = 'bold 9.5px "Inter", sans-serif';
@@ -3548,13 +3698,11 @@
                 rCtx.lineTo(ex, ey);
                 rCtx.stroke();
 
-                // Ubicación de etiqueta exterior
                 const lx = cx + Math.cos(ang) * (maxR + 24);
                 const ly = cy + Math.sin(ang) * (maxR + 18);
                 rCtx.fillText(labels[i], lx, ly);
             }
 
-            // Polígono de Rendimiento
             let strokeColor = '#00f2fe';
             let fillColor = 'rgba(0, 242, 254, 0.25)';
 
@@ -3588,7 +3736,6 @@
             rCtx.fill();
             rCtx.stroke();
 
-            // Puntos en los vértices
             for (let i = 0; i < numSides; i++) {
                 const valRatio = Math.max(0.1, values[i] / 100);
                 const r = valRatio * maxR;
@@ -3613,7 +3760,7 @@
          */
         let breathingTimer = null;
         let isBreathingActive = false;
-        let breathingPhase = 0; // 0: Inhala, 1: Retén, 2: Exhala, 3: Retén en vacío
+        let breathingPhase = 0;
         const breathingCircle = document.getElementById('breathingCircle');
         const breathingPhaseLabel = document.getElementById('breathingPhaseLabel');
         const btnToggleBreathing = document.getElementById('btnToggleBreathing');
@@ -3668,6 +3815,15 @@
          * EVENTOS Y ASIGNACIONES DE USUARIO
          * =========================================================================
          */
+        btnStartExperience.addEventListener('click', () => {
+            audio.init();
+            startScreenOverlay.style.display = 'none';
+            currentStage = STAGES.PRE_QTE;
+            stageProgress = 0.0;
+            audio.playServe();
+            updateHUDLabel("Frame 1: Saque rival cruzando la red y recepción del Líbero #5");
+        });
+
         btnChoosePass.addEventListener('click', (e) => {
             e.stopPropagation();
             triggerDecision('PASS');
@@ -3679,7 +3835,11 @@
         });
 
         btnRestart.addEventListener('click', () => {
-            resetSimulation();
+            resetSimulation(false); // Inicia jugada directamente
+        });
+
+        btnScrollToDiagnostic.addEventListener('click', () => {
+            document.getElementById('dashboardSection').scrollIntoView({ behavior: 'smooth' });
         });
 
         btnSoundToggle.addEventListener('click', () => {
@@ -3690,26 +3850,27 @@
                 : '<i class="fa-solid fa-volume-xmark"></i> Sonido: OFF';
         });
 
-        // Botones de prueba directa en el toolbar
         btnTestPass.addEventListener('click', () => {
+            startScreenOverlay.style.display = 'none';
             currentStage = STAGES.PRE_QTE;
             stageProgress = 0.95;
             setTimeout(() => triggerDecision('PASS'), 150);
         });
 
         btnTestSpike.addEventListener('click', () => {
+            startScreenOverlay.style.display = 'none';
             currentStage = STAGES.PRE_QTE;
             stageProgress = 0.95;
             setTimeout(() => triggerDecision('SPIKE'), 150);
         });
 
         btnTestTimeout.addEventListener('click', () => {
+            startScreenOverlay.style.display = 'none';
             currentStage = STAGES.PRE_QTE;
             stageProgress = 0.95;
             setTimeout(() => triggerDecision('TIMEOUT'), 150);
         });
 
-        // Botones auxiliares de la tarjeta de fallback de audio
         btnPlaySyntheticTone.addEventListener('click', () => {
             audio.playSyntheticNarrativeTone(selectedRoute || 'PASS');
         });
@@ -3727,13 +3888,12 @@
             }
         });
 
-        // Desbloqueo de AudioContext con interacción inicial
         window.addEventListener('click', () => {
             audio.init();
         }, { once: true });
 
-        // Inicialización al cargar la página
-        resetSimulation();
+        // Iniciar en pantalla de bienvenida
+        resetSimulation(true);
         requestAnimationFrame(animationLoop);
     </script>
 </body>
