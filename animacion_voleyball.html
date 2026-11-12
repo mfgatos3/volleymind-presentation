@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VolleyMind & LifeLab • Simulador Interactivo 2D & Módulo QTE (2.5s)</title>
+    <title>VolleyMind & LifeLab • Animación 2D & QTE (2.5s)</title>
     
     <!-- Fuentes Google: Outfit, Inter y Fira Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Font Awesome 6 Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,10 +16,6 @@
     <style>
         :root {
             --bg-space: #03060f;
-            --bg-card: rgba(11, 17, 32, 0.90);
-            --border-glow: rgba(0, 242, 254, 0.35);
-            
-            /* Paleta Spectrum Flow Neón */
             --neon-cyan: #00f2fe;
             --neon-blue: #0088ff;
             --neon-green: #00e676;
@@ -28,52 +24,49 @@
             --neon-amber: #f59e0b;
             --neon-magenta: #d946ef;
             --neon-crimson: #ff1744;
-            --neon-purple: #8b5cf6;
-            
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
-            --text-muted: #64748b;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            user-select: none;
         }
 
         body {
             background-color: var(--bg-space);
             background-image: 
-                radial-gradient(circle at 50% 5%, rgba(0, 136, 255, 0.15) 0%, transparent 65%),
-                radial-gradient(circle at 85% 85%, rgba(217, 70, 239, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 15% 90%, rgba(0, 242, 254, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 50% 10%, rgba(0, 136, 255, 0.16) 0%, transparent 65%),
+                radial-gradient(circle at 85% 85%, rgba(217, 70, 239, 0.09) 0%, transparent 50%),
+                radial-gradient(circle at 15% 90%, rgba(0, 242, 254, 0.09) 0%, transparent 50%);
             background-attachment: fixed;
             color: var(--text-main);
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: auto;
-            padding: 20px 16px 80px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            padding: 16px;
+            overflow-x: hidden;
         }
 
-        /* Contenedor Principal Estilo Presentación / Slideshow */
-        .app-container {
+        /* Contenedor Cinema / Theater */
+        .theater-container {
             width: 100%;
-            max-width: 1140px;
+            max-width: 1100px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 18px;
+            gap: 12px;
         }
 
         /* Encabezado */
         header.simulator-header {
             text-align: center;
             width: 100%;
-            padding: 6px 0;
         }
 
         .project-badge {
@@ -87,34 +80,25 @@
             font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
-            padding: 5px 16px;
-            border-radius: 30px;
-            margin-bottom: 8px;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 6px;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
         }
 
         h1.simulator-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 1px;
             background: linear-gradient(135deg, #ffffff 30%, #00f2fe 80%, #ffd700 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 242, 254, 0.3);
-            margin-bottom: 4px;
+            text-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
         }
 
-        .simulator-subtitle {
-            font-size: 13px;
-            color: var(--text-dim);
-            max-width: 760px;
-            margin: 0 auto;
-            line-height: 1.45;
-        }
-
-        /* Marco del Stage / Slideshow Cinema Viewport */
+        /* Marco del Stage Canvas */
         #comic-stage-wrapper {
             position: relative;
             width: 1080px;
@@ -170,7 +154,7 @@
 
         .start-main-headline {
             font-family: 'Outfit', sans-serif;
-            font-size: 34px;
+            font-size: 32px;
             font-weight: 900;
             letter-spacing: 1.5px;
             text-transform: uppercase;
@@ -391,7 +375,6 @@
             opacity: 0.9;
         }
 
-        /* Estilo Botón RUTA DE SERVICIO (PASAR) */
         .btn-service-route {
             border-color: var(--neon-green);
             color: #ffffff;
@@ -415,7 +398,6 @@
             box-shadow: 0 12px 35px rgba(0, 230, 118, 0.65);
         }
 
-        /* Estilo Botón RUTA DE EGO (REMATAR) */
         .btn-ego-route {
             border-color: var(--neon-amber);
             color: #ffffff;
@@ -444,12 +426,12 @@
             width: 100%;
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
             justify-content: space-between;
-            background: var(--bg-card);
+            background: rgba(11, 17, 32, 0.90);
             border: 1px solid #1e293b;
-            padding: 12px 18px;
+            padding: 10px 16px;
             border-radius: 12px;
             backdrop-filter: blur(10px);
         }
@@ -457,7 +439,7 @@
         .toolbar-group {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
@@ -465,11 +447,11 @@
             background: #131b2e;
             border: 1px solid #2a3754;
             color: #cbd5e1;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 700;
             letter-spacing: 0.8px;
             text-transform: uppercase;
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -492,20 +474,13 @@
             font-weight: 800;
         }
 
-        .hud-btn.btn-callout {
-            background: linear-gradient(135deg, rgba(217, 70, 239, 0.25), rgba(0, 242, 254, 0.25));
-            border-color: var(--neon-magenta);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(217, 70, 239, 0.3);
-        }
-
         .frame-indicator {
             font-family: 'Fira Code', monospace;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 700;
             color: var(--neon-cyan);
             background: rgba(0, 242, 254, 0.08);
-            padding: 7px 16px;
+            padding: 6px 14px;
             border-radius: 20px;
             border: 1px solid rgba(0, 242, 254, 0.25);
             display: flex;
@@ -527,505 +502,17 @@
             50% { transform: scale(1.2); opacity: 1; }
             100% { transform: scale(0.9); opacity: 0.7; }
         }
-
-        /* Banner de Transición Manual al Diagnóstico (Sin Scroll Forzado) */
-        .manual-diagnostic-banner {
-            width: 100%;
-            background: linear-gradient(135deg, rgba(16, 24, 44, 0.95), rgba(8, 12, 24, 0.95));
-            border: 1.5px solid rgba(0, 242, 254, 0.4);
-            border-radius: 12px;
-            padding: 14px 20px;
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 242, 254, 0.2);
-            animation: fadeIn 0.4s ease;
-        }
-
-        .manual-banner-text {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13.5px;
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        /* Tarjeta de Audio y Locución (Fallback Visual & Transcripción) */
-        .audio-fallback-card {
-            width: 100%;
-            background: linear-gradient(135deg, rgba(14, 23, 42, 0.95), rgba(7, 11, 22, 0.95));
-            border: 1.5px solid rgba(0, 242, 254, 0.3);
-            border-radius: 12px;
-            padding: 16px 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .audio-fallback-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 8px;
-        }
-
-        .audio-badge-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .audio-status-pill {
-            font-family: 'Fira Code', monospace;
-            font-size: 10.5px;
-            font-weight: 700;
-            color: #ffd700;
-            background: rgba(255, 215, 0, 0.12);
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            padding: 3px 10px;
-            border-radius: 12px;
-            letter-spacing: 0.8px;
-        }
-
-        .soundwave-visualizer {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            height: 16px;
-        }
-
-        .soundwave-bar {
-            width: 3px;
-            height: 100%;
-            background: var(--neon-cyan);
-            border-radius: 2px;
-            animation: soundwaveAnim 0.7s infinite alternate ease-in-out;
-        }
-
-        .soundwave-bar:nth-child(2) { animation-delay: 0.15s; height: 70%; }
-        .soundwave-bar:nth-child(3) { animation-delay: 0.3s; height: 100%; }
-        .soundwave-bar:nth-child(4) { animation-delay: 0.45s; height: 60%; }
-        .soundwave-bar:nth-child(5) { animation-delay: 0.2s; height: 85%; }
-
-        @keyframes soundwaveAnim {
-            0% { transform: scaleY(0.3); opacity: 0.5; }
-            100% { transform: scaleY(1); opacity: 1; }
-        }
-
-        .audio-transcript-body {
-            font-size: 13.5px;
-            line-height: 1.55;
-            color: #e2e8f0;
-            font-style: italic;
-            border-left: 3px solid var(--neon-cyan);
-            padding-left: 14px;
-        }
-
-        .audio-actions-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-top: 2px;
-        }
-
-        /* Sección Dashboard LifeLab */
-        .dashboard-section {
-            width: 100%;
-            background: var(--bg-card);
-            border: 1px solid #1e293b;
-            border-radius: 14px;
-            padding: 24px;
-            backdrop-filter: blur(12px);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .section-header-banner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 14px;
-        }
-
-        .section-title-group h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 20px;
-            font-weight: 800;
-            letter-spacing: 0.8px;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-subtitle {
-            font-size: 12px;
-            color: var(--text-dim);
-            margin-top: 3px;
-        }
-
-        /* Layout Grid Dashboard */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 380px 1fr;
-            gap: 24px;
-            align-items: center;
-        }
-
-        @media (max-width: 900px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .radar-box-container {
-            position: relative;
-            width: 100%;
-            height: 340px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(8, 12, 22, 0.6);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 10px;
-        }
-
-        canvas#radarCanvas {
-            width: 100%;
-            height: 100%;
-        }
-
-        .metrics-column {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .outcome-card {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            padding: 14px 18px;
-            transition: all 0.25s ease;
-        }
-
-        .outcome-card.active-success {
-            border-color: rgba(0, 230, 118, 0.6);
-            background: linear-gradient(135deg, rgba(0, 230, 118, 0.12), rgba(6, 182, 212, 0.08));
-            box-shadow: 0 0 20px rgba(0, 230, 118, 0.15);
-        }
-
-        .outcome-card.active-alert {
-            border-color: rgba(255, 23, 68, 0.6);
-            background: linear-gradient(135deg, rgba(255, 23, 68, 0.12), rgba(217, 70, 239, 0.08));
-            box-shadow: 0 0 20px rgba(255, 23, 68, 0.15);
-        }
-
-        .outcome-card.active-paralysis {
-            border-color: rgba(148, 163, 184, 0.6);
-            background: linear-gradient(135deg, rgba(71, 85, 105, 0.18), rgba(30, 41, 59, 0.15));
-            box-shadow: 0 0 20px rgba(148, 163, 184, 0.15);
-        }
-
-        .outcome-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 6px;
-        }
-
-        .outcome-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .outcome-badge {
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 3px 9px;
-            border-radius: 12px;
-        }
-
-        .badge-success {
-            background: rgba(0, 230, 118, 0.2);
-            color: var(--neon-green);
-            border: 1px solid rgba(0, 230, 118, 0.5);
-        }
-
-        .badge-danger {
-            background: rgba(255, 23, 68, 0.2);
-            color: var(--neon-crimson);
-            border: 1px solid rgba(255, 23, 68, 0.5);
-        }
-
-        .badge-warning {
-            background: rgba(255, 145, 0, 0.2);
-            color: var(--neon-amber);
-            border: 1px solid rgba(255, 145, 0, 0.5);
-        }
-
-        .outcome-desc {
-            font-size: 12px;
-            color: var(--text-dim);
-            line-height: 1.45;
-        }
-
-        .mini-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 650px) {
-            .mini-stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .stat-pill {
-            background: rgba(10, 15, 28, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 8px 10px;
-            text-align: center;
-        }
-
-        .stat-label {
-            font-size: 10px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 3px;
-        }
-
-        .stat-val {
-            font-family: 'Outfit', sans-serif;
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--neon-cyan);
-        }
-
-        /* Módulo Formativo de Autorregulación Socioemocional */
-        .training-module-container {
-            width: 100%;
-            background: linear-gradient(180deg, rgba(17, 24, 39, 0.95), rgba(8, 12, 22, 0.98));
-            border: 2px solid rgba(217, 70, 239, 0.4);
-            border-radius: 14px;
-            padding: 24px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 30px rgba(217, 70, 239, 0.15);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .training-header {
-            border-bottom: 1px solid rgba(217, 70, 239, 0.2);
-            padding-bottom: 14px;
-        }
-
-        .training-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'Fira Code', monospace;
-            font-size: 10.5px;
-            font-weight: 800;
-            color: var(--neon-magenta);
-            background: rgba(217, 70, 239, 0.15);
-            border: 1px solid rgba(217, 70, 239, 0.4);
-            padding: 4px 12px;
-            border-radius: 14px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .training-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 22px;
-            font-weight: 900;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .training-subtitle {
-            font-size: 12.5px;
-            color: var(--text-dim);
-            margin-top: 4px;
-        }
-
-        .training-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        @media (max-width: 900px) {
-            .training-cards-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .training-card {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.25s ease;
-        }
-
-        .training-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(0, 242, 254, 0.5);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-        }
-
-        .card-top-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 19px;
-            margin-bottom: 2px;
-        }
-
-        .icon-brain {
-            background: rgba(0, 242, 254, 0.15);
-            color: var(--neon-cyan);
-            border: 1px solid rgba(0, 242, 254, 0.35);
-        }
-
-        .icon-lungs {
-            background: rgba(0, 230, 118, 0.15);
-            color: var(--neon-green);
-            border: 1px solid rgba(0, 230, 118, 0.35);
-        }
-
-        .icon-heart-hands {
-            background: rgba(217, 70, 239, 0.15);
-            color: var(--neon-magenta);
-            border: 1px solid rgba(217, 70, 239, 0.35);
-        }
-
-        .card-title-group h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 16px;
-            font-weight: 800;
-            color: #ffffff;
-            line-height: 1.25;
-        }
-
-        .card-title-group .card-sub {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-
-        .training-card-text {
-            font-size: 12px;
-            line-height: 1.5;
-            color: #cbd5e1;
-        }
-
-        .neuro-pill {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 6px;
-            padding: 8px 10px;
-            font-size: 11px;
-            color: #94a3b8;
-            line-height: 1.4;
-        }
-
-        /* Widget Interactivo de Respiración 4-4-4-4 */
-        .breathing-interactive-box {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 230, 118, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            margin-top: 4px;
-        }
-
-        .breathing-pacer-circle {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 3px solid var(--neon-green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Outfit', sans-serif;
-            font-size: 13px;
-            font-weight: 900;
-            color: #ffffff;
-            transition: all 4s ease-in-out;
-            box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
-        }
-
-        .breathing-phase-text {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--neon-green);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Footer */
-        footer.simulator-footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 11.5px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <!-- Encabezado del Módulo -->
+    <div class="theater-container">
+        <!-- Encabezado Mínimo de la Animación -->
         <header class="simulator-header">
             <div class="project-badge">
-                <i class="fa-solid fa-brain"></i> VolleyMind & LifeLab • Prototipo Interactivo 2D
+                <i class="fa-solid fa-brain"></i> VolleyMind & LifeLab • Simulador Interactivo 2D
             </div>
-            <h1 class="simulator-title">Secuencia Motion Comic • Jugada Decisiva 24-24</h1>
-            <p class="simulator-subtitle">
-                Entrenamiento en toma de decisiones bajo estrés adrenérgico. En el segundo 2.5 de la jugada, la acción se congela en las yemas del armador #8: ¿Priorizarás el Servicio Colectivo o el Ego Individual?
-            </p>
+            <h1 class="simulator-title">Secuencia Decisiva 24-24 • Quick Time Event (2.5s)</h1>
         </header>
 
         <!-- Marco del Stage Canvas con Pantalla de Inicio y Overlay QTE -->
@@ -1127,212 +614,13 @@
                 </button>
             </div>
         </div>
-
-        <!-- Banner de Transición Manual al Diagnóstico (Sin Scroll Forzado) -->
-        <div class="manual-diagnostic-banner" id="manualDiagnosticBanner">
-            <div class="manual-banner-text">
-                <i class="fa-solid fa-chart-line" style="color: var(--neon-cyan); font-size: 20px;"></i>
-                <span id="bannerOutcomeSummary">Jugada concluida. Puedes examinar el análisis psicotáctico de LifeLab cuando lo desees.</span>
-            </div>
-            <button class="hud-btn btn-callout" id="btnScrollToDiagnostic">
-                <i class="fa-solid fa-arrow-down"></i> Ver Diagnóstico & Módulo Formativo
-            </button>
-        </div>
-
-        <!-- Tarjeta de Audio y Locución (Fallback Visual & Transcripción) -->
-        <div class="audio-fallback-card" id="audioFallbackCard">
-            <div class="audio-fallback-header">
-                <div class="audio-badge-info">
-                    <i class="fa-solid fa-headphones" style="color: var(--neon-cyan);"></i>
-                    <span style="font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Locución en Off LifeLab</span>
-                    <span class="audio-status-pill" id="audioTrackLabel">audio_servicio_exito.mp3</span>
-                </div>
-                <div class="soundwave-visualizer">
-                    <div class="soundwave-bar"></div>
-                    <div class="soundwave-bar"></div>
-                    <div class="soundwave-bar"></div>
-                    <div class="soundwave-bar"></div>
-                    <div class="soundwave-bar"></div>
-                </div>
-            </div>
-            <div class="audio-transcript-body" id="audioTranscriptText">
-                Cargando reflexión axiológica y análisis neurocognitivo...
-            </div>
-            <div class="audio-actions-row">
-                <button class="hud-btn" id="btnPlaySyntheticTone" style="font-size: 11px;">
-                    <i class="fa-solid fa-wave-square"></i> Escuchar Tono Sintético Web Audio
-                </button>
-                <button class="hud-btn" id="btnPlayTTS" style="font-size: 11px;">
-                    <i class="fa-solid fa-comment-dots"></i> Síntesis Vocal (TTS)
-                </button>
-            </div>
-        </div>
-
-        <!-- Sección Dashboard LifeLab de Rendimiento Táctico & Socioemocional -->
-        <section class="dashboard-section" id="dashboardSection">
-            <div class="section-header-banner">
-                <div class="section-title-group">
-                    <h2><i class="fa-solid fa-chart-radar" style="color: var(--neon-cyan);"></i> Dashboard Analítico LifeLab • Evaluación 360°</h2>
-                    <div class="section-subtitle">Evaluación psicométrica y táctica en tiempo real de la respuesta del usuario en la jugada 24-24.</div>
-                </div>
-                <span class="project-badge" id="currentOutcomeBadge" style="margin-bottom: 0;">Esperando Decisión QTE</span>
-            </div>
-
-            <div class="dashboard-grid">
-                <!-- Canvas de Radar Gráfico Neón -->
-                <div class="radar-box-container">
-                    <canvas id="radarCanvas" width="360" height="320"></canvas>
-                </div>
-
-                <!-- Métricas y Diagnósticos -->
-                <div class="metrics-column">
-                    <div class="outcome-card active-success" id="cardServiceAnalysis">
-                        <div class="outcome-card-header">
-                            <div class="outcome-title">
-                                <i class="fa-solid fa-trophy" style="color: var(--neon-gold);"></i> Ruta de Servicio Solidario (Pase)
-                            </div>
-                            <span class="outcome-badge badge-success">Éxito: 85% • Nivel Superior</span>
-                        </div>
-                        <div class="outcome-desc">
-                            Control inhibitorio activo (95%), visión periférica en Zona 4 (96%) y articulación de liderazgo altruista (99%). La victoria 25-24 consolida la inteligencia colectiva sobre el ego.
-                        </div>
-                    </div>
-
-                    <div class="outcome-card" id="cardEgoAnalysis">
-                        <div class="outcome-card-header">
-                            <div class="outcome-title">
-                                <i class="fa-solid fa-hand-fist" style="color: var(--neon-crimson);"></i> Ruta de Ego (Remate Individual)
-                            </div>
-                            <span class="outcome-badge badge-danger">Éxito: 12% • Alerta Formativa</span>
-                        </div>
-                        <div class="outcome-desc">
-                            Falla en control inhibitorio (22%), colisión violenta contra el triple bloqueo rival y pérdida del punto (24-25). Requiere intervención en freno de impulsividad prefrontal.
-                        </div>
-                    </div>
-
-                    <div class="outcome-card" id="cardParalysisAnalysis">
-                        <div class="outcome-card-header">
-                            <div class="outcome-title">
-                                <i class="fa-solid fa-hourglass-end" style="color: #94a3b8;"></i> Parálisis por Ansiedad (0.0s sin selección)
-                            </div>
-                            <span class="outcome-badge badge-warning">Sobrecarga Cognitiva</span>
-                        </div>
-                        <div class="outcome-desc">
-                            Inhibición reactiva desregulada por temor al error (28%). El balón cayó libre al suelo por inacción (24-25). Requiere entrenamiento en descompresión autonómica y respiración 4x4.
-                        </div>
-                    </div>
-
-                    <!-- 5 Mini Estadísticas Numéricas -->
-                    <div class="mini-stats-grid">
-                        <div class="stat-pill">
-                            <div class="stat-label">Inhibición</div>
-                            <div class="stat-val" id="statInhibition">--%</div>
-                        </div>
-                        <div class="stat-pill">
-                            <div class="stat-label">Visión Táctica</div>
-                            <div class="stat-val" id="statVision">--%</div>
-                        </div>
-                        <div class="stat-pill">
-                            <div class="stat-label">Servicio</div>
-                            <div class="stat-val" id="statService">--%</div>
-                        </div>
-                        <div class="stat-pill">
-                            <div class="stat-label">Axiología</div>
-                            <div class="stat-val" id="statEthics">--%</div>
-                        </div>
-                        <div class="stat-pill">
-                            <div class="stat-label">Resolución</div>
-                            <div class="stat-val" id="statResolution">--%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Módulo Formativo de Autorregulación Socioemocional -->
-        <section class="training-module-container" id="trainingModuleSection">
-            <div class="training-header">
-                <div class="training-tag">
-                    <i class="fa-solid fa-shield-heart"></i> Protocolo Formativo LifeLab • Intervención Socioemocional
-                </div>
-                <div class="training-title">
-                    <i class="fa-solid fa-spa" style="color: var(--neon-magenta);"></i> Módulo de Autorregulación Socioemocional
-                </div>
-                <p class="training-subtitle">
-                    Programa formativo de descompresión y entrenamiento cognitivo para transformar la impulsividad o la parálisis en liderazgo de servicio transformador.
-                </p>
-            </div>
-
-            <div class="training-cards-grid">
-                <!-- Tarjeta 1: Pausa Cognitiva (Freno Inhibitorio) -->
-                <div class="training-card">
-                    <div class="card-top-icon icon-brain">
-                        <i class="fa-solid fa-brain"></i>
-                    </div>
-                    <div class="card-title-group">
-                        <h3>Pausa Cognitiva (Freno Inhibitorio)</h3>
-                        <div class="card-sub">Corteza Prefrontal Dorsolateral</div>
-                    </div>
-                    <p class="training-card-text">
-                        Bajo estrés agudo, la amígdala dispara la respuesta automática de autoafirmación egocéntrica. El freno prefrontal introduce un retraso voluntario de <strong>300 milisegundos</strong> antes de la ejecución motriz, cancelando el impulso de remate ciego para escanear el bloqueo rival y los compañeros libres.
-                    </p>
-                    <div class="neuro-pill">
-                        <strong>Estrategia en Cancha:</strong> «El Veto de los 300 ms»: No saltes a rematar inmediatamente; suspende el movimiento para ver a quién le pertenece el punto con mayor probabilidad de éxito.
-                    </div>
-                </div>
-
-                <!-- Tarjeta 2: Respiración Consciente en 4 Tiempos -->
-                <div class="training-card">
-                    <div class="card-top-icon icon-lungs">
-                        <i class="fa-solid fa-lungs"></i>
-                    </div>
-                    <div class="card-title-group">
-                        <h3>Respiración en 4 Tiempos</h3>
-                        <div class="card-sub">Control de Frecuencia Cardíaca & Vago</div>
-                    </div>
-                    <p class="training-card-text">
-                        La técnica de respiración cuadrada (Box Breathing 4-4-4-4) activa el sistema nervioso parasimpático mediante estimulación vagal, disminuyendo los picos de adrenalina y estabilizando la presión para evitar la parálisis por pánico.
-                    </p>
-                    <div class="breathing-interactive-box">
-                        <div class="breathing-pacer-circle" id="breathingCircle">4s</div>
-                        <div class="breathing-phase-text" id="breathingPhaseLabel">Inhalar (4s)</div>
-                        <button class="hud-btn" id="btnToggleBreathing" style="font-size: 10px; padding: 4px 10px;">
-                            <i class="fa-solid fa-play"></i> Iniciar Guía Visual
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Tarjeta 3: Reencuadre Ético de la Jugada -->
-                <div class="training-card">
-                    <div class="card-top-icon icon-heart-hands">
-                        <i class="fa-solid fa-hand-holding-heart"></i>
-                    </div>
-                    <div class="card-title-group">
-                        <h3>Reencuadre Ético de la Jugada</h3>
-                        <div class="card-sub">Transición del «Yo» al «Nosotros»</div>
-                    </div>
-                    <p class="training-card-text">
-                        El armador de élite no busca ser el anotador, sino el arquitecto del logro ajeno. Redefinir el éxito personal: ganar el punto a través del compañero de Zona 4 ofrece un 85% de éxito frente al frágil 12% del ego individual.
-                    </p>
-                    <div class="neuro-pill">
-                        <strong>Transferencia al Proyecto de Vida:</strong> En el estudio, el trabajo y la familia, el verdadero liderazgo consiste en servir de plataforma para que los talentos del equipo destaquen.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pie de Página -->
-        <footer class="simulator-footer">
-            VolleyMind & LifeLab Interactive Experience • Módulo 2D HTML5 Canvas + Web Audio API<br>
-            Calibración QTE: 2.50 Segundos • Diseñado para la evaluación de competencias éticas y socioemocionales.
-        </footer>
     </div>
 
     <!-- SCRIPT PRINCIPAL DEL SIMULADOR 2D -->
     <script>
         /**
          * =========================================================================
-         * MOTOR DE AUDIO & SINTETIZADOR WEB AUDIO API CON GESTOR DE PLACEHOLDERS
+         * MOTOR DE AUDIO CON REPRODUCCIÓN DE MP3 DE NARRACIÓN (VICTORIA, DERROTA, PARÁLISIS)
          * =========================================================================
          */
         class VolleyAudioEngine {
@@ -1464,91 +752,32 @@
                 osc.stop(this.ctx.currentTime + 0.65);
             }
 
-            playSyntheticNarrativeTone(endingType) {
-                if (!this.enabled || !this.ctx) return;
+            // Reproducción de los audios reales MP3
+            playNarrativeTrack(filename) {
+                this.init();
+                this.stopNarrativeTrack();
 
-                if (endingType === 'PASS') {
-                    // Acorde mayor triunfal (Do mayor: C4, E4, G4, C5)
-                    const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
-                    notes.forEach((freq, i) => {
-                        setTimeout(() => {
-                            if (!this.ctx) return;
-                            const osc = this.ctx.createOscillator();
-                            const gain = this.ctx.createGain();
-                            osc.type = 'sine';
-                            osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-                            gain.gain.setValueAtTime(0.18, this.ctx.currentTime);
-                            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 1.2);
-                            osc.connect(gain);
-                            gain.connect(this.ctx.destination);
-                            osc.start();
-                            osc.stop(this.ctx.currentTime + 1.2);
-                        }, i * 75);
+                if (!this.enabled) return;
+
+                console.info(`[VolleyMind Audio] Reproduciendo locución narrativa: ${filename}`);
+                try {
+                    this.currentAudioElement = new Audio(filename);
+                    this.currentAudioElement.play().catch(err => {
+                        console.warn(`[VolleyMind Audio] Advertencia al reproducir ${filename}:`, err);
                     });
-                } else if (endingType === 'SPIKE') {
-                    // Acorde tenso disonante menor/disminuido
-                    const freqs = [185.00, 261.63, 311.13];
-                    freqs.forEach((freq) => {
-                        const osc = this.ctx.createOscillator();
-                        const gain = this.ctx.createGain();
-                        osc.type = 'triangle';
-                        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-                        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
-                        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.9);
-                        osc.connect(gain);
-                        gain.connect(this.ctx.destination);
-                        osc.start();
-                        osc.stop(this.ctx.currentTime + 0.9);
-                    });
-                } else {
-                    // Parálisis: Tono sombrío continuo de baja frecuencia
-                    const osc = this.ctx.createOscillator();
-                    const gain = this.ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(75, this.ctx.currentTime);
-                    osc.frequency.linearRampToValueAtTime(50, this.ctx.currentTime + 1.4);
-                    gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 1.4);
-                    osc.connect(gain);
-                    gain.connect(this.ctx.destination);
-                    osc.start();
-                    osc.stop(this.ctx.currentTime + 1.4);
+                } catch (e) {
+                    console.warn(`[VolleyMind Audio] Error al cargar ${filename}:`, e);
                 }
             }
 
-            playNarrativeTrack(filename, transcriptText, endingType) {
-                this.init();
-
+            stopNarrativeTrack() {
                 if (this.currentAudioElement) {
-                    try { this.currentAudioElement.pause(); } catch (e) {}
+                    try {
+                        this.currentAudioElement.pause();
+                        this.currentAudioElement.currentTime = 0;
+                    } catch (e) {}
                     this.currentAudioElement = null;
                 }
-
-                const card = document.getElementById('audioFallbackCard');
-                const trackLabel = document.getElementById('audioTrackLabel');
-                const textContainer = document.getElementById('audioTranscriptText');
-
-                if (card && trackLabel && textContainer) {
-                    trackLabel.textContent = filename + " (En Producción / Fallback Activo)";
-                    textContainer.textContent = transcriptText;
-                    card.style.display = 'flex';
-                }
-
-                let audioObj = new Audio(filename);
-                this.currentAudioElement = audioObj;
-
-                let hasFailed = false;
-                const triggerFallback = (reason) => {
-                    if (hasFailed) return;
-                    hasFailed = true;
-                    console.info(`[VolleyMind Audio] Archivo "${filename}" no disponible (${reason}). Activando fallback sintético Web Audio API y transcripción.`);
-                    this.playSyntheticNarrativeTone(endingType);
-                };
-
-                audioObj.addEventListener('error', () => triggerFallback('Error de red o archivo inexistente'));
-                audioObj.play().catch((err) => {
-                    triggerFallback('Reproducción bloqueada o recurso no encontrado');
-                });
             }
         }
 
@@ -1583,12 +812,6 @@
         const btnTestPass = document.getElementById('btnTestPass');
         const btnTestSpike = document.getElementById('btnTestSpike');
         const btnTestTimeout = document.getElementById('btnTestTimeout');
-        const btnPlaySyntheticTone = document.getElementById('btnPlaySyntheticTone');
-        const btnPlayTTS = document.getElementById('btnPlayTTS');
-        const manualDiagnosticBanner = document.getElementById('manualDiagnosticBanner');
-        const btnScrollToDiagnostic = document.getElementById('btnScrollToDiagnostic');
-        const bannerOutcomeSummary = document.getElementById('bannerOutcomeSummary');
-        const currentOutcomeBadge = document.getElementById('currentOutcomeBadge');
 
         /**
          * =========================================================================
@@ -1623,13 +846,6 @@
         let sceneZoom = 1.0;
         let scenePanX = 0;
         let scenePanY = 0;
-
-        // Textos narrativos formales LifeLab
-        const NARRATIVES = {
-            PASS: "«Lectura impecable. Al inhibir el impulso de gloria individual y confiar en el rematador desmarcado de Zona 4, activaste la inteligencia colectiva. La victoria no nace de brillar solo, sino de elevar el potencial de todo el equipo. 25-24: Victoria ética y deportiva.»",
-            SPIKE: "«Colisión frontal por sesgo de autoafirmación. Al ignorar la ventaja táctica en Zona 4 y buscar el punto personal, chocaste contra el triple bloqueo. La impulsividad reactiva anuló el criterio estratégico. Aprender a frenar el ego es el primer paso hacia el liderazgo real.»",
-            TIMEOUT: "«Bloqueo por sobrecarga cognitiva. Ante la presión del match point, el miedo al error paralizó la toma de decisiones. En la vida y en la cancha, la duda que no actúa congela el talento. El error más costoso nunca es equivocarse al intentar, sino la inacción por temor.»"
-        };
 
         // Entidades y Jugadores
         const players = {
@@ -1687,6 +903,7 @@
          */
         function resetSimulation(goToStartScreen = false) {
             audio.init();
+            audio.stopNarrativeTrack(); // Detener cualquier audio previo
             stageProgress = 0.0;
             selectedRoute = null;
             screenShake = 0;
@@ -1701,12 +918,10 @@
             }
 
             qteOverlay.style.display = 'none';
-            manualDiagnosticBanner.style.display = 'none';
-            document.getElementById('audioFallbackCard').style.display = 'none';
 
             // Resetear entidades
             players.libero.x = 280;
-            players.libero.pose = 'ready_defense'; // Inicia conectado de pie, sin decapitación
+            players.libero.pose = 'ready_defense';
             players.libero.jump = 0;
 
             players.setter.x = 370;
@@ -1744,16 +959,13 @@
             if (goToStartScreen) {
                 currentStage = STAGES.START_IDLE;
                 startScreenOverlay.style.display = 'flex';
-                updateHUDLabel("Listo para iniciar la secuencia en pantalla completa");
+                updateHUDLabel("Listo para iniciar la secuencia");
             } else {
                 currentStage = STAGES.PRE_QTE;
                 startScreenOverlay.style.display = 'none';
+                audio.playServe();
                 updateHUDLabel("Frame 1: Saque rival cruzando la red y recepción del Líbero #5");
             }
-
-            currentOutcomeBadge.textContent = "Esperando Decisión QTE";
-            currentOutcomeBadge.className = "project-badge";
-            updateDashboardMetrics(50, 50, 50, 50, 50, 'INITIAL');
         }
 
         function updateHUDLabel(text) {
@@ -1762,11 +974,10 @@
 
         /**
          * =========================================================================
-         * RUTINAS DE DIBUJO VECTORIAL EN CANVAS (ESTILO MANGA / SPECTRUM NEÓN)
+         * RUTINAS DE DIBUJO VECTORIAL EN CANVAS
          * =========================================================================
          */
 
-        // 1. Dibujo de Cancha Lateral con perspectiva
         function drawCourtBackground(zoom = 1.0, panX = 0, panY = 0, isGrayscale = false) {
             ctx.save();
             ctx.translate(panX, panY);
@@ -1776,7 +987,6 @@
                 ctx.translate(-W * 0.5, -H * 0.5);
             }
 
-            // Fondo de estadio oscuro
             const gradStadium = ctx.createLinearGradient(0, 0, 0, FLOOR_Y);
             if (isGrayscale) {
                 gradStadium.addColorStop(0, '#0a0a0a');
@@ -1790,7 +1000,6 @@
             ctx.fillStyle = gradStadium;
             ctx.fillRect(-200, -100, W + 400, H + 200);
 
-            // Conos de reflectores
             ctx.fillStyle = isGrayscale ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 210, 255, 0.035)';
             for (let i = 1; i <= 4; i++) {
                 ctx.beginPath();
@@ -1800,7 +1009,6 @@
                 ctx.fill();
             }
 
-            // Multitud en gradas
             for (let r = 0; r < 4; r++) {
                 const y = H * 0.35 + r * 20;
                 for (let c = 20; c < W; c += 24) {
@@ -1811,7 +1019,6 @@
                 }
             }
 
-            // Valla publicitaria de fondo
             ctx.fillStyle = '#060912';
             ctx.fillRect(0, H * 0.46, W, 24);
             ctx.strokeStyle = isGrayscale ? '#444444' : '#00f2fe';
@@ -1822,7 +1029,6 @@
             ctx.textAlign = 'left';
             ctx.fillText("VOLLEYMIND & LIFELAB CHAMPIONSHIP • DECISIÓN DE ORO 24-24", 25, H * 0.488);
 
-            // Suelo perimetral de madera
             const gradFloor = ctx.createLinearGradient(0, FLOOR_Y, 0, H);
             if (isGrayscale) {
                 gradFloor.addColorStop(0, '#333333');
@@ -1834,11 +1040,9 @@
             ctx.fillStyle = gradFloor;
             ctx.fillRect(-100, FLOOR_Y, W + 200, H - FLOOR_Y + 100);
 
-            // Pista oficial Taraflex Azul Neón
             ctx.fillStyle = isGrayscale ? '#262626' : '#144cb8';
             ctx.fillRect(45, FLOOR_Y - 5, W - 90, H - FLOOR_Y + 10);
 
-            // Líneas de cancha
             ctx.strokeStyle = '#ffffff';
             ctx.lineWidth = 4;
             ctx.beginPath();
@@ -1846,7 +1050,6 @@
             ctx.lineTo(W - 45, FLOOR_Y);
             ctx.stroke();
 
-            // Líneas 3 metros
             ctx.lineWidth = 3;
             ctx.strokeStyle = isGrayscale ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 242, 254, 0.7)';
             ctx.beginPath();
@@ -1859,7 +1062,6 @@
             ctx.lineTo(NET_X + 180, FLOOR_Y + 70);
             ctx.stroke();
 
-            // Línea central
             ctx.lineWidth = 5;
             ctx.strokeStyle = '#ffffff';
             ctx.beginPath();
@@ -1867,7 +1069,6 @@
             ctx.lineTo(NET_X, FLOOR_Y + 70);
             ctx.stroke();
 
-            // Rótulos de campo
             ctx.font = '900 11px sans-serif';
             ctx.fillStyle = 'rgba(255, 255, 255, 0.28)';
             ctx.textAlign = 'center';
@@ -1877,7 +1078,6 @@
             ctx.restore();
         }
 
-        // 2. Dibujo de la Red Reglamentaria Central
         function drawCenterNet(isGrayscale = false) {
             ctx.save();
             ctx.fillStyle = isGrayscale ? '#444' : '#2e3d48';
@@ -1914,20 +1114,17 @@
             ctx.restore();
         }
 
-        // 3. Dibujo de Figuras de Jugadores en estilo Manga Vectorial (Sin Desmembramientos)
         function drawPlayerFigure(pData, facingLeft = false, isGrayscale = false) {
             ctx.save();
             ctx.translate(pData.x, pData.y);
 
             if (facingLeft) ctx.scale(-1, 1);
 
-            // Sombra en el piso
             ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
             ctx.beginPath();
             ctx.ellipse(0, 0, pData.jump ? 16 : 30, 7, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Desplazamiento aéreo
             if (pData.jump) ctx.translate(0, -pData.jump);
 
             ctx.strokeStyle = isGrayscale ? '#000000' : '#05070e';
@@ -1939,8 +1136,6 @@
             let skin = isGrayscale ? '#d4d4d4' : '#ffdfba';
 
             if (pData.pose === 'dive_receive') {
-                // LÍBERO EN PLANCHA BAJA CON CONEXIÓN ANATÓMICA RIGIDA (CABEZA Y CUELLO SIEMPRE UNIDOS)
-                // 1. Piernas deslizándose pegadas al suelo hacia atrás
                 ctx.strokeStyle = '#ffffff';
                 ctx.lineWidth = 7;
                 ctx.beginPath();
@@ -1949,40 +1144,33 @@
                 ctx.lineTo(-85, -2);
                 ctx.stroke();
 
-                // Rodillera negra
                 ctx.fillStyle = '#0f172a';
                 ctx.fillRect(-62, -18, 14, 12);
 
-                // 2. Torso, cuello, cabeza y brazos en un solo bloque rotado
                 ctx.save();
                 ctx.translate(0, -32);
-                ctx.rotate(0.35); // Inclinación atlética hacia adelante
+                ctx.rotate(0.35);
 
-                // Torso
                 ctx.fillStyle = jersey;
                 ctx.beginPath();
                 ctx.roundRect(-22, -28, 44, 46, 6);
                 ctx.fill();
                 ctx.stroke();
 
-                // Número en camiseta
                 ctx.fillStyle = '#ffffff';
                 ctx.font = '900 18px sans-serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -2);
 
-                // Cuello sólido fijado al torso
                 ctx.fillStyle = skin;
                 ctx.fillRect(10, -38, 14, 12);
                 ctx.strokeRect(10, -38, 14, 12);
 
-                // Cabeza unida firmemente al cuello mirando hacia arriba
                 ctx.beginPath();
                 ctx.arc(24, -45, 14, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
 
-                // Cabello manga
                 ctx.fillStyle = isGrayscale ? '#222' : '#1e293b';
                 ctx.beginPath();
                 ctx.arc(24, -48, 15, Math.PI * 0.85, Math.PI * 2.15);
@@ -1992,7 +1180,6 @@
                 ctx.fill();
                 ctx.stroke();
 
-                // Brazos extendidos formando plataforma de recepción
                 ctx.strokeStyle = skin;
                 ctx.lineWidth = 7;
                 ctx.beginPath();
@@ -2000,7 +1187,6 @@
                 ctx.lineTo(65, -8);
                 ctx.stroke();
 
-                // Manos juntas
                 ctx.fillStyle = skin;
                 ctx.beginPath();
                 ctx.arc(68, -8, 6, 0, Math.PI * 2);
@@ -2010,7 +1196,6 @@
                 ctx.restore();
 
             } else if (pData.pose === 'crouch_prejump') {
-                // Pose atlética en cuclillas cargando el salto
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-12, -30);
@@ -2045,7 +1230,6 @@
                 ctx.lineTo(-44, -20);
                 ctx.stroke();
 
-                // Cuello y cabeza
                 ctx.fillRect(-6, -72, 12, 10);
                 ctx.beginPath();
                 ctx.arc(0, -74, 15, 0, Math.PI * 2);
@@ -2064,7 +1248,6 @@
                 ctx.restore();
 
             } else if (pData.pose === 'setter_fingertips_reach') {
-                // ARMADOR SUSPENDIDO EN EL AIRE: BRAZOS EN COPA CON LAS YEMAS EN EL BALÓN
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-10, -40);
@@ -2089,7 +1272,6 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -58);
 
-                // Cuello y cabeza
                 ctx.fillStyle = skin;
                 ctx.fillRect(-6, -104, 12, 12);
                 ctx.beginPath();
@@ -2106,7 +1288,6 @@
                 ctx.fill();
                 ctx.stroke();
 
-                // Brazos en copa hacia el balón
                 ctx.fillStyle = skin;
                 ctx.beginPath();
                 ctx.moveTo(-18, -85);
@@ -2265,7 +1446,6 @@
                 ctx.fillRect(8, -165, 12, 10);
 
             } else if (pData.pose === 'kneel_regret') {
-                // ARMADOR ARRODILLADO CON MANOS EN LA CABEZA (FRUSTRACIÓN)
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-15, -20);
@@ -2355,7 +1535,6 @@
                 ctx.stroke();
 
             } else if (pData.pose === 'anxiety_frozen') {
-                // PARÁLISIS POR ANSIEDAD: ARMADOR CONGELADO CON MANOS EN RETIRADA
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-8, -35);
@@ -2375,7 +1554,6 @@
                 ctx.textAlign = 'center';
                 ctx.fillText(pData.num, 0, -52);
 
-                // Cuello y cabeza
                 ctx.fillStyle = skin;
                 ctx.fillRect(-5, -92, 10, 10);
                 ctx.beginPath();
@@ -2383,7 +1561,6 @@
                 ctx.fill();
                 ctx.stroke();
 
-                // Brazos recogidos con palmas abiertas hacia el rostro (duda y pánico)
                 ctx.beginPath();
                 ctx.moveTo(-16, -75);
                 ctx.lineTo(-26, -60);
@@ -2396,14 +1573,12 @@
                 ctx.lineTo(12, -72);
                 ctx.stroke();
 
-                // Gotas de sudor frío
                 ctx.fillStyle = '#00f2fe';
                 ctx.beginPath();
                 ctx.ellipse(20, -92, 3, 5, 0.2, 0, Math.PI * 2);
                 ctx.fill();
 
             } else {
-                // Pose estándar en guardia (ready_defense) o de pie
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.moveTo(-6, -35);
@@ -2451,7 +1626,6 @@
             ctx.restore();
         }
 
-        // 4. Dibujo de Balón de Voleibol Tricolor Manga
         function drawMangaBall(x, y, r, rot = 0, isGrayscale = false) {
             ctx.save();
             ctx.translate(x, y);
@@ -2503,7 +1677,6 @@
             ctx.restore();
         }
 
-        // 5. Dibujo de Onomatopeyas Estilo Webtoon Cómic
         function drawMangaOnomatopoeia(text, x, y, size = 50, color = '#ffd700') {
             ctx.save();
             ctx.translate(x, y);
@@ -2526,7 +1699,6 @@
             ctx.restore();
         }
 
-        // 6. Marcador Oficial de Cancha en Canvas
         function drawScoreboard(scoreUs = 24, scoreThem = 24) {
             ctx.save();
             const bw = 240;
@@ -2557,7 +1729,6 @@
             ctx.restore();
         }
 
-        // 7. Gráfico Vectorial de Trofeo de Victoria
         function drawVictoryTrophy(cx, cy, scale = 1.0) {
             ctx.save();
             ctx.translate(cx, cy);
@@ -2647,7 +1818,6 @@
          * =========================================================================
          */
 
-        // Secuencia A: Pre-QTE (Saque rival, recepción líbero sin decapitación y aproximación del armador)
         function renderPreQTESequence(p) {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(24, 24);
@@ -2663,7 +1833,6 @@
                 if (sl.x < 0) sl.x = W + sl.len;
             }
 
-            // Sub-fase 1: Saque rival cruzando la red (0.0 a 0.35)
             if (p < 0.35) {
                 const tServe = p / 0.35;
                 ball.x = 840 - tServe * 560;
@@ -2678,7 +1847,6 @@
                 ctx.stroke();
 
                 players.libero.x = 280;
-                // Transición fluida: de guardia atenta a plancha de recepción
                 players.libero.pose = (tServe > 0.45) ? 'dive_receive' : 'ready_defense';
 
                 players.setter.x = 370;
@@ -2687,11 +1855,10 @@
                 if (tServe > 0.9) audio.playReceive();
 
             } else {
-                // Sub-fase 2: Recepción milagrosa del líbero y parábola alta hacia la zona de armado (0.35 a 1.0)
                 const tDig = (p - 0.35) / 0.65;
                 const startX = 280;
                 const startY = FLOOR_Y - 50;
-                const apexX = NET_X - 70; // 470
+                const apexX = NET_X - 70;
                 const apexY = 160;
 
                 ball.x = startX + tDig * (apexX - startX);
@@ -2736,7 +1903,6 @@
             drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
         }
 
-        // Pausa Dramática: Freeze-Frame en las yemas del armador (Zoom táctico)
         function renderTacticalFreezeFrame() {
             sceneZoom = 1.14;
             scenePanX = -((NET_X - 70) - W * 0.5) * (sceneZoom - 1);
@@ -2783,7 +1949,6 @@
             ball.y = (FLOOR_Y - 52) - 156 - 12;
             drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
 
-            // Anotaciones Tácticas
             const z4X = 225;
             const z4Y = FLOOR_Y - 140;
 
@@ -2860,7 +2025,6 @@
             }
         }
 
-        // Final 1: Animación de Ruta de Servicio (Pase suave y remate)
         function renderExecutePass(p) {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(24, 24);
@@ -2951,7 +2115,6 @@
             drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
         }
 
-        // Final 1: Frame de Cierre Definitorio (Celebración con Trofeo)
         function renderFinal1Celebration() {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(25, 24);
@@ -3030,7 +2193,6 @@
             ctx.restore();
         }
 
-        // Final 2: Animación de Ruta de Ego EXTENDIDA Y CON MÁS DETALLES (Fases múltiples de tensión)
         function renderExecuteSpikeExtended(p) {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(24, 24);
@@ -3038,14 +2200,12 @@
             drawPlayerFigure(players.teammateCover, false);
 
             if (p < 0.28) {
-                // FASE 1: Armador ignora el pedido desesperado de Zona 4 y carga con ego hacia la red
                 const t1 = p / 0.28;
                 players.spiker.x = 220;
                 players.spiker.jump = 15;
-                players.spiker.pose = 'stand'; // Pide el pase con las manos
+                players.spiker.pose = 'stand';
                 drawPlayerFigure(players.spiker, false);
 
-                // Cartel manga del compañero pidiendo el balón
                 drawMangaOnomatopoeia("¡¡DÁMELA A MÍ!!", 230, FLOOR_Y - 170, 24, "#00f2fe");
 
                 players.setter.x = NET_X - 65 + t1 * 18;
@@ -3055,13 +2215,11 @@
                 ball.x = players.setter.x + 8;
                 ball.y = (FLOOR_Y - 85) - 55;
 
-                // Rivales todavía en preparación
                 players.rivalBlockerCenter.jump = t1 * 40;
                 players.rivalBlockerWing.jump = t1 * 35;
                 players.rivalBlockerSide.jump = t1 * 30;
 
             } else if (p < 0.55) {
-                // FASE 2: El Triple Bloqueo se alza como una muralla infranqueable
                 const t2 = (p - 0.28) / 0.27;
                 players.spiker.x = 220;
                 players.spiker.jump = 0;
@@ -3069,13 +2227,12 @@
                 drawPlayerFigure(players.spiker, false);
 
                 players.setter.x = NET_X - 46;
-                players.setter.jump = 85 + t2 * 15; // Máxima altura
+                players.setter.jump = 85 + t2 * 15;
                 players.setter.pose = 'jump_smash';
 
                 ball.x = players.setter.x + 12;
                 ball.y = (FLOOR_Y - 100) - 55;
 
-                // El triple bloqueo salta al unísono sellando la red con 6 manos
                 players.rivalBlockerCenter.jump = 40 + t2 * 80;
                 players.rivalBlockerWing.jump = 35 + t2 * 78;
                 players.rivalBlockerSide.jump = 30 + t2 * 75;
@@ -3083,14 +2240,12 @@
                 players.rivalBlockerWing.pose = 'block_wall';
                 players.rivalBlockerSide.pose = 'block_wall';
 
-                // Efecto de sombra roja intimidante del bloqueo
                 ctx.fillStyle = 'rgba(255, 23, 68, 0.25)';
                 ctx.fillRect(NET_X - 30, NET_TOP_Y - 90, 160, 180);
 
                 drawMangaOnomatopoeia("¡¡MURALLA TRIPLE!!", NET_X + 70, NET_TOP_Y - 120, 36, "#ff1744");
 
             } else if (p < 0.78) {
-                // FASE 3: Choque brutal contra las 6 manos, destello, fracturas y sonido estruendoso
                 const t3 = (p - 0.55) / 0.23;
                 players.spiker.x = 220;
                 players.spiker.jump = 0;
@@ -3101,7 +2256,6 @@
                 players.setter.jump = Math.max(0, 100 - t3 * 60);
                 players.setter.pose = 'dive_receive';
 
-                // Impacto y rebote violento
                 const impactX = NET_X - 8;
                 const impactY = NET_TOP_Y - 30;
                 const reboundFloorX = 420;
@@ -3111,7 +2265,6 @@
                 ball.y = impactY + (t3 * t3) * (reboundFloorY - impactY);
                 ball.rot -= 0.4;
 
-                // Fracturas rojas en el cristal de la pantalla
                 ctx.strokeStyle = 'rgba(255, 23, 68, 0.9)';
                 ctx.lineWidth = 4;
                 for (let i = 0; i < 10; i++) {
@@ -3126,7 +2279,6 @@
                 drawMangaOnomatopoeia("¡¡CRASH!!", NET_X - 60, NET_TOP_Y - 20, 50, "#ffffff");
 
             } else {
-                // FASE 4: Balón golpea fuertemente nuestro piso y el armador cae arrodillado
                 const t4 = (p - 0.78) / 0.22;
                 players.spiker.x = 220;
                 players.spiker.jump = 0;
@@ -3141,7 +2293,6 @@
                 ball.y = FLOOR_Y - Math.abs(Math.sin(t4 * Math.PI * 3)) * (24 * (1 - t4));
                 ball.rot -= 0.2;
 
-                // Ondas de frustración en suelo
                 ctx.strokeStyle = 'rgba(255, 23, 68, 0.7)';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
@@ -3164,7 +2315,6 @@
             drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
         }
 
-        // Final 2: Frame de Cierre Definitorio (Bloqueo Brutal y Frustración)
         function renderFinal2Frustration() {
             drawCourtBackground(1.0, 0, 0);
             drawScoreboard(24, 25);
@@ -3181,7 +2331,6 @@
             ctx.arc(W * 0.4, FLOOR_Y, 280, 0, Math.PI * 2);
             ctx.fill();
 
-            // Compañeros en desilusión
             players.spiker.x = 220;
             players.spiker.jump = 0;
             players.spiker.pose = 'disappointed_teammate';
@@ -3198,7 +2347,6 @@
             drawPlayerFigure(players.libero, false);
             drawPlayerFigure(players.spiker, false);
 
-            // Armador arrodillado con manos en la cabeza lamentándose
             players.setter.x = 420;
             players.setter.jump = 0;
             players.setter.pose = 'kneel_regret';
@@ -3236,9 +2384,7 @@
             ctx.restore();
         }
 
-        // Final 3: Animación de Parálisis por Ansiedad EXTENDIDA Y PSICOLÓGICA (Desaturación progresiva y congelamiento)
         function renderExecuteTimeoutExtended(p) {
-            // Desaturación progresiva según el avance de la parálisis
             const isGray = (p > 0.35);
             drawCourtBackground(1.0, 0, 0, isGray);
             drawScoreboard(24, 24);
@@ -3248,7 +2394,6 @@
             drawPlayerFigure(players.libero, false, isGray);
 
             if (p < 0.35) {
-                // FASE 1: 0.0s sin selección -> Sobrecarga de estrés y temblor de manos
                 const t1 = p / 0.35;
                 players.setter.x = NET_X - 70;
                 players.setter.jump = 52;
@@ -3258,7 +2403,6 @@
                 ball.x = NET_X - 70;
                 ball.y = (FLOOR_Y - 52) - 156 - 12;
 
-                // Ondas de estrés y duda
                 ctx.strokeStyle = 'rgba(255, 23, 68, 0.7)';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
@@ -3268,21 +2412,18 @@
                 drawMangaOnomatopoeia("¡¡DUDA...!!", NET_X - 70, ball.y - 45, 38, "#ff3366");
 
             } else if (p < 0.70) {
-                // FASE 2: Retirada de manos en pánico y caída en cámara lenta
                 const t2 = (p - 0.35) / 0.35;
                 players.setter.x = NET_X - 70;
-                players.setter.jump = Math.max(0, 52 - t2 * 52); // Desciende rígido
+                players.setter.jump = Math.max(0, 52 - t2 * 52);
                 players.setter.pose = 'anxiety_frozen';
                 drawPlayerFigure(players.setter, false, true);
 
-                // El balón cae libremente sin ser tocado jamás
                 const startY = (FLOOR_Y - 52) - 156 - 12;
                 const targetY = FLOOR_Y - 40;
                 ball.x = NET_X - 70;
                 ball.y = startY + t2 * (targetY - startY);
                 ball.rot += 0.06;
 
-                // Pensamiento de pánico en la mente del armador
                 ctx.save();
                 ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
                 ctx.strokeStyle = '#94a3b8';
@@ -3298,7 +2439,6 @@
                 ctx.restore();
 
             } else {
-                // FASE 3: El balón toca el piso con un golpe sordo y suena el silbato
                 const t3 = (p - 0.70) / 0.30;
                 players.setter.x = NET_X - 70;
                 players.setter.jump = 0;
@@ -3308,7 +2448,6 @@
                 ball.x = NET_X - 70;
                 ball.y = FLOOR_Y;
 
-                // Ondas de polvo opacas y silbato
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
@@ -3329,7 +2468,6 @@
             drawMangaBall(ball.x, ball.y, ball.radius, ball.rot, isGray);
         }
 
-        // Final 3: Frame de Cierre Definitorio (Escala de Grises y Sombra Ominosa)
         function renderFinal3Inaction() {
             drawCourtBackground(1.0, 0, 0, true);
             drawScoreboard(24, 25);
@@ -3353,7 +2491,6 @@
             drawPlayerFigure(players.libero, false, true);
             drawPlayerFigure(players.spiker, false, true);
 
-            // Sombra espectral de la ansiedad
             const shadowX = NET_X - 70;
             const shadowY = FLOOR_Y - 90;
 
@@ -3422,7 +2559,6 @@
 
             switch (currentStage) {
                 case STAGES.START_IDLE:
-                    // Fondo animado sutil en espera del clic
                     drawCourtBackground(1.0, 0, 0);
                     drawScoreboard(24, 24);
                     drawPlayerFigure(players.setter, false);
@@ -3495,13 +2631,12 @@
                         audio.playSpikeSmash();
                         updateHUDLabel("Frame 4: ¡Punto y Victoria por Servicio Colectivo (25-24)!");
 
-                        audio.playNarrativeTrack('audio_servicio_exito.mp3', NARRATIVES.PASS, 'PASS');
-                        onEndingReached('PASS');
+                        // REPRODUCCIÓN DEL AUDIO REAL: victoria.mp3
+                        audio.playNarrativeTrack('victoria.mp3');
                     }
                     break;
 
                 case STAGES.EXECUTE_SPIKE:
-                    // Animación más larga y con más detalles (progreso suave ~4.5 segundos)
                     stageProgress = Math.min(1.0, stageProgress + 0.0055);
                     renderExecuteSpikeExtended(stageProgress);
 
@@ -3512,13 +2647,12 @@
                         audio.playMonsterBlock();
                         updateHUDLabel("Frame 5: ¡Triple Bloqueo Rival Monster Block (24-25)!");
 
-                        audio.playNarrativeTrack('audio_ego_refutacion.mp3', NARRATIVES.SPIKE, 'SPIKE');
-                        onEndingReached('SPIKE');
+                        // REPRODUCCIÓN DEL AUDIO REAL: derrota.mp3
+                        audio.playNarrativeTrack('derrota.mp3');
                     }
                     break;
 
                 case STAGES.EXECUTE_TIMEOUT:
-                    // Animación más larga, psicológica y con desaturación progresiva (~4.5 segundos)
                     stageProgress = Math.min(1.0, stageProgress + 0.0052);
                     renderExecuteTimeoutExtended(stageProgress);
 
@@ -3527,8 +2661,8 @@
                         audio.playWhistle();
                         updateHUDLabel("Frame 6: ¡Parálisis por Ansiedad! Balón sin tocar y punto perdido (24-25)");
 
-                        audio.playNarrativeTrack('audio_paralisis_estres.mp3', NARRATIVES.TIMEOUT, 'TIMEOUT');
-                        onEndingReached('TIMEOUT');
+                        // REPRODUCCIÓN DEL AUDIO REAL: paralisis.mp3
+                        audio.playNarrativeTrack('paralisis.mp3');
                     }
                     break;
 
@@ -3591,227 +2725,6 @@
 
         /**
          * =========================================================================
-         * CONEXIÓN CON EL DASHBOARD (SIN SCROLL FORZADO)
-         * =========================================================================
-         */
-        function onEndingReached(endingType) {
-            const cardPass = document.getElementById('cardServiceAnalysis');
-            const cardSpike = document.getElementById('cardEgoAnalysis');
-            const cardTimeout = document.getElementById('cardParalysisAnalysis');
-
-            cardPass.className = 'outcome-card';
-            cardSpike.className = 'outcome-card';
-            cardTimeout.className = 'outcome-card';
-
-            manualDiagnosticBanner.style.display = 'flex';
-
-            if (endingType === 'PASS') {
-                cardPass.className = 'outcome-card active-success';
-                currentOutcomeBadge.textContent = "🏆 Victoria por Servicio Colectivo (25-24)";
-                currentOutcomeBadge.className = "project-badge";
-                currentOutcomeBadge.style.color = "var(--neon-green)";
-                currentOutcomeBadge.style.borderColor = "var(--neon-green)";
-
-                bannerOutcomeSummary.innerHTML = `<strong>¡Victoria 25-24!</strong> Has alcanzado la maestría colectiva (85% éxito).`;
-                updateDashboardMetrics(95, 96, 99, 98, 92, 'PASS');
-
-            } else if (endingType === 'SPIKE') {
-                cardSpike.className = 'outcome-card active-alert';
-                currentOutcomeBadge.textContent = "⚠️ Alerta: Impulsividad Reactiva (24-25)";
-                currentOutcomeBadge.className = "project-badge";
-                currentOutcomeBadge.style.color = "var(--neon-crimson)";
-                currentOutcomeBadge.style.borderColor = "var(--neon-crimson)";
-
-                bannerOutcomeSummary.innerHTML = `<strong>Punto Perdido 24-25:</strong> Colisión por triple bloqueo. Módulo de Autorregulación disponible.`;
-                updateDashboardMetrics(22, 35, 15, 25, 30, 'SPIKE');
-
-            } else {
-                cardTimeout.className = 'outcome-card active-paralysis';
-                currentOutcomeBadge.textContent = "⏳ Alerta: Parálisis por Ansiedad (24-25)";
-                currentOutcomeBadge.className = "project-badge";
-                currentOutcomeBadge.style.color = "#94a3b8";
-                currentOutcomeBadge.style.borderColor = "#94a3b8";
-
-                bannerOutcomeSummary.innerHTML = `<strong>Punto Perdido 24-25:</strong> Parálisis por sobrecarga cognitiva. Módulo de Autorregulación disponible.`;
-                updateDashboardMetrics(28, 30, 40, 35, 10, 'TIMEOUT');
-            }
-        }
-
-        function updateDashboardMetrics(inhibition, vision, service, ethics, resolution, type) {
-            document.getElementById('statInhibition').textContent = inhibition + '%';
-            document.getElementById('statVision').textContent = vision + '%';
-            document.getElementById('statService').textContent = service + '%';
-            document.getElementById('statEthics').textContent = ethics + '%';
-            document.getElementById('statResolution').textContent = resolution + '%';
-
-            renderRadarChart([inhibition, vision, service, ethics, resolution], type);
-        }
-
-        function renderRadarChart(values, type) {
-            const rCanvas = document.getElementById('radarCanvas');
-            if (!rCanvas) return;
-            const rCtx = rCanvas.getContext('2d');
-            const rw = rCanvas.width;
-            const rh = rCanvas.height;
-            const cx = rw * 0.5;
-            const cy = rh * 0.52;
-            const maxR = 105;
-
-            rCtx.clearRect(0, 0, rw, rh);
-
-            const labels = [
-                "Control Inhibitorio",
-                "Visión Táctica (Z4)",
-                "Vocación Servicio",
-                "Conciencia Ética",
-                "Resolución Presión"
-            ];
-            const numSides = 5;
-
-            for (let ring = 1; ring <= 4; ring++) {
-                const r = (ring / 4) * maxR;
-                rCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-                rCtx.lineWidth = 1;
-                rCtx.beginPath();
-                for (let i = 0; i < numSides; i++) {
-                    const ang = (i / numSides) * Math.PI * 2 - Math.PI * 0.5;
-                    const x = cx + Math.cos(ang) * r;
-                    const y = cy + Math.sin(ang) * r;
-                    if (i === 0) rCtx.moveTo(x, y);
-                    else rCtx.lineTo(x, y);
-                }
-                rCtx.closePath();
-                rCtx.stroke();
-            }
-
-            rCtx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
-            rCtx.fillStyle = '#94a3b8';
-            rCtx.font = 'bold 9.5px "Inter", sans-serif';
-            rCtx.textAlign = 'center';
-
-            for (let i = 0; i < numSides; i++) {
-                const ang = (i / numSides) * Math.PI * 2 - Math.PI * 0.5;
-                const ex = cx + Math.cos(ang) * maxR;
-                const ey = cy + Math.sin(ang) * maxR;
-                rCtx.beginPath();
-                rCtx.moveTo(cx, cy);
-                rCtx.lineTo(ex, ey);
-                rCtx.stroke();
-
-                const lx = cx + Math.cos(ang) * (maxR + 24);
-                const ly = cy + Math.sin(ang) * (maxR + 18);
-                rCtx.fillText(labels[i], lx, ly);
-            }
-
-            let strokeColor = '#00f2fe';
-            let fillColor = 'rgba(0, 242, 254, 0.25)';
-
-            if (type === 'PASS') {
-                strokeColor = '#00e676';
-                fillColor = 'rgba(0, 230, 118, 0.35)';
-            } else if (type === 'SPIKE') {
-                strokeColor = '#ff1744';
-                fillColor = 'rgba(255, 23, 68, 0.35)';
-            } else if (type === 'TIMEOUT') {
-                strokeColor = '#94a3b8';
-                fillColor = 'rgba(148, 163, 184, 0.3)';
-            }
-
-            rCtx.strokeStyle = strokeColor;
-            rCtx.fillStyle = fillColor;
-            rCtx.lineWidth = 2.5;
-            rCtx.beginPath();
-
-            for (let i = 0; i < numSides; i++) {
-                const valRatio = Math.max(0.1, values[i] / 100);
-                const r = valRatio * maxR;
-                const ang = (i / numSides) * Math.PI * 2 - Math.PI * 0.5;
-                const vx = cx + Math.cos(ang) * r;
-                const vy = cy + Math.sin(ang) * r;
-
-                if (i === 0) rCtx.moveTo(vx, vy);
-                else rCtx.lineTo(vx, vy);
-            }
-            rCtx.closePath();
-            rCtx.fill();
-            rCtx.stroke();
-
-            for (let i = 0; i < numSides; i++) {
-                const valRatio = Math.max(0.1, values[i] / 100);
-                const r = valRatio * maxR;
-                const ang = (i / numSides) * Math.PI * 2 - Math.PI * 0.5;
-                const vx = cx + Math.cos(ang) * r;
-                const vy = cy + Math.sin(ang) * r;
-
-                rCtx.fillStyle = '#ffffff';
-                rCtx.beginPath();
-                rCtx.arc(vx, vy, 4, 0, Math.PI * 2);
-                rCtx.fill();
-                rCtx.strokeStyle = strokeColor;
-                rCtx.lineWidth = 2;
-                rCtx.stroke();
-            }
-        }
-
-        /**
-         * =========================================================================
-         * GUÍA INTERACTIVA DE RESPIRACIÓN EN 4 TIEMPOS (BOX BREATHING 4-4-4-4)
-         * =========================================================================
-         */
-        let breathingTimer = null;
-        let isBreathingActive = false;
-        let breathingPhase = 0;
-        const breathingCircle = document.getElementById('breathingCircle');
-        const breathingPhaseLabel = document.getElementById('breathingPhaseLabel');
-        const btnToggleBreathing = document.getElementById('btnToggleBreathing');
-
-        function stepBreathingCycle() {
-            const phases = [
-                { text: "Inhalar (4s)", scale: "scale(1.3)", color: "var(--neon-green)", border: "var(--neon-green)" },
-                { text: "Retener (4s)", scale: "scale(1.3)", color: "var(--neon-gold)", border: "var(--neon-gold)" },
-                { text: "Exhalar (4s)", scale: "scale(0.85)", color: "var(--neon-cyan)", border: "var(--neon-cyan)" },
-                { text: "Retener en Vacío (4s)", scale: "scale(0.85)", color: "var(--neon-purple)", border: "var(--neon-purple)" }
-            ];
-
-            const current = phases[breathingPhase];
-            breathingPhaseLabel.textContent = current.text;
-            breathingPhaseLabel.style.color = current.color;
-            breathingCircle.style.transform = current.scale;
-            breathingCircle.style.borderColor = current.border;
-            breathingCircle.style.boxShadow = `0 0 20px ${current.border}`;
-
-            let count = 4;
-            breathingCircle.textContent = count + 's';
-            const countInterval = setInterval(() => {
-                count--;
-                if (count > 0 && isBreathingActive) {
-                    breathingCircle.textContent = count + 's';
-                } else {
-                    clearInterval(countInterval);
-                }
-            }, 1000);
-
-            breathingPhase = (breathingPhase + 1) % 4;
-        }
-
-        btnToggleBreathing.addEventListener('click', () => {
-            isBreathingActive = !isBreathingActive;
-            if (isBreathingActive) {
-                btnToggleBreathing.innerHTML = '<i class="fa-solid fa-pause"></i> Pausar Guía';
-                breathingPhase = 0;
-                stepBreathingCycle();
-                breathingTimer = setInterval(stepBreathingCycle, 4000);
-            } else {
-                btnToggleBreathing.innerHTML = '<i class="fa-solid fa-play"></i> Iniciar Guía Visual';
-                clearInterval(breathingTimer);
-                breathingCircle.style.transform = 'scale(1)';
-                breathingCircle.textContent = '4s';
-                breathingPhaseLabel.textContent = 'Inhalar (4s)';
-            }
-        });
-
-        /**
-         * =========================================================================
          * EVENTOS Y ASIGNACIONES DE USUARIO
          * =========================================================================
          */
@@ -3835,16 +2748,15 @@
         });
 
         btnRestart.addEventListener('click', () => {
-            resetSimulation(false); // Inicia jugada directamente
-        });
-
-        btnScrollToDiagnostic.addEventListener('click', () => {
-            document.getElementById('dashboardSection').scrollIntoView({ behavior: 'smooth' });
+            resetSimulation(false);
         });
 
         btnSoundToggle.addEventListener('click', () => {
             audio.init();
             audio.enabled = !audio.enabled;
+            if (!audio.enabled) {
+                audio.stopNarrativeTrack();
+            }
             btnSoundToggle.innerHTML = audio.enabled 
                 ? '<i class="fa-solid fa-volume-high"></i> Sonido: ON' 
                 : '<i class="fa-solid fa-volume-xmark"></i> Sonido: OFF';
@@ -3869,23 +2781,6 @@
             currentStage = STAGES.PRE_QTE;
             stageProgress = 0.95;
             setTimeout(() => triggerDecision('TIMEOUT'), 150);
-        });
-
-        btnPlaySyntheticTone.addEventListener('click', () => {
-            audio.playSyntheticNarrativeTone(selectedRoute || 'PASS');
-        });
-
-        btnPlayTTS.addEventListener('click', () => {
-            if ('speechSynthesis' in window) {
-                const text = document.getElementById('audioTranscriptText').textContent;
-                window.speechSynthesis.cancel();
-                const utter = new SpeechSynthesisUtterance(text);
-                utter.lang = 'es-ES';
-                utter.rate = 1.0;
-                window.speechSynthesis.speak(utter);
-            } else {
-                alert("La síntesis vocal (TTS) no está soportada en este navegador.");
-            }
         });
 
         window.addEventListener('click', () => {
