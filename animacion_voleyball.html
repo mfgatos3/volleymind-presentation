@@ -762,6 +762,15 @@
                 console.info(`[VolleyMind Audio] Reproduciendo locución narrativa: ${filename}`);
                 try {
                     this.currentAudioElement = new Audio(filename);
+                    this.currentAudioElement.addEventListener('ended', () => {
+                        console.info(`[VolleyMind Audio] Audio finalizado: ${filename}`);
+                        const tipoFinal = filename.includes('victoria') ? 'A' : (filename.includes('derrota') ? 'B' : 'C');
+                        if (typeof window.mostrarResultados === 'function') {
+                            window.mostrarResultados(tipoFinal);
+                        } else if (window.parent && typeof window.parent.mostrarResultados === 'function') {
+                            window.parent.mostrarResultados(tipoFinal);
+                        }
+                    });
                     this.currentAudioElement.play().catch(err => {
                         console.warn(`[VolleyMind Audio] Advertencia al reproducir ${filename}:`, err);
                     });
