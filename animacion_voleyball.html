@@ -840,6 +840,21 @@
         let qteTimeRemainingMs = QTE_TOTAL_DURATION_MS;
         let heartbeatInterval = null;
 
+        // Cronómetro para sincronización con audios narrativos
+        let decisionStartTime = 0;
+        let passSoundPlayed = false;
+        let spikeSoundPlayed = false;
+
+        function getDecisionElapsedTime() {
+            if (audio.currentAudioElement && !audio.currentAudioElement.paused && audio.currentAudioElement.currentTime > 0) {
+                return audio.currentAudioElement.currentTime;
+            }
+            if (decisionStartTime > 0) {
+                return (performance.now() - decisionStartTime) / 1000;
+            }
+            return 0;
+        }
+
         // Efectos de cámara y pantalla
         let screenShake = 0;
         let flashOpacity = 0;
@@ -906,6 +921,9 @@
             audio.stopNarrativeTrack(); // Detener cualquier audio previo
             stageProgress = 0.0;
             selectedRoute = null;
+            decisionStartTime = 0;
+            passSoundPlayed = false;
+            spikeSoundPlayed = false;
             screenShake = 0;
             flashOpacity = 0;
             sceneZoom = 1.0;
@@ -1134,13 +1152,16 @@
             ctx.fill();
             ctx.stroke();
 
-            // Pelo (arco superior)
-            ctx.fillStyle = hairColor;
+            // Pelo negro estilo manga (todos los personajes con pelo negro azabache)
+            ctx.fillStyle = isGrayscale ? '#111111' : '#050505';
             ctx.beginPath();
-            ctx.arc(headX, headY - 3, headR + 1, Math.PI * 0.85, Math.PI * 2.15);
-            ctx.lineTo(headX + headR + 1, headY);
-            ctx.lineTo(headX, headY - headR - 12);
-            ctx.lineTo(headX - headR - 1, headY);
+            ctx.arc(headX, headY - 3, headR + 1.5, Math.PI * 0.82, Math.PI * 2.18);
+            ctx.lineTo(headX + headR + 2, headY);
+            ctx.lineTo(headX + headR * 0.45, headY - headR - 10);
+            ctx.lineTo(headX, headY - headR - 14);
+            ctx.lineTo(headX - headR * 0.45, headY - headR - 10);
+            ctx.lineTo(headX - headR - 2, headY);
+            ctx.closePath();
             ctx.fill();
             ctx.stroke();
         }
@@ -1168,7 +1189,7 @@
 
             let jersey = isGrayscale ? '#444444' : (pData.color || '#0052e6');
             let skin = isGrayscale ? '#d4d4d4' : '#ffdfba';
-            let hairColor = isGrayscale ? '#222' : '#1e293b';
+            let hairColor = isGrayscale ? '#111111' : '#050505';
 
             if (pData.pose === 'dive_receive') {
                 // === PLANCHA DE RECEPCIÓN ===
@@ -2057,15 +2078,246 @@
             }
         }
 
-        function renderExecutePass(p) {
-            drawCourtBackground(1.0, 0, 0);
+        function renderExecutePass(t) {
+            // Manejo cinemático de cámara según los segundos del audio
+            if (t < 6.0) {
+                // Fase 1 (0-6s): Zoom al armador y suspensión
+                const progress = t / 6.0;
+                sceneZoom = 1.0 + progress * 0.16;
+                scenePanX = -((NET_X - 70) - W * 0.5) * (sceneZoom - 1.0);
+                scenePanY = -((FLOOR_Y - 145) - H * 0.5) * (sceneZoom - 1.0);
+                updateHUDLabel("Ruta de Servicio (0-6s): Freno inhibitorio • El armador ralentiza la jugada en su mente");
+            } else if (t < 12.0) {
+                // Fase 2 (6-12s): Paneo suave hacia la red / bloqueo rival
+                const progress = (t - 6.0) / 6.0;
+                sceneZoom = 1.16;
+                const targetPanX = -((NET_X + 60) - W * 0.5) * (sceneZoom - 1.0);
+                scenePanX = scenePanX + (targetPanX - scenePanX) * 0.05;
+                scenePanY = -((FLOOR_Y - 145) - H * 0.5) * (sceneZoom - 1.0);
+                updateHUDLabel("Ruta de Servicio (6-12s): Detección de trampa • El triple bloqueo espera el remate individual");
+            } else if (t < 17.5) {
+                // Fase 3 (12-17.5s): Paneo suave hacia Zona 4 (Rematador #10)
+                const progress = (t - 12.0) / 5.5;
+                sceneZoom = 1.12;
+                const targetPanX = -((260) - W * 0.5) * (sceneZoom - 1.0);
+                scenePanX = scenePanX + (targetPanX - scenePanX) * 0.06;
+                scenePanY = -((FLOOR_Y - 145) - H * 0.5) * (sceneZoom - 1.0);
+                updateHUDLabel("Ruta de Servicio (12-18s): Visión periférica • Rematador #10 inicia carrera sin bloqueo");
+            } else if (t < 22.0) {
+                // Fase 4 (17.5-22s): Regreso a plano general centrado previo al pase
+                const progress = (t - 17.5) / 4.5;
+                sceneZoom = 1.12 - progress * 0.12;
+                scenePanX = scenePanX * (1 - progress * 0.08);
+                scenePanY = scenePanY * (1 - progress * 0.08);
+                const remainSec = Math.max(0, 22.0 - t).toFixed(1);
+                updateHUDLabel(`Ruta de Servicio (18-22s): Toque suave en ${remainSec}s • Sincronizando para el segundo 22...`);
+            } else if (t < 24.5) {
+                sceneZoom = 1.0;
+                scenePanX = 0;
+                scenePanY = 0;
+                updateHUDLabel("¡Segundo 22! Pase de seda milimétrico a Zona 4 • Rematador #10 en el aire");
+            } else {
+                sceneZoom = 1.0;
+                scenePanX = 0;
+                scenePanY = 0;
+                updateHUDLabel("¡¡DOOON!! Remate fulminante al fondo rival • 25-24 ¡Punto de Victoria!");
+            }
+
+            drawCourtBackground(sceneZoom, scenePanX, scenePanY);
             drawScoreboard(24, 24);
 
+            // Jugadores de apoyo en campo propio
             drawPlayerFigure(players.teammateCover, false);
             drawPlayerFigure(players.libero, false);
 
-            if (p < 0.45) {
-                const tPass = p / 0.45;
+            if (t < 22.0) {
+                // ============================================================
+                // PRE-PASE (0.0s a 22.0s): Armador suspendido + Reflexión táctica
+                // ============================================================
+                players.setter.x = NET_X - 70;
+                // Leve oscilación de suspensión en el aire
+                players.setter.jump = 52 + Math.sin(t * 3.0) * 3;
+                players.setter.pose = 'setter_fingertips_reach';
+
+                ball.x = NET_X - 70;
+                ball.y = (FLOOR_Y - 52) - 156 - 12 + Math.sin(t * 3.0) * 2;
+                ball.rot += 0.02;
+
+                // Rematador preparándose en Zona 4
+                players.spiker.x = 210 + Math.sin(t * 1.5) * 6;
+                players.spiker.jump = 0;
+                players.spiker.pose = (t > 14.0) ? 'spiker_loading' : 'stand';
+
+                // Rivales en la red
+                players.rivalBlockerCenter.x = NET_X + 45;
+                players.rivalBlockerWing.x = NET_X + 90;
+                players.rivalBlockerSide.x = NET_X + 135;
+                if (t >= 6.0 && t < 13.0) {
+                    players.rivalBlockerCenter.pose = 'block_wall';
+                    players.rivalBlockerWing.pose = 'block_wall';
+                    players.rivalBlockerSide.pose = 'block_wall';
+                    players.rivalBlockerCenter.jump = 15 + Math.sin(t * 4) * 4;
+                    players.rivalBlockerWing.jump = 12 + Math.sin(t * 4) * 4;
+                } else {
+                    players.rivalBlockerCenter.pose = 'stand';
+                    players.rivalBlockerWing.pose = 'stand';
+                    players.rivalBlockerSide.pose = 'stand';
+                    players.rivalBlockerCenter.jump = 0;
+                    players.rivalBlockerWing.jump = 0;
+                }
+
+                drawPlayerFigure(players.setter, false);
+                drawPlayerFigure(players.spiker, false);
+                drawCenterNet();
+                drawPlayerFigure(players.rivalBlockerCenter, true);
+                drawPlayerFigure(players.rivalBlockerWing, true);
+                drawPlayerFigure(players.rivalBlockerSide, true);
+                drawPlayerFigure(players.rivalSpiker, true);
+                drawPlayerFigure(players.rivalLibero, true);
+                drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
+
+                // --- Efectos visuales de cada subfase ---
+                if (t < 6.0) {
+                    // Aura de concentración prefrontal
+                    const auraPulse = Math.sin(t * 5) * 0.15 + 0.35;
+                    ctx.save();
+                    ctx.strokeStyle = `rgba(0, 242, 254, ${auraPulse})`;
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(players.setter.x, (FLOOR_Y - players.setter.jump) - 110, 36, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // Partículas de concentración
+                    for (let p = 0; p < 8; p++) {
+                        const ang = (p / 8) * Math.PI * 2 + t * 2;
+                        const dist = 42 + Math.sin(t * 4 + p) * 10;
+                        ctx.fillStyle = '#00f2fe';
+                        ctx.beginPath();
+                        ctx.arc(players.setter.x + Math.cos(ang) * dist, (FLOOR_Y - players.setter.jump) - 110 + Math.sin(ang) * dist, 2.5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+
+                    // Banner de lectura táctica
+                    ctx.fillStyle = 'rgba(2, 6, 23, 0.90)';
+                    ctx.strokeStyle = '#00f2fe';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.roundRect(players.setter.x - 145, (FLOOR_Y - players.setter.jump) - 200, 290, 38, 8);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.font = '900 12px "Outfit", sans-serif';
+                    ctx.fillStyle = '#00f2fe';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("🧠 FRENO INHIBITORIO • LECTURA TÁCTICA", players.setter.x, (FLOOR_Y - players.setter.jump) - 176);
+                    ctx.restore();
+
+                } else if (t >= 6.0 && t < 12.0) {
+                    // Advertencia de bloqueo triple
+                    const blkX = NET_X + 90;
+                    const blkY = NET_TOP_Y - 40;
+                    ctx.save();
+                    ctx.strokeStyle = 'rgba(255, 23, 68, 0.85)';
+                    ctx.lineWidth = 3;
+                    ctx.setLineDash([5, 5]);
+                    ctx.strokeRect(NET_X + 25, NET_TOP_Y - 80, 130, 140);
+                    ctx.setLineDash([]);
+
+                    ctx.fillStyle = 'rgba(38, 6, 12, 0.92)';
+                    ctx.strokeStyle = '#ff1744';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.roundRect(blkX - 120, blkY - 85, 240, 52, 8);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.font = '900 12px "Outfit", sans-serif';
+                    ctx.fillStyle = '#ff1744';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("⚠ TRIPLE BLOQUEO ESPERA EN LA RED", blkX, blkY - 65);
+                    ctx.font = '700 11px sans-serif';
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillText("«Si remato solo... seré bloqueado»", blkX, blkY - 47);
+                    ctx.restore();
+
+                } else if (t >= 12.0 && t < 17.5) {
+                    // Sector Zona 4 iluminado
+                    const z4X = 230;
+                    const z4Y = FLOOR_Y - 130;
+                    ctx.save();
+                    ctx.strokeStyle = '#00e676';
+                    ctx.lineWidth = 3;
+                    ctx.setLineDash([6, 6]);
+                    ctx.beginPath();
+                    ctx.ellipse(z4X, z4Y, 70, 32, 0, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    // Vector punteado hacia Zona 4
+                    ctx.strokeStyle = 'rgba(0, 242, 254, 0.8)';
+                    ctx.lineWidth = 3;
+                    ctx.setLineDash([4, 4]);
+                    ctx.beginPath();
+                    ctx.moveTo(ball.x - 20, ball.y);
+                    ctx.quadraticCurveTo((ball.x + z4X) * 0.5, ball.y - 60, z4X, z4Y - 20);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    ctx.fillStyle = 'rgba(5, 30, 18, 0.92)';
+                    ctx.strokeStyle = '#00e676';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.roundRect(z4X - 120, z4Y - 95, 240, 52, 8);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.font = '900 12px "Outfit", sans-serif';
+                    ctx.fillStyle = '#00e676';
+                    ctx.textAlign = 'center';
+                    ctx.fillText("✔ ZONA 4 DESPEJADA • REMATADOR LIBRE", z4X, z4Y - 76);
+                    ctx.font = '700 11px sans-serif';
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillText("«Confío en mi compañero • El pase es la victoria»", z4X, z4Y - 58);
+                    ctx.restore();
+
+                } else if (t >= 17.5 && t < 22.0) {
+                    // Pulso concéntrico preparatorio para el segundo 22
+                    const timeToPass = Math.max(0, 22.0 - t);
+                    const pulse = (timeToPass % 1.0);
+                    ctx.save();
+                    ctx.strokeStyle = `rgba(0, 230, 118, ${1.0 - pulse})`;
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(ball.x, ball.y, 25 + pulse * 45, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // Cuenta regresiva visual hacia el pase
+                    ctx.fillStyle = 'rgba(2, 6, 23, 0.90)';
+                    ctx.strokeStyle = '#00e676';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.roundRect(ball.x - 115, ball.y - 75, 230, 36, 8);
+                    ctx.fill();
+                    ctx.stroke();
+
+                    ctx.font = '900 13px "Outfit", sans-serif';
+                    ctx.fillStyle = '#00e676';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(`⚡ PASE EN ${timeToPass.toFixed(1)}s • MANOS SUAVES`, ball.x, ball.y - 52);
+                    ctx.restore();
+                }
+
+            } else if (t >= 22.0 && t < 24.5) {
+                // ============================================================
+                // FASE 5: ¡SEGUNDO 22! El pase de seda parabólico hacia Zona 4
+                // ============================================================
+                if (!passSoundPlayed) {
+                    audio.playSoftTouch();
+                    passSoundPlayed = true;
+                    flashOpacity = 0.45;
+                }
+
+                const tPass = (t - 22.0) / 2.5; // De 0 a 1 durante 2.5 segundos
                 players.setter.x = NET_X - 70;
                 players.setter.jump = Math.max(0, 52 - tPass * 35);
                 players.setter.pose = 'jump_set';
@@ -2077,23 +2329,45 @@
 
                 ball.x = startX + tPass * (targetX - startX);
                 ball.y = (1 - tPass) * (1 - tPass) * startY + 2 * (1 - tPass) * tPass * (startY - 80) + tPass * tPass * targetY;
-                ball.rot += 0.2;
+                ball.rot += 0.25;
 
+                // Estela luminosa esmeralda del pase
+                ctx.save();
                 ctx.strokeStyle = 'rgba(0, 230, 118, 0.85)';
                 ctx.lineWidth = 4;
                 ctx.beginPath();
                 ctx.moveTo(startX, startY);
                 ctx.quadraticCurveTo((startX + targetX) * 0.5, startY - 80, ball.x, ball.y);
                 ctx.stroke();
+                ctx.restore();
 
-                players.spiker.x = 225 + tPass * 80;
+                // Carrera y despegue del Rematador #10
+                players.spiker.x = 220 + tPass * 85;
                 players.spiker.jump = tPass * 115;
-                players.spiker.pose = (tPass > 0.6) ? 'jump_smash' : 'spiker_loading';
+                players.spiker.pose = (tPass > 0.5) ? 'jump_smash' : 'spiker_loading';
 
-                drawMangaOnomatopoeia("¡¡SUAVE!!", startX - 45, startY - 30, 42, "#00e676");
+                // Rivales tardíos intentando desplazarse
+                players.rivalBlockerCenter.jump = tPass * 40;
+                players.rivalBlockerWing.jump = tPass * 35;
+                players.rivalBlockerSide.jump = 0;
+
+                drawPlayerFigure(players.setter, false);
+                drawPlayerFigure(players.spiker, false);
+                drawCenterNet();
+                drawPlayerFigure(players.rivalBlockerCenter, true);
+                drawPlayerFigure(players.rivalBlockerWing, true);
+                drawPlayerFigure(players.rivalBlockerSide, true);
+                drawPlayerFigure(players.rivalSpiker, true);
+                drawPlayerFigure(players.rivalLibero, true);
+                drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
+
+                drawMangaOnomatopoeia("¡¡TOQUE DE SEDA!!", startX - 55, startY - 30, 44, "#00e676");
 
             } else {
-                const tSmash = (p - 0.45) / 0.55;
+                // ============================================================
+                // FASE 6 (24.5s a 26.5s): Remate fulminante a la cancha rival
+                // ============================================================
+                const tSmash = Math.min(1.0, (t - 24.5) / 2.0);
                 players.setter.x = NET_X - 80;
                 players.setter.jump = 0;
                 players.setter.pose = 'stand';
@@ -2109,19 +2383,28 @@
 
                 ball.x = startX + tSmash * (floorX - startX);
                 ball.y = startY + tSmash * (floorY - startY);
-                ball.rot += 0.4;
+                ball.rot += 0.45;
 
+                ctx.save();
                 ctx.strokeStyle = 'rgba(255, 215, 0, 0.85)';
                 ctx.lineWidth = 5;
                 ctx.beginPath();
                 ctx.moveTo(startX, startY);
                 ctx.lineTo(ball.x, ball.y);
                 ctx.stroke();
+                ctx.restore();
 
                 players.rivalBlockerCenter.jump = 80;
                 players.rivalBlockerWing.jump = 75;
 
-                if (tSmash > 0.75) {
+                if (tSmash > 0.45 && !spikeSoundPlayed) {
+                    audio.playSpikeSmash();
+                    spikeSoundPlayed = true;
+                    screenShake = 24;
+                    flashOpacity = 0.9;
+                }
+
+                if (tSmash > 0.45) {
                     for (let r = 1; r <= 3; r++) {
                         ctx.strokeStyle = `rgba(0, 242, 254, ${1.0 - r * 0.28})`;
                         ctx.lineWidth = 4;
@@ -2131,20 +2414,17 @@
                     }
                     drawMangaOnomatopoeia("¡¡DOOON!!", floorX - 40, floorY - 90, 68, "#ffd700");
                 }
+
+                drawPlayerFigure(players.setter, false);
+                drawPlayerFigure(players.spiker, false);
+                drawCenterNet();
+                drawPlayerFigure(players.rivalBlockerCenter, true);
+                drawPlayerFigure(players.rivalBlockerWing, true);
+                drawPlayerFigure(players.rivalBlockerSide, true);
+                drawPlayerFigure(players.rivalSpiker, true);
+                drawPlayerFigure(players.rivalLibero, true);
+                drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
             }
-
-            drawPlayerFigure(players.setter, false);
-            drawPlayerFigure(players.spiker, false);
-
-            drawCenterNet();
-
-            drawPlayerFigure(players.rivalBlockerCenter, true);
-            drawPlayerFigure(players.rivalBlockerWing, true);
-            drawPlayerFigure(players.rivalBlockerSide, true);
-            drawPlayerFigure(players.rivalSpiker, true);
-            drawPlayerFigure(players.rivalLibero, true);
-
-            drawMangaBall(ball.x, ball.y, ball.radius, ball.rot);
         }
 
         function renderFinal1Celebration() {
@@ -2653,14 +2933,12 @@
                     break;
 
                 case STAGES.EXECUTE_PASS:
-                    stageProgress = Math.min(1.0, stageProgress + 0.011);
-                    renderExecutePass(stageProgress);
+                    const tPass = getDecisionElapsedTime();
+                    renderExecutePass(tPass);
 
-                    if (stageProgress >= 1.0) {
+                    if (tPass >= 26.5) {
                         currentStage = STAGES.FINAL_1_WIN;
-                        flashOpacity = 1.0;
-                        screenShake = 22;
-                        audio.playSpikeSmash();
+                        flashOpacity = 0.6;
                         updateHUDLabel("Frame 4: ¡Punto y Victoria por Servicio Colectivo (25-24)!");
                     }
                     break;
@@ -2724,6 +3002,9 @@
         function triggerDecision(route) {
             audio.init();
             selectedRoute = route;
+            decisionStartTime = performance.now();
+            passSoundPlayed = false;
+            spikeSoundPlayed = false;
 
             if (heartbeatInterval) {
                 clearInterval(heartbeatInterval);
@@ -2734,10 +3015,8 @@
             stageProgress = 0.0;
 
             if (route === 'PASS') {
-                audio.playSoftTouch();
                 currentStage = STAGES.EXECUTE_PASS;
-                updateHUDLabel("Frame 3: Armado suave a Zona 4 • Despegue del Rematador #10");
-                // Audio inmediato al elegir PASAR
+                // Audio inmediato al elegir PASAR (el pase ocurrirá en el segundo 22)
                 audio.playNarrativeTrack('victoria.mp3');
             } else if (route === 'SPIKE') {
                 currentStage = STAGES.EXECUTE_SPIKE;
