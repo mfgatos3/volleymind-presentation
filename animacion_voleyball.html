@@ -844,6 +844,7 @@
         let decisionStartTime = 0;
         let passSoundPlayed = false;
         let spikeSoundPlayed = false;
+        let monsterBlockSoundPlayed = false;
 
         function getDecisionElapsedTime() {
             if (audio.currentAudioElement && !audio.currentAudioElement.paused && audio.currentAudioElement.currentTime > 0) {
@@ -924,6 +925,7 @@
             decisionStartTime = 0;
             passSoundPlayed = false;
             spikeSoundPlayed = false;
+            monsterBlockSoundPlayed = false;
             screenShake = 0;
             flashOpacity = 0;
             sceneZoom = 1.0;
@@ -2505,94 +2507,251 @@
             ctx.restore();
         }
 
-        function renderExecuteSpikeExtended(p) {
-            drawCourtBackground(1.0, 0, 0);
+        function renderExecuteSpikeExtended(t) {
+            // Manejo de cámara según los segundos del audio de derrota
+            if (t < 4.0) {
+                // Fase 1 (0-4s): Enfoque al armador ignorando a Zona 4
+                const progress = t / 4.0;
+                sceneZoom = 1.0 + progress * 0.15;
+                scenePanX = -((NET_X - 70) - W * 0.5) * (sceneZoom - 1.0);
+                scenePanY = -((FLOOR_Y - 145) - H * 0.5) * (sceneZoom - 1.0);
+                updateHUDLabel("Ruta de Ego (0-4s): Impulsividad reactiva • El armador busca el protagonismo individual...");
+            } else if (t < 8.0) {
+                // Fase 2 (4-8s): Paneo a la red donde se alza la muralla triple rival
+                const progress = (t - 4.0) / 4.0;
+                sceneZoom = 1.15;
+                const targetPanX = -((NET_X + 60) - W * 0.5) * (sceneZoom - 1.0);
+                scenePanX = scenePanX + (targetPanX - scenePanX) * 0.06;
+                scenePanY = -((FLOOR_Y - 145) - H * 0.5) * (sceneZoom - 1.0);
+                updateHUDLabel("Ruta de Ego (4-8s): Jugada telegrafiada • El triple bloqueo rival sella la red...");
+            } else if (t < 12.0) {
+                // Fase 3 (8-12s): Salto en solitario hacia la red frente al muro
+                const progress = (t - 8.0) / 4.0;
+                sceneZoom = 1.15 - progress * 0.10;
+                scenePanX = scenePanX * (1 - progress * 0.1);
+                scenePanY = scenePanY * (1 - progress * 0.1);
+                const remainSec = Math.max(0, 12.0 - t).toFixed(1);
+                updateHUDLabel(`Ruta de Ego (8-12s): Salto individual temerario • Impacto en ${remainSec}s...`);
+            } else if (t < 15.0) {
+                // Fase 4 (12-15s): ¡¡MONSTER BLOCK!! Impacto y rechazo
+                sceneZoom = 1.0;
+                scenePanX = 0;
+                scenePanY = 0;
+                updateHUDLabel("¡¡SEGUNDO 12: MONSTER BLOCK!! Rechazo violento del triple bloqueo rival (24-25)");
+            } else {
+                // Fase 5 (15-18.5s): Balón en el suelo y desplome del armador
+                sceneZoom = 1.0;
+                scenePanX = 0;
+                scenePanY = 0;
+                updateHUDLabel("Ruta de Ego (15-18s): Balón al suelo en campo propio • El costo de la impulsividad");
+            }
+
+            drawCourtBackground(sceneZoom, scenePanX, scenePanY);
             drawScoreboard(24, 24);
 
             drawPlayerFigure(players.teammateCover, false);
+            drawPlayerFigure(players.libero, false);
 
-            if (p < 0.28) {
-                const t1 = p / 0.28;
-                players.spiker.x = 220;
-                players.spiker.jump = 15;
+            if (t < 4.0) {
+                // ============================================================
+                // SUBFASE 1 (0-4s): El impulso egoísta y la ceguera reactiva
+                // ============================================================
+                players.setter.x = NET_X - 70;
+                players.setter.jump = 52 + Math.sin(t * 3.0) * 3;
+                players.setter.pose = 'setter_fingertips_reach';
+
+                ball.x = NET_X - 70;
+                ball.y = (FLOOR_Y - 52) - 156 - 12 + Math.sin(t * 3.0) * 2;
+                ball.rot += 0.04;
+
+                // Rematador pidiendo el balón en Zona 4
+                players.spiker.x = 210;
+                players.spiker.jump = 12 * Math.abs(Math.sin(t * 4));
                 players.spiker.pose = 'stand';
+
+                players.rivalBlockerCenter.jump = 0;
+                players.rivalBlockerWing.jump = 0;
+                players.rivalBlockerSide.jump = 0;
+                players.rivalBlockerCenter.pose = 'stand';
+                players.rivalBlockerWing.pose = 'stand';
+                players.rivalBlockerSide.pose = 'stand';
+
                 drawPlayerFigure(players.spiker, false);
+                drawMangaOnomatopoeia("¡¡DÁMELA A MÍ!!", 220, FLOOR_Y - 160, 24, "#00f2fe");
 
-                drawMangaOnomatopoeia("¡¡DÁMELA A MÍ!!", 230, FLOOR_Y - 170, 24, "#00f2fe");
+                // Aura de impulsividad amigdalina en el armador
+                const auraPulse = Math.sin(t * 6) * 0.2 + 0.5;
+                ctx.save();
+                ctx.strokeStyle = `rgba(255, 23, 68, ${auraPulse})`;
+                ctx.lineWidth = 3.5;
+                ctx.beginPath();
+                ctx.arc(players.setter.x, (FLOOR_Y - players.setter.jump) - 110, 38, 0, Math.PI * 2);
+                ctx.stroke();
 
-                players.setter.x = NET_X - 65 + t1 * 18;
-                players.setter.jump = t1 * 85;
-                players.setter.pose = 'jump_smash';
+                ctx.fillStyle = 'rgba(40, 5, 15, 0.92)';
+                ctx.strokeStyle = '#ff1744';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(players.setter.x - 145, (FLOOR_Y - players.setter.jump) - 200, 290, 38, 8);
+                ctx.fill();
+                ctx.stroke();
 
-                ball.x = players.setter.x + 8;
-                ball.y = (FLOOR_Y - 85) - 55;
+                ctx.font = '900 12px "Outfit", sans-serif';
+                ctx.fillStyle = '#ff1744';
+                ctx.textAlign = 'center';
+                ctx.fillText("⚡ RUTA DE EGO • IMPULSIVIDAD REACTIVA", players.setter.x, (FLOOR_Y - players.setter.jump) - 176);
+                ctx.restore();
 
-                players.rivalBlockerCenter.jump = t1 * 40;
-                players.rivalBlockerWing.jump = t1 * 35;
-                players.rivalBlockerSide.jump = t1 * 30;
+            } else if (t < 8.0) {
+                // ============================================================
+                // SUBFASE 2 (4-8s): La muralla triple rival se posiciona
+                // ============================================================
+                const tBlock = (t - 4.0) / 4.0;
+                players.setter.x = NET_X - 65;
+                players.setter.jump = 55;
+                players.setter.pose = 'crouch_prejump';
 
-            } else if (p < 0.55) {
-                const t2 = (p - 0.28) / 0.27;
-                players.spiker.x = 220;
+                ball.x = NET_X - 65;
+                ball.y = (FLOOR_Y - 55) - 156;
+
+                // El rematador baja los brazos decepcionado
+                players.spiker.x = 210;
                 players.spiker.jump = 0;
                 players.spiker.pose = 'disappointed_teammate';
                 drawPlayerFigure(players.spiker, false);
 
-                players.setter.x = NET_X - 46;
-                players.setter.jump = 85 + t2 * 15;
-                players.setter.pose = 'jump_smash';
-
-                ball.x = players.setter.x + 12;
-                ball.y = (FLOOR_Y - 100) - 55;
-
-                players.rivalBlockerCenter.jump = 40 + t2 * 80;
-                players.rivalBlockerWing.jump = 35 + t2 * 78;
-                players.rivalBlockerSide.jump = 30 + t2 * 75;
+                // Los tres rivales se compactan y saltan en sincronía
+                players.rivalBlockerCenter.x = NET_X + 40;
+                players.rivalBlockerWing.x = NET_X + 80;
+                players.rivalBlockerSide.x = NET_X + 120;
+                players.rivalBlockerCenter.jump = tBlock * 50;
+                players.rivalBlockerWing.jump = tBlock * 48;
+                players.rivalBlockerSide.jump = tBlock * 45;
                 players.rivalBlockerCenter.pose = 'block_wall';
                 players.rivalBlockerWing.pose = 'block_wall';
                 players.rivalBlockerSide.pose = 'block_wall';
 
-                ctx.fillStyle = 'rgba(255, 23, 68, 0.25)';
-                ctx.fillRect(NET_X - 30, NET_TOP_Y - 90, 160, 180);
+                // Muro rojo defensivo sobre la red
+                ctx.save();
+                ctx.fillStyle = 'rgba(255, 23, 68, 0.22)';
+                ctx.fillRect(NET_X - 15, NET_TOP_Y - 95, 150, 180);
 
-                drawMangaOnomatopoeia("¡¡MURALLA TRIPLE!!", NET_X + 70, NET_TOP_Y - 120, 36, "#ff1744");
+                ctx.strokeStyle = '#ff1744';
+                ctx.lineWidth = 2.5;
+                ctx.setLineDash([4, 4]);
+                ctx.strokeRect(NET_X - 15, NET_TOP_Y - 95, 150, 180);
+                ctx.setLineDash([]);
 
-            } else if (p < 0.78) {
-                const t3 = (p - 0.55) / 0.23;
-                players.spiker.x = 220;
+                drawMangaOnomatopoeia("¡¡MURALLA TRIPLE!!", NET_X + 60, NET_TOP_Y - 120, 36, "#ff1744");
+                ctx.restore();
+
+            } else if (t < 12.0) {
+                // ============================================================
+                // SUBFASE 3 (8-12s): Salto en solitario a la red (pre-impacto)
+                // ============================================================
+                const tApproach = (t - 8.0) / 4.0;
+                players.setter.x = (NET_X - 65) + tApproach * 20;
+                players.setter.jump = 55 + tApproach * 42; // Sube hasta ~97px
+                players.setter.pose = 'jump_smash';
+
+                ball.x = players.setter.x + 12;
+                ball.y = (FLOOR_Y - players.setter.jump) - 60;
+                ball.rot += 0.2;
+
+                players.spiker.x = 210;
                 players.spiker.jump = 0;
                 players.spiker.pose = 'disappointed_teammate';
                 drawPlayerFigure(players.spiker, false);
 
-                players.setter.x = NET_X - 46;
-                players.setter.jump = Math.max(0, 100 - t3 * 60);
-                players.setter.pose = 'dive_receive';
+                // Los bloqueadores rivales alcanzan su punto máximo en la red
+                players.rivalBlockerCenter.x = NET_X + 38;
+                players.rivalBlockerWing.x = NET_X + 78;
+                players.rivalBlockerSide.x = NET_X + 118;
+                players.rivalBlockerCenter.jump = 50 + tApproach * 55; // Sube a 105px
+                players.rivalBlockerWing.jump = 48 + tApproach * 52;
+                players.rivalBlockerSide.jump = 45 + tApproach * 50;
+                players.rivalBlockerCenter.pose = 'block_wall';
+                players.rivalBlockerWing.pose = 'block_wall';
+                players.rivalBlockerSide.pose = 'block_wall';
 
+                // Tensión pre-colisión
+                ctx.save();
+                const timeToBlock = Math.max(0, 12.0 - t);
+                ctx.fillStyle = 'rgba(38, 6, 12, 0.92)';
+                ctx.strokeStyle = '#ff1744';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(NET_X - 140, NET_TOP_Y - 130, 280, 38, 8);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.font = '900 12px "Outfit", sans-serif';
+                ctx.fillStyle = '#ff1744';
+                ctx.textAlign = 'center';
+                ctx.fillText(`⚡ COLISIÓN EN ${timeToBlock.toFixed(1)}s • TRIPLE BLOQUEO`, NET_X, NET_TOP_Y - 106);
+                ctx.restore();
+
+            } else if (t < 14.5) {
+                // ============================================================
+                // SUBFASE 4 (12.0s a 14.5s): ¡¡EL SEGUNDO 12!! MONSTER BLOCK
+                // ============================================================
+                if (!monsterBlockSoundPlayed) {
+                    audio.playMonsterBlock();
+                    monsterBlockSoundPlayed = true;
+                    screenShake = 28;
+                    flashOpacity = 1.0;
+                }
+
+                const tImpact = (t - 12.0) / 2.5;
+                players.spiker.x = 210;
+                players.spiker.jump = 0;
+                players.spiker.pose = 'disappointed_teammate';
+                drawPlayerFigure(players.spiker, false);
+
+                players.setter.x = NET_X - 45;
+                players.setter.jump = Math.max(0, 97 - tImpact * 70);
+                players.setter.pose = 'kneel_regret';
+
+                players.rivalBlockerCenter.jump = Math.max(0, 105 - tImpact * 35);
+                players.rivalBlockerWing.jump = Math.max(0, 100 - tImpact * 35);
+                players.rivalBlockerSide.jump = Math.max(0, 95 - tImpact * 35);
+                players.rivalBlockerCenter.pose = 'block_wall';
+                players.rivalBlockerWing.pose = 'block_wall';
+                players.rivalBlockerSide.pose = 'block_wall';
+
+                // Balón rebotado violentamente hacia nuestro suelo
                 const impactX = NET_X - 8;
                 const impactY = NET_TOP_Y - 30;
                 const reboundFloorX = 420;
                 const reboundFloorY = FLOOR_Y;
 
-                ball.x = impactX - t3 * (impactX - reboundFloorX);
-                ball.y = impactY + (t3 * t3) * (reboundFloorY - impactY);
-                ball.rot -= 0.4;
+                ball.x = impactX - tImpact * (impactX - reboundFloorX);
+                ball.y = impactY + (tImpact * tImpact) * (reboundFloorY - impactY);
+                ball.rot -= 0.5;
 
-                ctx.strokeStyle = 'rgba(255, 23, 68, 0.9)';
+                // Destello y líneas de fractura de cristal roja
+                ctx.save();
+                ctx.strokeStyle = 'rgba(255, 23, 68, 0.95)';
                 ctx.lineWidth = 4;
-                for (let i = 0; i < 10; i++) {
-                    const ang = (i / 10) * Math.PI * 2;
+                for (let i = 0; i < 12; i++) {
+                    const ang = (i / 12) * Math.PI * 2;
+                    const len = 90 + (i % 3) * 35;
                     ctx.beginPath();
                     ctx.moveTo(impactX, impactY);
-                    ctx.lineTo(impactX + Math.cos(ang) * (110 + (i % 3) * 25), impactY + Math.sin(ang) * (110 + (i % 3) * 25));
+                    ctx.lineTo(impactX + Math.cos(ang) * len, impactY + Math.sin(ang) * len);
                     ctx.stroke();
                 }
 
                 drawMangaOnomatopoeia("¡¡MONSTER BLOCK!!", NET_X + 60, NET_TOP_Y - 110, 64, "#ff1744");
-                drawMangaOnomatopoeia("¡¡CRASH!!", NET_X - 60, NET_TOP_Y - 20, 50, "#ffffff");
+                drawMangaOnomatopoeia("¡¡CRASH!!", NET_X - 60, NET_TOP_Y - 20, 52, "#ffffff");
+                ctx.restore();
 
             } else {
-                const t4 = (p - 0.78) / 0.22;
-                players.spiker.x = 220;
+                // ============================================================
+                // SUBFASE 5 (14.5s a 18.5s): Balón al suelo y desplome del armador
+                // ============================================================
+                const tDown = Math.min(1.0, (t - 14.5) / 4.0);
+                players.spiker.x = 210;
                 players.spiker.jump = 0;
                 players.spiker.pose = 'disappointed_teammate';
                 drawPlayerFigure(players.spiker, false);
@@ -2601,20 +2760,29 @@
                 players.setter.jump = 0;
                 players.setter.pose = 'kneel_regret';
 
+                players.rivalBlockerCenter.jump = 0;
+                players.rivalBlockerWing.jump = 0;
+                players.rivalBlockerSide.jump = 0;
+                players.rivalBlockerCenter.pose = 'stand';
+                players.rivalBlockerWing.pose = 'stand';
+                players.rivalBlockerSide.pose = 'stand';
+
+                // Balón botando en nuestro campo
                 ball.x = 420;
-                ball.y = FLOOR_Y - Math.abs(Math.sin(t4 * Math.PI * 3)) * (24 * (1 - t4));
+                ball.y = FLOOR_Y - Math.abs(Math.sin(tDown * Math.PI * 4)) * (20 * (1 - tDown));
                 ball.rot -= 0.2;
 
+                ctx.save();
                 ctx.strokeStyle = 'rgba(255, 23, 68, 0.7)';
                 ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.ellipse(ball.x, FLOOR_Y, 50 * t4, 15 * t4, 0, 0, Math.PI * 2);
+                ctx.ellipse(ball.x, FLOOR_Y, 50 * tDown, 15 * tDown, 0, 0, Math.PI * 2);
                 ctx.stroke();
 
                 drawMangaOnomatopoeia("¡¡PUNTO PERDIDO!!", ball.x - 30, FLOOR_Y - 70, 42, "#ff1744");
+                ctx.restore();
             }
 
-            drawPlayerFigure(players.libero, false);
             drawPlayerFigure(players.setter, false);
             drawCenterNet();
 
@@ -2944,14 +3112,11 @@
                     break;
 
                 case STAGES.EXECUTE_SPIKE:
-                    stageProgress = Math.min(1.0, stageProgress + 0.0055);
-                    renderExecuteSpikeExtended(stageProgress);
+                    const tSpike = getDecisionElapsedTime();
+                    renderExecuteSpikeExtended(tSpike);
 
-                    if (stageProgress >= 1.0) {
+                    if (tSpike >= 18.5) {
                         currentStage = STAGES.FINAL_2_BLOCK;
-                        flashOpacity = 0.85;
-                        screenShake = 26;
-                        audio.playMonsterBlock();
                         updateHUDLabel("Frame 5: ¡Triple Bloqueo Rival Monster Block (24-25)!");
                     }
                     break;
@@ -3005,6 +3170,7 @@
             decisionStartTime = performance.now();
             passSoundPlayed = false;
             spikeSoundPlayed = false;
+            monsterBlockSoundPlayed = false;
 
             if (heartbeatInterval) {
                 clearInterval(heartbeatInterval);
